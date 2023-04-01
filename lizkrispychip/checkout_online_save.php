@@ -25,6 +25,7 @@ if(empty($allcartMenu)){
 
 foreach($allcartMenu as $m){
     $cartIDStore[] = $m['menu'];
+    $cartCollection[] = $m['menu'];
 
     runQuery("DELETE FROM `user_cart` WHERE `user_cart`.`id`=".$m['id']);
 }
