@@ -154,7 +154,8 @@
 
                             <tr>
                                 <th colspan="6" class="text-right p-3 surface-0">
-                                    Total Price : RM <?php echo $totalPrice; ?>
+                                    Total Price : RM <?php echo $totalPrice; ?><br>
+                                    <span class="font-italic text-600 text-right w-full">For delivery, we will charge for RM 20</span>
                                 </th>
                             </tr>
 
