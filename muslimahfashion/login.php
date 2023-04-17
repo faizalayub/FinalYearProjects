@@ -5,10 +5,6 @@
 	<?php
 		include 'config.php';
         include 'header.php';
-
-		if(isset($_SESSION['id'])){
-			// header("Location: ./cipta-borang.php"); exit;
-		}
     ?>
 </head>
 
@@ -22,21 +18,21 @@
 						<div class="card">
 							<div class="card-body">
 								<div class="m-sm-4">
-									<div class="text-center"><h1>Log Masuk Warga SMKN</h1></div>
+									<div class="text-center"><h1>User Login</h1></div>
 									
-									<div class="text-center"><img src="img/teacher_stationary.svg"/></div>
+									<div class="text-center"><img src="img/login-illustration.svg" height="400"/></div>
 
 									<form method="POST">
 										<div class="input-group mb-3" style="height: 42px;">
-											<span class="input-group-text">Nombor ID</span>
-											<input type="text" class="form-control" autocomplete="off" placeholder="Masukkan ID" name="logmasuk_id">
+											<span class="input-group-text">Email Address</span>
+											<input type="text" class="form-control" autocomplete="off" placeholder="Enter Your Email" name="login_email">
 										</div>
 										<div class="input-group mb-3" style="height: 42px;">
-											<span class="input-group-text">Katalaluan</span>
-											<input type="password" class="form-control" autocomplete="off" placeholder="Masukkan Katalaluan" name="logmasuk_pass">
+											<span class="input-group-text">Password</span>
+											<input type="password" class="form-control" autocomplete="off" placeholder="Password" name="login_password">
 										</div>
 										<div class="text-center mt-3">
-											<button type="submit" name="logmasuk_submit" class="btn btn-lg btn-success w-100">Daftar Masuk</button>
+											<button type="submit" name="logmasuk_submit" class="btn btn-lg btn-info w-100">Login</button>
 										</div>
 									</form>
 								</div>
@@ -53,9 +49,9 @@
 <?php
     if(isset($_POST['logmasuk_submit'])){
 		$utils = new Controller('RETURN');
-        $logmasuk_id     = $_POST['logmasuk_id'];
-        $logmasuk_pass   = $_POST['logmasuk_pass'];
-		$checkCredential = $utils->fetchRow("SELECT * FROM `pengguna` WHERE `username` = '".$logmasuk_id."' AND password = '".$logmasuk_pass."'");
+        $login_email     = $_POST['login_email'];
+        $login_password  = $_POST['login_password'];
+		$checkCredential = $utils->fetchRow("SELECT * FROM `pengguna` WHERE `username` = '".$login_email."' AND password = '".$login_password."'");
 
 		if(!empty($checkCredential)){
 			$rolename = $utils->fetchRow("SELECT * FROM `role` WHERE id = ".$checkCredential->role);
