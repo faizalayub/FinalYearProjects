@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+
+        html, body{
+            padding: 0;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .collapse-border {
+            border-collapse: collapse;
+        }
+
+        td{
+            white-space: nowrap;
+        }
+
+        td > a{
+            padding: .6em 1.6em;
+            text-decoration: none;
+        }
+
+        td > a:hover{
+            cursor: pointer;
+            background: #dfbf9d16;
+            color: #824d03;
+        }
+
+        .chevron-size{
+            font-size: 50px;
+        }
+
+        .header-tr{
+            background: #94724e;
+        }
+
+        .header-tr a{
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <table class="collapse-border" border="1" width="100%" cellpadding="6">
+        <tr class="header-tr">
+            <td align="center">
+                <img src="./logo.png" height="40"/>
+            </td>
+
+            <td align="center">
+                <a href="index.html">HOME</a>
+            </td>
+
+            <td align="center">
+                <a href="appeal.html">APPAREL</a>
+            </td>
+
+            <td align="center">
+                <a href="scarves.html">SCARVES</a>
+            </td>
+
+            <td align="center">
+                <a href="innerwear.html">INNER WEAR</a>
+            </td>
+
+            <td align="center">
+                <a href="#">LOGIN</a>
+            </td>
+
+            <td align="center">
+                <a href="#">SIGN UP</a>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="7" align="center" style="padding: 5em;">
+                <table border="1" width="50%" cellpadding="20" class="collapse-border">
+                    <tr>
+                        <td colspan="4">
+                            <img src="" height="360" id="picture"/>
+                        </td>
+                        <td colspan="3">
+                            <table width="100%" cellpadding="20">
+                                <tr>
+                                    <td>Product Name</td>
+                                    <td>T-Shirt With Blue Striped</td>
+                                </tr>
+                                <tr>
+                                    <td>Review Star</td>
+                                    <td>3/5</td>
+                                </tr>
+                                <tr>
+                                    <td>Price</td>
+                                    <td>RM 89.99</td>
+                                </tr>
+                                <tr>
+                                    <td>Color</td>
+                                    <td>Brown, Blue Striped</td>
+                                </tr>
+                                <tr>
+                                    <td>Size</td>
+                                    <td>XS, S, M, L, XL, XXL</td>
+                                </tr>
+                                <tr>
+                                    <td>Quantity</td>
+                                    <td>
+                                        <input type="number" value="1">
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" align="center"><button>Share This Item</button></td>
+                        <td colspan="3" align="center"><button>ADD TO BAG</button></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <tr>
+            <td colspan="2">
+                <table cellpadding="15" width="100%">
+                    <tr>
+                        <td align="center">About Us</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Career</td>
+                    </tr>
+                    <tr>
+                        <td align="center">&nbsp;</td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan="3">
+                <table cellpadding="15" width="100%">
+                    <tr>
+                        <td align="center">Return Policy</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Shipping Tracking</td>
+                    </tr>
+                    <tr>
+                        <td align="center">FAQ</td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan="2">
+                <table cellpadding="15" width="100%">
+                    <tr>
+                        <td align="center">Contact Us</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Term And Condition</td>
+                    </tr>
+                    <tr>
+                        <td align="center">Privacy Policy</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetPicture = document.querySelector('#picture');
+
+        targetPicture.setAttribute('src', `./${ urlParams.get('picture') }`);
+    </script>
+</body>
+</html>
