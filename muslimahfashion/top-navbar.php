@@ -1,8 +1,5 @@
 <?php
-    $utils = new Controller('RETURN');
-    $accountID = ($_SESSION['id'] ?? null);
     $profilePicture = 'img/default_avatar.jpeg';
-    $accountData = $utils->fetchRow("SELECT * FROM `pengguna` WHERE `id` = '".$accountID."'");
 ?>
 <nav class="navbar navbar-expand navbar-light navbar-bg">
     <a class="sidebar-toggle js-sidebar-toggle">
@@ -18,7 +15,7 @@
 
                 <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                     <img style="object-fit: cover;" src="<?php echo $profilePicture; ?>" class="avatar img-fluid rounded me-1" alt="Charles Hall" />
-                    <span class="text-dark"><?php echo (!empty($accountData) ? $accountData->fullname : '') ?></span>
+                    <span class="text-dark"><?php echo (!empty($accountData) ? $accountData->fullname : '-') ?></span>
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end">
