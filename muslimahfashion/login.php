@@ -27,27 +27,37 @@
 									<div class="card-body">
 										<div class="m-sm-4">
 
-											<div class="text-center">
-												<h1>User Login</h1>
-											</div>
-											
+											<!--#START Header -->
+                                            <h1 class="h3 w-100 text-center">Login Account</h1>
+                                            <!--#END Header -->
+
+											<!--#START Background -->
 											<div class="text-center">
 												<img src="img/login-illustration.svg" height="400"/>
 											</div>
+											<!--#END Background -->
 
+											<!--#START Form -->
 											<form method="POST">
 												<div class="input-group mb-3" style="height: 42px;">
 													<span class="input-group-text">Email Address</span>
 													<input type="text" class="form-control" autocomplete="off" placeholder="Enter Your Email" name="login_email">
 												</div>
+
 												<div class="input-group mb-3" style="height: 42px;">
 													<span class="input-group-text">Password</span>
 													<input type="password" class="form-control" autocomplete="off" placeholder="Password" name="login_password">
 												</div>
+
 												<div class="text-center mt-3">
-													<button type="submit" name="logmasuk_submit" class="btn btn-lg btn-info w-100">Login</button>
+													<button type="submit" name="login_submit" class="btn btn-lg btn-info w-100">Login</button>
+												</div>
+
+												<div class="text-center mt-3">
+													<a href="signup.php" class="text-left w-100 m-1">Don't have account?</a>
 												</div>
 											</form>
+											<!--#END Form -->
 
 										</div>
 									</div>
@@ -67,7 +77,7 @@
 </body>
 
 <?php
-	if(isset($_POST['logmasuk_submit'])){
+	if(isset($_POST['login_submit'])){
         $email = $_POST['login_email'];
         $password = $_POST['login_password'];
 
@@ -78,12 +88,12 @@
                 case 1:
                     $_SESSION['account_admin'] = $result['id'];
 
-					ToastMessage('Success', 'Successfully login as admin', 'success', 'index.php');
+					ToastMessage('Success', 'Successfully login as admin', 'success', 'admin-index.php');
                 break;
                 case 2:
                     $_SESSION['account_session'] = $result['id'];
 
-					ToastMessage('Success', 'Successfully login as user', 'success', 'index.php');
+					ToastMessage('Success', 'Successfully login as user', 'success', 'user-index.php');
                 break;
             }
         }else{

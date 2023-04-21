@@ -4,6 +4,7 @@ date_default_timezone_set('Asia/Kuala_Lumpur');
 
 $filePath = $_SERVER['SCRIPT_FILENAME'];
 $systemTime = date("Y-m-d H:i:s");
+$logoicon = './img/icon-logo.jpeg';
 
 define('currentFile', basename($filePath));
 define('currentFilename', basename($filePath, ".php"));
