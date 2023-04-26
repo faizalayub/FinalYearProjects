@@ -38,19 +38,15 @@
                     </div>
                     <!--#END HEADER -->
 
-                    <!--#START Chart -->
+                    <!--#START BODY -->
                     <div class="row">
 						<div class="col-xl-12 col-xxl-12">
 							<div class="card flex-fill w-100">
 
-                                <!--#START Header -->
-								<div class="card-header"></div>
-                                <!--#END Header -->
-
-                                <!--#START Chart Canvas -->
-								<div class="card-body pt-2 pb-3">
+                                <!--#START Content -->
+								<div class="card-body pt-4 pb-3">
                                 
-                                    <table class="table table-bordered table-striped table-md w-100">
+                                    <table class="table table-bordered table-md w-100">
                                         <tr class="shadow-1 border-1">
                                             <th>No.</th>
                                             <th>Picture</th>
@@ -119,19 +115,19 @@
                                             <td align="center">
                                                 <?php
                                                     if($value['is_active'] == 1){
-                                                        echo 'Showing';
+                                                        echo '<a class="badge bg-success">Showing</a>';
                                                     }else{
-                                                        echo 'Hidden';
+                                                        echo '<a class="badge bg-secondary">Hidden</a>';
                                                     }
                                                 ?>
                                             </td>
                                             <td align="center">
                                                 <div class="w-full flex flex-column gap-2">
-                                                    <a class="text-sm surface-100 p-2 no-underline" href="test.php?id=<?php echo $value['id']; ?>">
+                                                    <a class="text-sm surface-100 p-2 no-underline" href="admin-product-deactive.php?id=<?php echo $value['id']; ?>">
                                                         <i class="align-middle" data-feather="eye"></i>
                                                     </a>
 
-                                                    <a class="text-sm surface-100 p-2 no-underline" href="test.php?id=<?php echo $value['id']; ?>">
+                                                    <a class="text-sm surface-100 p-2 no-underline" href="admin-create-product.php?id=<?php echo $value['id']; ?>">
                                                         <i class="align-middle" data-feather="edit"></i>
                                                     </a>
                                                 </div>
@@ -145,12 +141,12 @@
                                     </table>
 
 								</div>
-                                <!--#END Chart Canvas -->
+                                <!--#END Content -->
 
 							</div>
 						</div>
 					</div>
-                    <!--#END Sales Chart -->
+                    <!--#END BODY -->
 
                 </div>
             </main>

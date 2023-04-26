@@ -41,12 +41,8 @@
 						<div class="col-xl-8 col-xxl-8">
 							<div class="card flex-fill">
 
-                                <!--#START Header -->
-								<div class="card-header"></div>
-                                <!--#END Header -->
-
                                 <!--#START Content -->
-								<div class="card-body pt-2 pb-3">
+								<div class="card-body pt-4 pb-3">
 
                                     <form method="POST" enctype="multipart/form-data">
                                         <input type="hidden" name="materialupload"/>

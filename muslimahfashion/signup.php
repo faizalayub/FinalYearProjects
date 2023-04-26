@@ -99,9 +99,16 @@
 </body>
 
 <?php
-	if(isset($_POST['login_submit'])){
-        $email = $_POST['login_email'];
-        $password = $_POST['login_password'];
+	if(isset($_POST['create_account'])){
+        $name = $_POST['fullname'];
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $phone = $_POST['phone'];
+        $address = $_POST['address'];
+
+        $result = runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address')");
+
+        ToastMessage('Success', 'Account created successfully', 'success', 'login.php');
     }
 ?>
 </html>

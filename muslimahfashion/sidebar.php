@@ -18,7 +18,7 @@
             $sidebarMenu[] = (object) ['label' => 'Dashboard', 'icon' => 'table', 'path' => 'admin-index.php'];
             $sidebarMenu[] = (object) ['label' => 'Manage Product', 'icon' => 'box', 'path' => 'admin-product.php'];
             $sidebarMenu[] = (object) ['label' => 'Create Product', 'icon' => 'plus-circle', 'path' => 'admin-create-product.php'];
-            $sidebarMenu[] = (object) ['label' => 'Order', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
+            $sidebarMenu[] = (object) ['label' => 'Product', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
             $sidebarMenu[] = (object) ['label' => 'User List', 'icon' => 'users', 'path' => 'admin-users.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'logout.php'];
         }

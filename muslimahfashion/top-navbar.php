@@ -1,16 +1,21 @@
 <?php
     $hasSession = (isset($_SESSION) && !empty($_SESSION));
     $accountData = [];
+    $hiddenForAdmin = '';
 
     if($hasSession){
         $profileid = (isset($_SESSION['account_admin']) ? $_SESSION['account_admin'] : $_SESSION['account_session']);
         $profiledata = fetchRow("SELECT * FROM `login` WHERE id = '$profileid'");
         $accountData = $profiledata;
+
+        if($profiledata['type'] == 1){
+            $hiddenForAdmin = 'd-none';
+        }
     }
 ?>
 <nav class="navbar navbar-expand navbar-light navbar-bg">
 
-    <a class="nav-icon pe-md-0 dropdown-toggle p-0 <?php echo ($hasSession ? 'd-none' : ''); ?>" href="index.php">
+    <a class="nav-icon pe-md-0 dropdown-toggle p-0 <?php echo $hiddenForAdmin; ?>" href="index.php">
         <img src="<?php echo $logoicon; ?>" class="avatar img-fluid rounded" alt="logo">
     </a>
     
@@ -18,12 +23,16 @@
         <i class="hamburger align-self-center"></i>
     </a>
 
-    <ul class="navbar-nav <?php echo ($hasSession ? 'd-none' : ''); ?>">
+    <ul class="navbar-nav <?php echo $hiddenForAdmin; ?>">
+        <li class="nav-item px-2 dropdown">
+            <a class="nav-link" href="index.php">Home</a>
+        </li>
+
         <li class="nav-item px-2 dropdown">
             <a class="nav-link" href="main-shop.php">Shop</a>
         </li>
 
-        <li class="nav-item dropdown">
+        <!-- <li class="nav-item dropdown">
             <a class="nav-link" href="main-bestseller.php">Bestsellers</a>
         </li>
 
@@ -33,13 +42,13 @@
 
         <li class="nav-item dropdown">
             <a class="nav-link" href="main-discover.php">Discover</a>
-        </li>
+        </li> -->
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown <?php echo ($hasSession ? 'd-none' : ''); ?>">
             <a class="nav-link" href="login.php">Signin</a>
         </li>
 
-        <li class="nav-item dropdown">
+        <li class="nav-item dropdown <?php echo ($hasSession ? 'd-none' : ''); ?>">
             <a class="nav-link" href="signup.php">Register</a>
         </li>
     </ul>
