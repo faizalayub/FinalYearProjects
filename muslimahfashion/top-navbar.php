@@ -22,39 +22,25 @@
     <a class="sidebar-toggle js-sidebar-toggle m-0 ms-3 d-none">
         <i class="hamburger align-self-center"></i>
     </a>
-
-    <ul class="navbar-nav <?php echo $hiddenForAdmin; ?>">
-        <li class="nav-item px-2 dropdown">
-            <a class="nav-link" href="index.php">Home</a>
-        </li>
-
-        <li class="nav-item px-2 dropdown">
-            <a class="nav-link" href="main-shop.php">Shop</a>
-        </li>
-
-        <!-- <li class="nav-item dropdown">
-            <a class="nav-link" href="main-bestseller.php">Bestsellers</a>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="main-collection.php">Collection</a>
-        </li>
-
-        <li class="nav-item dropdown">
-            <a class="nav-link" href="main-discover.php">Discover</a>
-        </li> -->
-
-        <li class="nav-item dropdown <?php echo ($hasSession ? 'd-none' : ''); ?>">
-            <a class="nav-link" href="login.php">Signin</a>
-        </li>
-
-        <li class="nav-item dropdown <?php echo ($hasSession ? 'd-none' : ''); ?>">
-            <a class="nav-link" href="signup.php">Register</a>
-        </li>
-    </ul>
-
+    
     <div class="navbar-collapse collapse">
         <ul class="navbar-nav navbar-align">
+
+            <li class="nav-item px-2 dropdown <?php echo $hiddenForAdmin; ?>">
+                <a class="nav-link" href="index.php">Home</a>
+            </li>
+
+            <li class="nav-item px-2 dropdown <?php echo $hiddenForAdmin; ?>">
+                <a class="nav-link" href="main-shop.php">Shop</a>
+            </li>
+
+            <li class="nav-item dropdown <?php echo $hiddenForAdmin; ?> <?php echo ($hasSession ? 'd-none' : ''); ?>">
+                <a class="nav-link" href="login.php">Signin</a>
+            </li>
+
+            <li class="nav-item dropdown <?php echo $hiddenForAdmin; ?> <?php echo ($hasSession ? 'd-none' : ''); ?>">
+                <a class="nav-link" href="signup.php">Register</a>
+            </li>
 
             <li class="nav-item dropdown <?php echo ($hasSession ? '' : 'd-none'); ?>">
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
