@@ -53,6 +53,25 @@
             border: solid;
             font-weight: bold;
         }
+
+        td{
+            position: relative;
+        }
+
+        .product-info{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            position: absolute;
+            bottom: 0;
+            gap: .6em;
+            background: #fff;
+            padding: 1em;
+        }
+
+        .product-info > div{
+            flex: 1;
+        }
     </style>
 </head>
 <body>
@@ -96,11 +115,13 @@
         <tr>
             <td colspan="7">
                 <table border="0" cellpadding="20" width="100%">
+
+                    <!--#START PRODUCT FILTER -->
                     <tr>
-                        <td colspan="6">
+                        <td colspan="3">
                             <input type="search" placeholder="Search" style="padding: .8em 1em;"/>
                         </td>
-                        <td colspan="6">
+                        <td colspan="3" align="right">
                             <select style="padding: .8em 1em;">
                                 <option>-- Sort By Price --</option>
                                 <option>Low to High</option>
@@ -108,25 +129,148 @@
                             </select>
                         </td>
                     </tr>
+                    <!--#END PRODUCT FILTER -->
+
+                    <!--#START PRODUCT ROW 1 -->
                     <tr>
-                        <td class="chevron-size">&#x2039;</td>
+                        <td class="chevron-size">&#x2039;</td><!-- ICON -->
                         <td>
-                            <a href="product-show.html?picture=apparel_1.webp"><img src="./apparel_1.webp" width="100%"/></a>
+                            <a href="product-show.html?picture=dresses_1.jpg"><img src="./dresses_1.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN INFINITY</div>
+                                <div>RM 250</div>
+                            </div>
                         </td>
                         <td>
-                            <a href="product-show.html?picture=apparel_2.webp"><img src="./apparel_2.webp" width="100%"/></a>
+                            <a href="product-show.html?picture=dresses_2.jpg"><img src="./dresses_2.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN STAR WHITE</div>
+                                <div>RM 250</div>
+                            </div>
                         </td>
                         <td>
-                            <a href="product-show.html?picture=apparel_3.webp"><img src="./apparel_3.webp" width="100%"/></a>
+                            <a href="product-show.html?picture=dresses_3.jpg"><img src="./dresses_3.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
                         </td>
                         <td>
-                            <a href="product-show.html?picture=apparel_4.webp"><img src="./apparel_4.webp" width="100%"/></a>
+                            <a href="product-show.html?picture=dresses_4.jpg"><img src="./dresses_4.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
                         </td>
-                        <td>
-                            <a href="product-show.html?picture=apparel_5.webp"><img src="./apparel_5.webp" width="100%"/></a>
-                        </td>
-                        <td class="chevron-size">&#x203A;</td>
+                        <td class="chevron-size">&#x203A;</td><!-- ICON -->
                     </tr>
+                    <!--#END PRODUCT ROW 1 -->
+
+                    <!--#START PRODUCT ROW 2 -->
+                    <tr>
+                        <td class="chevron-size">&#x2039;</td><!-- ICON -->
+                        <td>
+                            <a href="product-show.html?picture=dresses_5.jpg"><img src="./dresses_5.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=dresses_6.jpg"><img src="./dresses_6.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=dresses_7.jpg"><img src="./dresses_7.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=dresses_8.jpg"><img src="./dresses_8.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td class="chevron-size">&#x203A;</td><!-- ICON -->
+                    </tr>
+                    <!--#END PRODUCT ROW 2 -->
+
+                    <!--#START PRODUCT ROW 3 -->
+                    <tr>
+                        <td class="chevron-size">&#x2039;</td><!-- ICON -->
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_1.jpg"><img src="./baju kurung_1.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_2.jpg"><img src="./baju kurung_2.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_3.jpg"><img src="./baju kurung_3.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_4.jpg"><img src="./baju kurung_4.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td class="chevron-size">&#x203A;</td><!-- ICON -->
+                    </tr>
+                    <!--#END PRODUCT ROW 3 -->
+
+                    <!--#START PRODUCT ROW 4 -->
+                    <tr>
+                        <td class="chevron-size">&#x2039;</td><!-- ICON -->
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_5.jpg"><img src="./baju kurung_5.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_6.jpg"><img src="./baju kurung_6.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_7.jpg"><img src="./baju kurung_7.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td>
+                            <a href="product-show.html?picture=baju kurung_8.jpg"><img src="./baju kurung_8.jpg" width="100%"/></a>
+                            <div class="product-info">
+                                <div>COMFORTWEAR: BREATHE LILYPUT IN MOONSCAPE</div>
+                                <div>RM 250</div>
+                            </div>
+                        </td>
+                        <td class="chevron-size">&#x203A;</td><!-- ICON -->
+                    </tr>
+                    <!--#END PRODUCT ROW 4 -->
+
                 </table>
             </td>
         </tr>
