@@ -1,0 +1,90 @@
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  margin: 0;
+  padding: 0;
+}
+body {
+  font-family: 'Inter', sans-serif;
+    font-size: 32px;
+    line-height: 1.6;
+    background: #000000;
+    color: #ffffff;
+    overflow: hidden;
+  }
+
+  .slideshow {
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .holder {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 10000vw;
+    height: 100vh;
+    transition: left 1s;
+  }
+
+  .holder div {
+    float: left;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 20px 30px;
+  }
+
+  .slide-1 {
+    background-image: url(https://source.unsplash.com/vI5XwPbGvmY/1920x1280);
+  }
+
+  .slide-2 {
+    background-image: url(https://source.unsplash.com/9i0_nwHe6T8/1920x1280);
+  }
+
+  .slide-3 {
+    background-image: url(https://source.unsplash.com/Qwcu7dHyL7A/1920x1280);
+  }
+
+  .slide-4 {
+    background-image: url(https://source.unsplash.com/sxaYEsE12RM/1920x1280);
+  }
+
+  .slide-5 {
+    background-image: url(https://source.unsplash.com/wQLAGv4_OYs/1920x1280);
+  }
+
+
+  .steps {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  a {
+    color: white;
+    padding: 20px 30px;
+    position: absolute;
+    bottom: 0;
+    text-decoration: none;
+    z-index: 1;
+  }
+
+  .prev {
+    left: 0;
+  }
+
+  .next {
+    right: 0;
+  }

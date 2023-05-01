@@ -7,8 +7,46 @@
         include 'header.php';
     ?>
 
-	<link rel="stylesheet" href="css/animate.min.css">
-	<link rel="stylesheet" href="css/landing-page.css">
+	<link rel="stylesheet" href="vendor/slick-slider/css/slick.css">
+
+	<style>
+		.fullscreen-carousel{
+			position: relative;
+		}
+
+		.fullscreen-carousel .slick-prev,
+		.fullscreen-carousel .slick-next{
+			position: absolute;
+			top: 0;
+			z-index: 99;
+			border: none;
+			height: 100%;
+			background: #fff0;
+		}
+
+		.fullscreen-carousel .slick-next{
+			right: 0;
+		}
+
+		.fullscreen-carousel .slick-prev{
+			left: 0;
+		}
+
+		.fullscreen-carousel .info-caption{
+			position: absolute;
+			z-index: 50;
+			top: 0;
+			left: 0;
+		}
+
+		.fullscreen-carousel .slick-slide {
+			position: relative;
+		}
+
+		.card-product{
+			position: relative;
+		}
+	</style>
 </head>
 
 <body>
@@ -21,49 +59,151 @@
 			<main class="content p-0">
 				<div class="container-fluid p-0">
 
-					<div class="slider-area position-relative" style="height: 90vh;">
-						<div class="slider-active">
-							<!-- Single Slider -->
-							<div class="single-slider position-relative hero-overly slider-height  d-flex align-items-center" data-background="img/hero/h1_hero.jpeg">
-								<div class="container">
-									<div class="row">
-										<div class="col-xl-6 col-lg-6">
-											<div class="hero-caption">
-												<img class="rotateme" src="img/hero/hero-icon.png" alt="" data-animation="zoomIn" data-delay="1s">
-												<h1 data-animation="fadeInLeft" data-delay=".4s">We make cloths that suit you</h1>
-												<p data-animation="fadeInLeft" data-delay=".6s">Brand new & exclusively designed Muslimah fashion for your Muslimah wear collection. Free delivery in Malaysia available for all purchases of Muslimah fashion. Clothing. Bestsellers.</p>
-												<!-- Hero Btn -->
-												<a href="main-shop.php" class="btn btn-primary btn-lg" data-animation="fadeInLeft" data-delay=".8s">Shop Now</a>
-											</div>
-										</div>
+					<div class="row">
+						<div class="col-12">
+							<div class="fullscreen-carousel">
+
+								<!-- Screen slider 1 -->
+								<div class="vh-100">
+									<img src="https://cdn.store-assets.com/s/834717/f/10497265.jpg?width=1500&format=webp" class="w-100"/>
+									
+									<div class="d-flex flex-column w-100 h-100 info-caption align-items-center justify-content-center">
+										<h2 class="text-lg text-white">NEW Eid 2023</h2>
+										<h1 class="text-xl text-white mt-2">MARIE COTTON/ MARIO DEPARTCIPTO</h1>
+										<button class="btn btn-primary btn-lg mt-3">Shop Now</button>
 									</div>
 								</div>
-								<!-- Left img -->
-								<div class="hero-img">
-									<img src="img/hero/h2_hero2.jpeg" alt="" data-animation="fadeInRight" data-transition-duration="5s">
-								</div>
-							</div>
-							<!-- Single Slider -->
-							<div class="single-slider position-relative hero-overly slider-height  d-flex align-items-center" data-background="img/hero/h1_hero.jpeg">
-								<div class="container">
-									<div class="row">
-										<div class="col-xl-6">
-											<div class="hero-caption">
-												<img class="rotateme" src="img/hero/hero-icon.png" alt="" data-animation="zoomIn" data-delay="1s">
-												<h1 data-animation="fadeInLeft" data-delay=".4s">We make cloths that suit you</h1>
-												<p data-animation="fadeInLeft" data-delay=".6s">Brand new & exclusively designed Muslimah fashion for your Muslimah wear collection. Free delivery in Malaysia available for all purchases of Muslimah fashion. Clothing. Bestsellers.</p>
-												<!-- Hero Btn -->
-												<a href="main-shop.php" class="btn btn-primary btn-lg" data-animation="fadeInLeft" data-delay=".8s">Shop Now</a>
-											</div>
-										</div>
+
+								<!-- Screen slider 2 -->
+								<div class="vh-100">
+									<img src="https://cdn.store-assets.com/s/834717/f/8769763.jpeg?width=1500&format=webp" class="w-100"/>
+
+									<div class="d-flex flex-column w-100 h-100 info-caption align-items-center justify-content-center">
+										<h2 class="text-lg text-white">NEW Eid 2023</h2>
+										<h1 class="text-xl text-white mt-2">MARIE COTTON/ MARIO DEPARTCIPTO</h1>
+										<button class="btn btn-primary btn-lg mt-3">Shop Now</button>
 									</div>
 								</div>
-								<!-- Left img -->
-								<div class="hero-img">
-									<img src="img/hero/h2_hero2.jpeg" alt="" data-animation="fadeInRight" data-transition-duration="5s">
+
+								<!-- Screen slider 3 -->
+								<div class="vh-100">
+									<img src="https://cdn.store-assets.com/s/834717/f/9931234.jpg?width=1500&format=webp" class="w-100"/>
+
+									<div class="d-flex flex-column w-100 h-100 info-caption align-items-center justify-content-center">
+										<h2 class="text-lg text-white">NEW Eid 2023</h2>
+										<h1 class="text-xl text-white mt-2">MARIE COTTON/ MARIO DEPARTCIPTO</h1>
+										<button class="btn btn-primary btn-lg mt-3">Shop Now</button>
+									</div>
 								</div>
+
+								<!-- Screen slider 4 -->
+								<div class="vh-100">
+									<img src="https://cdn.store-assets.com/s/834717/f/9858324.jpg?width=1500&format=webp" class="w-100"/>
+
+									<div class="d-flex flex-column w-100 h-100 info-caption align-items-center justify-content-center">
+										<h2 class="text-lg text-white">NEW Eid 2023</h2>
+										<h1 class="text-xl text-white mt-2">MARIE COTTON/ MARIO DEPARTCIPTO</h1>
+										<button class="btn btn-primary btn-lg mt-3">Shop Now</button>
+									</div>
+								</div>
+
 							</div>
 						</div>
+					</div>
+
+					<div class="row p-6">
+						<div class="col-3">
+							<img class="img img-responsize img-thumbnail" src="https://cdn.store-assets.com/s/834717/f/9931323.png?width=650&format=webp">
+						</div>
+
+						<div class="col-3">
+							<img class="img img-responsize img-thumbnail" src="https://cdn.store-assets.com/s/834717/f/9931323.png?width=650&format=webp">
+						</div>
+
+						<div class="col-3">
+							<img class="img img-responsize img-thumbnail" src="https://cdn.store-assets.com/s/834717/f/9858197.jpeg?width=650&format=webp">
+						</div>
+
+						<div class="col-3">
+							<img class="img img-responsize img-thumbnail" src="https://cdn.store-assets.com/s/834717/f/9931323.png?width=650&format=webp">
+						</div>
+					</div>
+
+					<div class="row p-6">
+						<?php
+							$alreadypush = [];
+							$productPreview = fetchRows("SELECT * FROM menu WHERE is_active = 1");
+							
+							if(!empty($productPreview)){
+								//# Collect Order Product
+								$productOrder = [];
+								$orderFetch = fetchRows("SELECT * FROM `user_order`");
+
+								foreach($orderFetch as $order){
+									$itemorder = json_decode($order['menu_id']);
+
+									foreach($itemorder as $o){
+										if(isset($productOrder[$o])){
+											$productOrder[$o] = $productOrder[$o].",".$o;
+										}else{
+											$productOrder[$o] = $o;
+										}
+									} 
+								}
+
+								//# Loop Product
+								foreach($productPreview as $key => $c){
+									$totalOrdered = 0;
+									$categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+									$stockbalance = $c['in_stock'];
+									$salesTag = '';
+
+									if(isset($productOrder[$c['id']])){
+										$totalOrdered = explode(',',$productOrder[$c['id']]);
+										$totalOrdered = count($totalOrdered);
+									}
+
+									if(($stockbalance - $totalOrdered) <= 0){
+										continue;
+									}
+
+									if($key <= 3){
+										$salesTag = '<span class="badge bg-danger" style="position: absolute;">SALE</span>';
+									}
+
+									//# Product Card
+									if(!in_array($c['id'], $alreadypush)){
+										echo '
+											<div class="col-md-3 col-lg-2 col-sm-6 col-xs-6">
+												<div class="card">
+
+													<div class="card-body pt-3 pb-3 card-product">
+														'.$salesTag.'
+
+														<a href="main-shop.php">
+															<img src="images/'.$c['image'].'" class="img img-thumbnail img-responsive"/>
+														</a>
+
+														<div class="w-100 d-flex flex-column gap-1 pt-2">
+															<span class="w-100 fw-bold">'.$c['name'].'</span>
+
+															<span class="w-100 text-nowrap">'.$categoryname['name'].'</span>
+
+															<h3 class="w-100 text-success text-xl fw-bold text-nowrap w-100">RM '.$c['price'].'</h3>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										';
+
+										$alreadypush[] = $c['id'];
+									}
+								}
+							}else{
+								echo 'No record found';
+							}
+						?>
 					</div>
 
 				</div>
@@ -74,7 +214,23 @@
 	</div>
 
 	<script src="js/jquery.min.js"></script>
-	<script src="js/slick.min.js"></script>
-	<script src="js/landing-page.js"></script>
+	<script src="vendor/slick-slider/js/slick.min.js"></script>
+
+	<script>
+		$('.fullscreen-carousel').slick({
+            arrows: true,
+			autoplay: false,
+            prevArrow: `
+				<button type='button' class='slick-prev'>
+					<i class='align-middle text-muted' data-feather='chevron-left' style="height: 60px; width: 60px;"></i>
+				</button>
+			`,
+            nextArrow: `
+				<button type='button' class='slick-next'>
+					<i class='align-middle text-muted' data-feather='chevron-right' style="height: 60px; width: 60px;"></i>
+				</button>
+			`
+		});
+	</script>
 </body>
 </html>
