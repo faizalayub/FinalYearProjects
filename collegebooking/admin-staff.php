@@ -63,7 +63,7 @@
 																<td>'.$value['name'].'</td>
 																<td>'.$value['email'].'</td>
 																<td>'.$value['phone'].'</td>
-																<td>'.$value['password'].'</td>
+																<td class="password-hidden">'.$value['password'].'</td>
 																<td>'.$actionButton.'</td>
 															</tr>
 														';
@@ -85,7 +85,37 @@
 	</div>
 
     <script>
+		let passwordEl = document.querySelectorAll('.password-hidden');
 
+		[...passwordEl].forEach(function(e){
+			let totalstars = '';
+			let original = e.innerText;
+			let randomID = Math.random().toString(36).substr(8, 8);
+
+			e.innerHTML = `
+				<div class="d-flex gap-3 align-items-center">
+					<span class="flex-1" id="${ randomID }" data-hide="true">********</span>
+					<a href="#" onclick="showpass('${ original }', '${ randomID }')">
+						<i class="align-middle" data-feather="eye"></i>
+					</a>
+				</div>
+			`;
+		});
+
+		function showpass(pass, selector){
+			let areaEl = document.querySelector(`#${ selector }`);
+			let showFlag = areaEl.getAttribute('data-hide');
+
+			if(showFlag == 'true'){
+				areaEl.innerHTML = pass;
+				areaEl.setAttribute('data-hide', 'false');
+			}
+
+			if(showFlag == 'false'){
+				areaEl.innerHTML = '********';
+				areaEl.setAttribute('data-hide', 'true');
+			}
+		}
     </script>
 </body>
 

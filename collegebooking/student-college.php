@@ -67,7 +67,13 @@
                                                         echo '<option value="" selected>-- Nothing Selected --</option>';
 
                                                         foreach($collegeUnit as $key => $value){
-                                                            echo '<option value="'.$value['collegeid'].'">Block => '.$value['block'].', Unit => '.$value['unit'].', Room Number => '.$value['roomnumber'].'</option>';
+                                                            $collegeID = $value['collegeid'];
+
+                                                            $roomStatus = fetchRow("SELECT * FROM `application` WHERE `status` = 1 && `collegeid` = ".$collegeID);
+
+                                                            if(empty($roomStatus)){
+                                                                echo '<option value="'.$value['collegeid'].'">Block => '.$value['block'].', Unit => '.$value['unit'].', Room Number => '.$value['roomnumber'].'</option>';
+                                                            }
                                                         }
 
                                                         echo '</select>';

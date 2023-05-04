@@ -59,7 +59,13 @@
                                         <div class="row mb-4">
                                             <label class="col-md-3 form-label">Password :</label>
                                             <div class="col-md-9">
-                                                <input type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $profiledata->password ?? ''; ?>">
+                                                <div class="input-group mb-3">
+                                                    <input id="password-toggle" data-hide="false" type="password" class="form-control" placeholder="Password" name="password" value="<?php echo $profiledata->password ?? ''; ?>">
+
+                                                    <a href="#" class="input-group-text" onclick="showpass()">
+                                                        <i class="align-middle" data-feather="eye"></i>
+                                                    </a>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -85,7 +91,20 @@
 	</div>
 
     <script>
+        function showpass(){
+            let areaEl = document.querySelector(`#password-toggle`);
+			let showFlag = areaEl.getAttribute('data-hide');
 
+			if(showFlag == 'true'){
+				areaEl.setAttribute('data-hide', 'false');
+				areaEl.setAttribute('type', 'password');
+			}
+
+			if(showFlag == 'false'){
+				areaEl.setAttribute('data-hide', 'true');
+                areaEl.setAttribute('type', 'text');
+			}
+        }
     </script>
 </body>
 

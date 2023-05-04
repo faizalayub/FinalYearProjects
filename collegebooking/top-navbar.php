@@ -11,7 +11,10 @@
 
         if($profile){
             $profile = json_decode(json_encode($profile), false);
-            $profilePicture = 'img/photos/'.$profile->profile_picture;
+
+            if(isset($profile->profile_picture) && !empty($profile->profile_picture)){
+                $profilePicture = 'img/photos/'.$profile->profile_picture;
+            }
         }
 
         foreach($notiCollection as $n){

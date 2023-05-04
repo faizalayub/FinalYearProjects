@@ -147,7 +147,7 @@
                                                     echo '
                                                         <tr>
                                                             <th colspan="6" class="text-right p-3 surface-0">
-                                                                Total Price : RM <?php echo $totalPrice; ?>
+                                                                Total Price : RM '.$totalPrice.'
                                                             </th>
                                                         </tr>
                             
@@ -160,7 +160,7 @@
 
                                                         <tr>
                                                             <td colspan="6">
-                                                                <input type="submit" name="pay_cash" value="Cash On Delivery" class="btn btn-primary" />
+                                                                <input type="submit" name="pay_cash" value="Checkout" class="btn btn-primary" />
                                                             </td>
                                                         </tr>
                                                     ';
