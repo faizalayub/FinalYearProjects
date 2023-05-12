@@ -20,15 +20,15 @@
             $sidebarMenu[] = (object) ['label' => 'Create Product', 'icon' => 'plus-circle', 'path' => 'admin-create-product.php'];
             $sidebarMenu[] = (object) ['label' => 'Product', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
             $sidebarMenu[] = (object) ['label' => 'User List', 'icon' => 'users', 'path' => 'admin-users.php'];
-            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'logout.php'];
+            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account'];
         }
 
         //# User
         if($accountType == 2){
             $sidebarMenu[] = (object) ['label' => 'My Profile', 'icon' => 'user', 'path' => 'user-index.php'];
-            $sidebarMenu[] = (object) ['label' => 'My Cart', 'icon' => 'shopping-cart', 'path' => 'user-cart.php'];
-            $sidebarMenu[] = (object) ['label' => 'My History', 'icon' => 'clock', 'path' => 'user-history.php'];
-            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'logout.php'];
+            $sidebarMenu[] = (object) ['label' => 'Previous Search', 'icon' => 'user', 'path' => 'user-previous.php'];
+            $sidebarMenu[] = (object) ['label' => 'Check Now', 'icon' => 'user', 'path' => 'user-check.php'];
+            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
         }
     }
 ?>
