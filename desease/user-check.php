@@ -7,8 +7,6 @@
         header("Location: login-account.php");
         exit();
     }
-
-    $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$_SESSION['account_session']);
 ?>
 
 <!DOCTYPE html>

@@ -16,10 +16,9 @@
         //# Admin
         if($accountType == 1){
             $sidebarMenu[] = (object) ['label' => 'Dashboard', 'icon' => 'table', 'path' => 'admin-index.php'];
-            $sidebarMenu[] = (object) ['label' => 'Manage Product', 'icon' => 'box', 'path' => 'admin-product.php'];
-            $sidebarMenu[] = (object) ['label' => 'Create Product', 'icon' => 'plus-circle', 'path' => 'admin-create-product.php'];
-            $sidebarMenu[] = (object) ['label' => 'Product', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
-            $sidebarMenu[] = (object) ['label' => 'User List', 'icon' => 'users', 'path' => 'admin-users.php'];
+            $sidebarMenu[] = (object) ['label' => 'Computed Disease', 'icon' => 'activity', 'path' => 'admin-recommender.php'];
+            $sidebarMenu[] = (object) ['label' => 'Add Body Part', 'icon' => 'user', 'path' => 'admin-create-body.php'];
+            $sidebarMenu[] = (object) ['label' => 'Add Syntom', 'icon' => 'plus-square', 'path' => 'admin-create-syntom.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account'];
         }
 
