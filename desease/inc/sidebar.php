@@ -19,14 +19,13 @@
             $sidebarMenu[] = (object) ['label' => 'Computed Disease', 'icon' => 'activity', 'path' => 'admin-recommender.php'];
             $sidebarMenu[] = (object) ['label' => 'Add Body Part', 'icon' => 'user', 'path' => 'admin-create-body.php'];
             $sidebarMenu[] = (object) ['label' => 'Add Syntom', 'icon' => 'plus-square', 'path' => 'admin-create-syntom.php'];
-            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account'];
+            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
         }
 
         //# User
         if($accountType == 2){
             $sidebarMenu[] = (object) ['label' => 'My Profile', 'icon' => 'user', 'path' => 'user-index.php'];
-            $sidebarMenu[] = (object) ['label' => 'Previous Search', 'icon' => 'user', 'path' => 'user-previous.php'];
-            $sidebarMenu[] = (object) ['label' => 'Check Now', 'icon' => 'user', 'path' => 'user-check.php'];
+            $sidebarMenu[] = (object) ['label' => 'Check Now', 'icon' => 'refresh-cw', 'path' => 'user-check.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
         }
     }

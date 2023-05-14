@@ -7,6 +7,9 @@
         header("Location: login-account.php");
         exit();
     }
+
+    $bodylist = fetchRows("SELECT * from body");
+    $syntomlist = fetchRows("SELECT * from syntom");
 ?>
 
 <!DOCTYPE html>
@@ -76,107 +79,49 @@
                                                 <div class="section-content step1 active">
                                                     <h2 class="pb-4">Choose parts of the body affected by diseases</h2>
 
-                                                    <table class="table table-striped">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">1.</span>
-                                                                    <span class="fw-bold">Head</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">2.</span>
-                                                                    <span class="fw-bold">Mouth</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">3.</span>
-                                                                    <span class="fw-bold">Skin Bottom Lower</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">4.</span>
-                                                                    <span class="fw-bold">Skin Back</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <div id="options-step-1" class="w-100 d-flex flex-column">
+                                                        <?php
+                                                            if(!empty($bodylist)){
+                                                                foreach($bodylist as $key => $value){
+                                                                    echo '
+                                                                    <div class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
+                                                                        <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="bodypart_'.$key.'">
+                                                                        <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="bodypart_'.$key.'">'.$value['name'].'</label>
+                                                                    </div>';
+                                                                }
+                                                            }else{
+                                                                echo '<div class="w-100">No options</div>';
+                                                            }
+                                                        ?>
+                                                    </div>
 
                                                 </div>
                                                 <div class="section-content step2">
                                                     <h2 class="pb-4">Choose symptoms that affecting you</h2>
 
-                                                    <table class="table table-striped">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">1.</span>
-                                                                    <span class="fw-bold">Cough</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">2.</span>
-                                                                    <span class="fw-bold">Headache</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">3.</span>
-                                                                    <span class="fw-bold">Achnee Skin</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <input type="checkbox" />
-                                                                    <span class="px-3 text-mute">4.</span>
-                                                                    <span class="fw-bold">Bumb</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <div id="options-step-2" class="w-100 d-flex flex-column">
+                                                        <?php
+                                                            if(!empty($syntomlist)){
+                                                                foreach($syntomlist as $key => $value){
+                                                                    echo '
+                                                                    <div class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
+                                                                        <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="syntompart_'.$key.'">
+                                                                        <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="syntompart_'.$key.'">'.$value['name'].'</label>
+                                                                    </div>';
+                                                                }
+                                                            }else{
+                                                                echo '<div class="w-100">No options</div>';
+                                                            }
+                                                        ?>
+                                                    </div>
                                                 </div>
                                                 <div class="section-content step3">
-                                                    <h2 class="pb-4">Hi Mr. Faizal, based on your information, we can conclude may be affecting by these following issues</h2>
+                                                    <div class="w-100">
+                                                        <button class="btn btn-secondary submit-button"><i class="align-middle" data-feather="refresh-cw"></i> Check Syntom Now</button>
+                                                    </div>
                                                     
-                                                    <table class="table table-striped">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <span class="px-3 text-mute">1.</span>
-                                                                    <span class="fw-bold">Fever</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <span class="px-3 text-mute">2.</span>
-                                                                    <span class="fw-bold">Stomach Freeze</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <span class="px-3 text-mute">3.</span>
-                                                                    <span class="fw-bold">Flu</span>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td class="d-flex justify-content-start">
-                                                                    <span class="px-3 text-mute">4.</span>
-                                                                    <span class="fw-bold">Bumb</span>
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                    <div id="result-response-disease" class="w-100 p-3"></div>
+
                                                 </div>
                                             </div>
                                         </div>
@@ -199,6 +144,19 @@
 
     <script ssrc="./js/jquery.min.js"></script>
     <script>
+        let stepOne = $('#options-step-1');
+        let stepTwo = $('#options-step-2');
+        let responseLand = $('#result-response-disease');
+
+        let IsValidJSONString = function (str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+            return true;
+        };
+
         $(".step").click(function () {
             $(this).addClass("active").prevAll().addClass("active");
             $(this).nextAll().removeClass("active");
@@ -219,6 +177,65 @@
             $(".step3").addClass("active").siblings().removeClass("active");
         });
 
+        $('.submit-button').on('click', function(){
+            let collectionBody = [];
+            let collectionSyntom = [];
+
+            stepOne.find('input:checked').each((i,e) => {
+                collectionBody.push(e.value);
+            });
+
+            stepTwo.find('input:checked').each((i,e) => {
+                collectionSyntom.push(e.value);
+            });
+
+            $.ajax({
+                method: 'POST',
+                url: './_syntomCheck.php',
+                data: {
+                    body: collectionBody.join(','),
+                    syntom: collectionSyntom.join(',')
+                },
+                beforeSend: function(){
+                    console.log('before submit');
+                },
+                success: function(jsonstring){
+                    const listdata = (IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
+                    let responseUi = '';
+
+                    if(Array.isArray(listdata)){
+                        listdata.forEach((c, i) => {
+                            responseUi += `<div class="p-2">${ (i + 1) }. ${ c }</div>`;
+                        })
+                    }
+
+                    if(responseUi != ''){
+                        responseLand.html(`
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+
+                            <div class="alert-message">
+                                <h4 class="alert-heading">Result found!</h4>
+                                <p class="text-success">Base on your syntom, we conclude that you probably may have these issue.</p>
+                                <hr>
+                                <div class="w-100 d-flex flex-column text-left align-items-start">${ responseUi }</div>
+                            </div>
+                        </div>`);
+                    }
+
+                    if(responseUi == ''){
+                        responseLand.html(`
+                        <div class="alert alert-danger alert-dismissible" role="alert">
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <div class="alert-message">
+                                <h4 class="alert-heading">No result found!</h4>
+                                <p>Sorry we could not justify what kind of disease you have</p>
+                            </div>
+                        </div>`);
+                    }
+                }
+            });
+        })
     </script>
 </body>
 </html>

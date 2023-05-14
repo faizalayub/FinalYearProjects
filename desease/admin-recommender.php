@@ -8,6 +8,7 @@
         exit();
     }
 
+    $mode = (isset($_GET['id']) ? 'update' : 'create');
     $bodylist = fetchRows("SELECT * from body");
     $syntomlist = fetchRows("SELECT * from syntom");
 ?>
@@ -78,10 +79,19 @@
 											<ol class="p-0 d-flex flex-column gap-2">
                                                 <?php
                                                     if(!empty($bodylist)){
+                                                        $bodypartValue = [];
+
+                                                        if($mode == 'update'){
+                                                            $bodypartDB = fetchRow("SELECT body FROM `possible_disease` WHERE id=".$_GET['id']);
+                                                            $bodypartValue = json_decode($bodypartDB['body']);
+                                                        }
+
                                                         foreach($bodylist as $key => $value){
+                                                            $checked = (in_array($value['id'], $bodypartValue) ? 'checked' : '');
+
                                                             echo '
                                                             <li class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
-                                                                <input name="possiblebody[]" class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="bodypart_'.$key.'">
+                                                                <input '.$checked.' name="possiblebody[]" class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="bodypart_'.$key.'">
                                                                 <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="bodypart_'.$key.'">'.$value['name'].'</label>
                                                             </li>';
                                                         }
@@ -105,11 +115,20 @@
 										<div class="card-body">
                                             <ol class="p-0 d-flex flex-column gap-2">
                                                 <?php
+                                                    $syntomValue = [];
+
+                                                    if($mode == 'update'){
+                                                        $syntomDB = fetchRow("SELECT syntom FROM `possible_disease` WHERE id=".$_GET['id']);
+                                                        $syntomValue = json_decode($syntomDB['syntom']);
+                                                    }
+                                                    
                                                     if(!empty($syntomlist)){
                                                         foreach($syntomlist as $key => $value){
+                                                            $checked = (in_array($value['id'], $syntomValue) ? 'checked' : '');
+
                                                             echo '
                                                             <li class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
-                                                                <input name="possiblesyntom[]" class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="syntompart_'.$key.'">
+                                                                <input '.$checked.' name="possiblesyntom[]" class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="syntompart_'.$key.'">
                                                                 <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="syntompart_'.$key.'">'.$value['name'].'</label>
                                                             </li>';
                                                         }
@@ -139,11 +158,40 @@
                                                 </div>
                                             </div>
 
-                                            <ul class="list-group disease-list-possible mb-4"></ul>
+                                            <?php
+                                                if($mode == 'update'){
+                                                    $diseaseInputs = '';
+                                                    $possibleDB = fetchRow("SELECT possible FROM `possible_disease` WHERE id=".$_GET['id']);
+                                                    $possibleValue = json_decode($possibleDB['possible']);
+
+                                                    foreach($possibleValue as $d){
+                                                        $diseaseInputs .= '
+                                                        <li class="list-group-item d-flex w-100 gap-3 p-0">
+                                                            <span class="w-100 d-flex align-items-center">
+                                                                <input type="text" name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required value="'.$d.'">
+                                                            </span>
+                                                            <button class="btn remove"><i class="fas fa-times"></i></button>
+                                                        </li>';
+                                                    }
+
+                                                    echo '<ul class="list-group disease-list-possible mb-4">'.$diseaseInputs.'</ul>';
+                                                }else{
+                                                    echo '<ul class="list-group disease-list-possible mb-4"></ul>';
+                                                }
+                                            ?>
 
                                             <div class="w-100 d-flex align-items-center gap-2 container-submit">
                                                 <button class="btn btn-secondary disease-row-insert" type="button">Add Row</button>
-                                                <button class="btn btn-success" type="submit" name="save-disease-possible">Save</button>
+
+                                                <?php 
+                                                    if($mode == 'create'){
+                                                        echo '<button class="btn btn-success" type="submit" name="save-disease-possible">Save</button>';
+                                                    }
+
+                                                    if($mode == 'update'){
+                                                        echo '<button class="btn btn-primary" type="submit" name="save-disease-possible">Save Changes</button>';
+                                                    }
+                                                ?>
                                             </div>
                                             
 										</div>
@@ -176,9 +224,16 @@
             }else if(!$datasetdisease){
                 echo '<script>alert("Please describe possible disease")</script>';
             }else{
-                runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`) VALUES (NULL, '".json_encode($datasetdisease)."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."')");
 
-                echo '<script>alert("Recommender value added!");window.location.href="admin-recommender.php"</script>';
+                if($mode == 'create'){
+                    runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`) VALUES (NULL, '".json_encode($datasetdisease)."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."')");
+                }
+
+                if($mode == 'update'){
+                    runQuery("UPDATE `possible_disease` SET `possible` = '".json_encode($datasetdisease)."', `body` = '".json_encode($datasetbody)."', `syntom` = '".json_encode($datasetsyntom)."' WHERE `possible_disease`.`id`=".$_GET['id']);
+                }
+
+                echo '<script>alert("Success save record!");window.location.href="admin-index.php"</script>';
             }
         }
     ?>

@@ -23,7 +23,7 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="./logout.php"><i class="align-middle me-1" data-feather="log-out"></i> Log Out</a>
+                    <a class="dropdown-item" href="./logout-account.php"><i class="align-middle me-1" data-feather="log-out"></i> Log Out</a>
                 </div>
             </li>
 
