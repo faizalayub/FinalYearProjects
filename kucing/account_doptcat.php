@@ -42,7 +42,17 @@
                 <?php
                     if(!empty($mycats)){
                         foreach($mycats as $key => $value){
+                            $status = '';
                             $catinfo = fetchRow("SELECT * FROM cat WHERE id =".$value['cat_id']);
+
+                            switch($value['status']){
+                                case 0:
+                                    $status = '<span class="text-base text-0 surface-400 border-round p-2">Pending Approve</span>';
+                                break;
+                                case 1:
+                                    $status = '<span class="text-base text-0 bg-green-400 border-round p-2">Adopted</span>';
+                                break;
+                            }
 
                             echo '
                                 <div class="col-4 bg-yellow-400 p-3 shadow-1 border-round-2xl flex align-items-center justify-content-center flex-column">
@@ -57,6 +67,7 @@
                                             <li class="px-4 py-2 text-xl">'.$catinfo['age'].' Years</li>
                                             <li class="px-4 py-2 text-xl">'.$catinfo['maintenance'].'</li>
                                             <li class="px-4 py-2 text-xl">'.$catinfo['description'].'</li>
+                                            <li class="px-4 py-2 text-xl">'.$status.'</li>
                                         </ul>
                                     </div>
                                 </div>

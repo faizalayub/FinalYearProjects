@@ -8,9 +8,17 @@
 
     $editDataset = null;
     $dataset = fetchRows("SELECT * FROM `cat`");
+    $newsdataset = fetchRow("SELECT * FROM news ORDER BY id DESC LIMIT 1");
 
     if(isset($_GET['id'])){
         $editDataset = fetchRow("SELECT * FROM `cat` WHERE id =".$_GET['id']);
+    }
+
+    if(isset($_POST['publish_cats'])){
+        $newsvalue = addslashes($_POST['news_input']);
+
+        runQuery("INSERT INTO `news` (`id`, `textarea`) VALUES (NULL, '".$newsvalue."')");
+        echo "<script>alert('New published!');window.location.href='admin_dashboard.php'</script>";
     }
 
     if(isset($_POST['create_cat'])){
@@ -66,30 +74,32 @@
 
     <a href="./cat_logout.php" class="text-blue-600 py-3 text-xl"><span class="text-center w-full py-3">Logout from admin</span></a>
 
-    <form method="POST" enctype="multipart/form-data" class="surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
-        <span class="w-full bg-blue-50 p-3 border-1 border-blue-400 border-round text-blue-500 font-bold">Found new cat?, publish cat profile here</span>
+    <form method="POST" enctype="multipart/form-data" class="w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
+        <div class="w-6 px-4 flex">
+            <span class="w-full bg-blue-50 p-3 border-1 border-blue-400 border-round text-blue-500 font-bold">Found new cat?, publish cat profile here</span>
+        </div>
 
-        <div class="w-full flex gap-3">
+        <div class="w-6 flex gap-3">
             <input type="file" class="w-full border-3 border-800 border-round" required name="fileToUpload"/>
             <input type="text" class="w-full border-3 border-800 border-round" placeholder="Cat Name" required name="name" value="<?php echo (!empty($editDataset) ? $editDataset['name'] : ''); ?>"/>
         </div>
 
-        <div class="w-full flex gap-3">
+        <div class="w-6 flex gap-3">
             <input type="text" class="w-full border-3 border-800 border-round" placeholder="Cat Race" required name="race" value="<?php echo (!empty($editDataset) ? $editDataset['race'] : ''); ?>"/>
             <input type="text" class="w-full border-3 border-800 border-round" placeholder="Cat Gender" required name="gender" value="<?php echo (!empty($editDataset) ? $editDataset['gender'] : ''); ?>"/>
         </div>
 
-        <div class="w-full flex gap-3">
+        <div class="w-6 flex gap-3">
             <input type="text" class="w-full border-3 border-800 border-round" placeholder="Food Behavior" required name="food" value="<?php echo (!empty($editDataset) ? $editDataset['food'] : ''); ?>"/>
             <input type="text" class="w-full border-3 border-800 border-round" placeholder="Maintenance Info" required name="maintenance" value="<?php echo (!empty($editDataset) ? $editDataset['maintenance'] : ''); ?>"/>
             <input type="number" class="w-full border-3 border-800 border-round" placeholder="Age (Years)" required name="ageing" value="<?php echo (!empty($editDataset) ? $editDataset['age'] : ''); ?>"/>
         </div>
 
-        <div class="w-full flex">
+        <div class="w-6 flex">
             <textarea class="w-full border-3 border-800 border-round h-10rem" placeholder="Description" required name="description"><?php echo (!empty($editDataset) ? $editDataset['description'] : ''); ?></textarea>
         </div>
         
-        <button type="submit" name="create_cat" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-full">Submit</button>
+        <button type="submit" name="create_cat" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
     </form>
 
     <?php if(!empty($dataset)){ ?>
@@ -115,12 +125,21 @@
                     <tbody>
                         <?php
                             foreach($dataset as $key => $value){
+                                $approvalButton = '';
+                                $rejectButton = '';
                                 $statusTag = '<span class="text-base text-0 bg-blue-400 border-round p-2">Available</span>';
                                 $status = fetchRow("SELECT * FROM `adopt` WHERE `adopt`.`cat_id` = ".$value['id']);
 
                                 if(!empty($status)){
                                     $profile = fetchRow("SELECT * FROM `login` WHERE id = ".$status['user_id']);
-                                    $statusTag = '<span class="text-base border-round p-2 white-space-nowrap">Owned By '.$profile['email'].'</span>';
+
+                                    if($status['status'] == 0){
+                                        $statusTag = '<span class="text-base text-0 surface-400 border-round p-2 white-space-nowrap">Pending Approval</span>';
+                                        $approvalButton = '<a href="admin_dashboard_approve.php?id='.$status['id'].'">Approve</a> | ';
+                                        $rejectButton = '<a href="admin_dashboard_reject.php?id='.$status['id'].'">Reject</a> | ';
+                                    }else{
+                                        $statusTag = '<span class="text-base border-round p-2 white-space-nowrap">Owned By '.$profile['email'].'</span>';
+                                    }
                                 }
 
                                 echo '<tr>
@@ -136,7 +155,9 @@
                                     <td class="p-3">'.$value['maintenance'].'</td>
                                     <td class="p-3"><p class="w-15rem">'.$value['description'].'</p></td>
                                     <td class="p-3">'.$statusTag.'</td>
-                                    <td class="p-3">
+                                    <td class="p-3 flex align-items-center gap-3">
+                                        '.$approvalButton.'
+                                        '.$rejectButton.'
                                         <a href="admin_dashboard.php?id='.$value['id'].'">Edit</a>
                                     </td>
                                 </tr>';
@@ -147,5 +168,13 @@
             </div>
         </div>
     <?php } ?>
+
+    <form method="POST" class="mt-3 w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
+        <span class="p-3 font-bold text-xl">Publish News</span>
+
+        <textarea name="news_input" class="w-full h-10rem border-round border-1 border-300 shadow-2" placeholder="Descript cat news"><?php echo (!empty($newsdataset) ? $newsdataset['textarea'] : ''); ?></textarea>
+        
+        <button type="submit" name="publish_cats" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
+    </form>
 </body>
 </html>

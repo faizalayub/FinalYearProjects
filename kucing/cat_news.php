@@ -1,5 +1,6 @@
 <?php
     include 'config.php';
+    $newsdataset = fetchRow("SELECT * FROM news ORDER BY id DESC LIMIT 1");
 ?>
 
 <!DOCTYPE html>
@@ -50,9 +51,7 @@
     </div>
 
     <div class="absolute top-0 left-0 w-full h-full flex align-items-center justify-content-center z-1">
-        <div class="py-8 w-6 surface-0 shadow-4 border-round-3xl text-center flex align-items-center text-2xl px-8 justify-content-center line-height-3">
-            The newest recognized breed of domestic cat is the Selkirk rex, also known as the poodle cat, on account of its thick curly fur, which is composed of three separate layers. It arose from a spontaneous genetic mutation originating in Montana, USA, in 1987, from which the breed was developed. In 2013, it was officially recognized as a genetically distinct line by the University of Veterinary Medicine in the USA, and as a valid separate breed it has been recognized by the International Cat Association, the American Cat Fanciers Association, and the Cat Fanciers' Association.
-        </div>
+        <div class="py-8 w-6 surface-0 shadow-4 border-round-3xl text-center flex align-items-center text-2xl px-8 justify-content-center line-height-3"><?php echo (!empty($newsdataset) ? $newsdataset['textarea'] : ''); ?></div>
     </div>
 </body>
 </html>

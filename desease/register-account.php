@@ -1,3 +1,7 @@
+<?php
+    include 'config.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -97,8 +101,6 @@
     </body>
 
     <?php
-        include 'config.php';
-        
         if(isset($_POST['create_account'])){
             $name = $_POST['fullname'];
             $email = $_POST['email'];
