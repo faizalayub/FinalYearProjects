@@ -90,15 +90,20 @@
                     //# Loop Product
                     foreach($productKerepek as $c){
                         $totalOrdered = 0;
+                        $totalCart = 0;
                         $categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
                         $stockbalance = $c['in_stock'];
+
+                        if(isset($_SESSION['account_session'])){
+                            $totalCart = numRows("SELECT * FROM user_cart where user=".$_SESSION['account_session']." AND menu=".$c['id']);
+                        }
 
                         if(isset($productOrder[$c['id']])){
                             $totalOrdered = explode(',',$productOrder[$c['id']]);
                             $totalOrdered = count($totalOrdered);
                         }
 
-                        if(($stockbalance - $totalOrdered) <= 0){
+                        if(($stockbalance - $totalOrdered - $totalCart) <= 0){
                             continue;
                         }
 
