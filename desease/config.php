@@ -14,6 +14,11 @@ function connect(){
     $password = '';
     $database = 'disease_recomentor';
 
+    // $host = 'localhost';
+    // $user = 'u359312377_disease';
+    // $password = 'edocFYP2023';
+    // $database = 'u359312377_disease';
+
     try{
         $con = new PDO("mysql:host=" . $host . ";dbname=" . $database, $user, $password);
         $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
