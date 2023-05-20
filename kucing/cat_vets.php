@@ -12,13 +12,13 @@
     <?php include './navigator.php'; ?>
 
     <div class="surface-400 h-screen flex align-items-center justify-content-center">
-        <div class="grid">
+        <div class="grid w-10 p-6">
 
         <?php
             if(!empty($vetsdataset)){
                 foreach($vetsdataset as $value){
                     echo '
-                    <div class="col-12 md:col-6 lg:col-6 p-3">
+                    <div class="col-12 md:col-4 lg:col-4 p-3">
                         <div class="bg-red-400 border-3 border-800 border-round-xl p-4 flex flex-column gap-3 shadow-3 overflow-auto" style="min-height:15rem">
                             <div class="text-left font-bold text-3xl text-800">'.$value['description'].'</div>
         

@@ -8,18 +8,9 @@
 
     $editDataset = null;
     $dataset = fetchRows("SELECT * FROM `cat`");
-    $newsdataset = fetchRow("SELECT * FROM news ORDER BY id DESC LIMIT 1");
-    $vetsdataset = fetchRows("SELECT * FROM vet");
 
     if(isset($_GET['id'])){
         $editDataset = fetchRow("SELECT * FROM `cat` WHERE id =".$_GET['id']);
-    }
-
-    if(isset($_POST['publish_cats'])){
-        $newsvalue = addslashes($_POST['news_input']);
-
-        runQuery("INSERT INTO `news` (`id`, `textarea`) VALUES (NULL, '".$newsvalue."')");
-        echo "<script>alert('New published!');window.location.href='admin_dashboard.php'</script>";
     }
 
     if(isset($_POST['create_cat'])){
@@ -63,17 +54,6 @@
 
         echo "<script>window.location.href='admin_dashboard.php'</script>";
     }
-
-    if(isset($_POST['create_vet'])){
-        $vetname = ($_POST['vet_name']);
-        $vetphone = ($_POST['vet_phone']);
-        $vetaddress = ($_POST['vet_address']);
-
-        runQuery("INSERT INTO `vet` (`id`, `description`, `address`, `phone`) VALUES (NULL, '".addslashes($vetname)."', '".addslashes($vetaddress)."', '".addslashes($vetphone)."')");
-
-        echo "<script>alert('Vet Added!');</script>";
-        echo "<script>window.location.href='admin_dashboard.php'</script>";
-    }
 ?>
 
 <!DOCTYPE html>
@@ -81,14 +61,27 @@
 <head>
     <?php include './metaheader.php'; ?>
 </head>
-<body class="m-0 p-0 w-full flex flex-column align-items-center justify-content-start pt-3 surface-300">
+<body class="m-0 p-0 w-full flex flex-column align-items-center justify-content-start pt-3 surface-300 gap-4">
     <a href="./index.php" class="no-underline text-800"><h1 class="text-center w-full">Welcome To Admin Dashboard</h1></a>
 
-    <a href="./cat_logout.php" class="text-blue-600 py-3 text-xl"><span class="text-center w-full py-3">Logout from admin</span></a>
+    <ol class="list-none flex align-items-center justify-content-enter p-0 m-0 gap-3">
+        <li>
+            <a class="no-underline p-3 surface-900 text-0 font-bold border-round-3xl border-3 border-900 cursor-pointer shadow-3" href="./admin_dashboard.php" class="no-underline text-800">Manage Cats</a>
+        </li>
+        <li>
+            <a class="no-underline p-3 surface-0 border-round-3xl border-3 border-700 cursor-pointer shadow-3" href="./admin_vets.php" class="no-underline text-800">Manage Vets</a>
+        </li>
+        <li>
+            <a class="no-underline p-3 surface-0 border-round-3xl border-3 border-700 cursor-pointer shadow-3" href="./admin_news.php" class="no-underline text-800">Publish News</a>
+        </li>
+        <li>
+            <a class="no-underline p-3 surface-0 border-round-3xl border-3 border-700 cursor-pointer shadow-3" href="./cat_logout.php" class="no-underline text-800">Logout</a>
+        </li>
+    </ol>
 
-    <form method="POST" enctype="multipart/form-data" class="w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
-        <div class="w-6 px-4 flex">
-            <span class="w-full bg-blue-50 p-3 border-1 border-blue-400 border-round text-blue-500 font-bold">Found new cat?, publish cat profile here</span>
+    <form method="POST" enctype="multipart/form-data" class="mt-6 w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
+        <div class="w-6 px-4 flex justify-content-center">
+            <span class="p-3 font-bold text-xl">Create Cats</span>
         </div>
 
         <div class="w-6 flex gap-3">
@@ -114,28 +107,11 @@
         <button type="submit" name="create_cat" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
     </form>
 
-    <form method="POST" class="mt-3 w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
-        <div class="w-6 px-4 flex justify-content-center">
-            <span class="p-3 font-bold text-xl">Publish Cat Vets</span>
-        </div>
-
-        <div class="w-6 flex gap-3">
-            <input type="text" class="w-full border-3 border-800 border-round" placeholder="Vet Name" required name="vet_name" />
-            <input type="text" class="w-full border-3 border-800 border-round" placeholder="Vet Phone Number" required name="vet_phone" />
-        </div>
-
-        <div class="w-6 flex">
-            <textarea class="w-full border-3 border-800 border-round h-10rem" placeholder="Vet Address" required name="vet_address"></textarea>
-        </div>
-        
-        <button type="submit" name="create_vet" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
-    </form>
-
     <?php if(!empty($dataset)){ ?>
         <div class="mt-3 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 w-8">
             <span class="p-3 font-bold text-xl">Cat List</span>
             <div class="overflow-auto h-full w-full">
-                <table class="border-1 border-300">
+                <table class="border-1 border-300 w-full">
                     <thead>
                         <tr class="surface-300">
                             <th class="p-3">#</th>
@@ -197,13 +173,6 @@
             </div>
         </div>
     <?php } ?>
-
-    <form method="POST" class="mt-3 w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
-        <span class="p-3 font-bold text-xl">Publish News</span>
-
-        <textarea name="news_input" class="w-full h-10rem border-round border-1 border-300 shadow-2" placeholder="Descript cat news"><?php echo (!empty($newsdataset) ? $newsdataset['textarea'] : ''); ?></textarea>
-        
-        <button type="submit" name="publish_cats" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
-    </form>
+    
 </body>
 </html>

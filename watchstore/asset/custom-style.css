@@ -1,0 +1,17 @@
+.content-watch-bg{
+    background-image: url('../images/bg-watch-brown.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content-concreate-bg{
+    background-image: url('../images/bg-gray-concrete.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.border-round-4xl{
+    border-radius: 4rem;
+}

@@ -20,7 +20,7 @@
     <div class="grid py-6">
         <div class="col-4">
             <ol class="list-none flex flex-column gap-2 m-0">
-                <a href="account_dashboard.php" class="no-underline">
+                <a href="cat_dashboard.php" class="no-underline">
                     <li class="p-3 surface-ground border-1 border-300 cursor-pointer hover:surface-hover flex align-items-center">My Profile</li>
                 </a>
                 
