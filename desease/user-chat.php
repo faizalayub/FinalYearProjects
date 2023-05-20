@@ -3,10 +3,13 @@
 
     $collection = [];
 
-    if(!isset($_SESSION['account_admin'])){
+    if(!isset($_SESSION['account_session'])){
         header("Location: login-account.php");
         exit();
     }
+
+    $bodylist = fetchRows("SELECT * from body");
+    $syntomlist = fetchRows("SELECT * from syntom");
 ?>
 
 <!DOCTYPE html>
@@ -24,30 +27,18 @@
             <main class="content">
                 <div class="container-fluid p-0">
 
-                    <!--#START Breadscum -->
-                    <div class="row">
-                        <div class="col-auto d-none d-sm-block">
-                            <nav aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
-                                    <li class="breadcrumb-item">Chat</li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
-                    <!--#END Breadscum -->
-
-                    <!--#START Headline -->
+                    <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Live</strong> chat</h3>
+                            <h3><strong>Chat</strong> doctor</h3>
                         </div>
                     </div>
-                    <!--#END Headline -->
+                    <!--#END HEADER -->
 
                     <!--#START Chat -->
                     <div class="card" id="chat-container"></div>
                     <!--#END Chat -->
+
                 </div>
             </main>
 
@@ -57,7 +48,7 @@
 
     <script src="./js/chatapp.js"></script>
     <script>
-        var myProfileID = parseInt(`<?php echo $_SESSION['account_admin']; ?>`);
+        var myProfileID = parseInt(`<?php echo $_SESSION['account_session']; ?>`);
         chatmodule('#chat-container');
     </script>
 </body>

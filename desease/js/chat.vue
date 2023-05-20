@@ -1,13 +1,14 @@
 <template>
     <div class="row g-0">
 
-        <div class="col-12 col-lg-5 col-xl-3 border-end list-group">
+        <!-- USERS -->
+        <div class="border-end list-group col-12 col-lg-5 col-xl-3">
             <a 
-            v-for="(data, index) in peopleCollection"
-            :key="index"
-            href="#"
-            @click="(peopleSwitch = data.id)"
-            class="list-group-item list-group-item-action border-0">
+                v-for="(data, index) in conversationPeople"
+                :key="index"
+                href="#"
+                @click="(currentConversation = data.id)"
+                class="list-group-item list-group-item-action border-0">
             
                 <div class="d-flex align-items-start">
                     <div class="flex-grow-1 ms-3">
@@ -19,7 +20,8 @@
             <hr class="d-block d-lg-none mt-1 mb-0">
         </div>
 
-        <div class="col-12 col-lg-7 col-xl-9">
+        <!-- CONVERSATION -->
+        <div class="border-end list-group col-12 col-lg-7 col-xl-9">
             <div class="py-2 px-4 border-bottom d-none d-lg-block">
                 <div class="d-flex align-items-center py-1">
                     <div class="flex-grow-1 ps-3">
@@ -40,26 +42,34 @@
             <div class="position-relative">
                 <div class="chat-messages p-4">
 
-                    <div class="chat-message-right pb-4">
-                        <div>
-                            <img :src="usericon" class="rounded-circle me-1" alt="Chris Wood" width="40" height="40">
-                            <div class="text-muted small text-nowrap mt-2">2:33 am</div>
+                    <!-- Yes Conversation -->
+                    <template v-for="(data, index) in conversation" :key="index">
+                        <div v-if="(data.position == 'right')" class="chat-message-right pb-4">
+                            <div>
+                                <img :src="usericon" class="rounded-circle me-1" width="40" height="40">
+                                <div class="text-muted small text-nowrap mt-2">{{ data.time }}</div>
+                            </div>
+                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 me-3">
+                                <div class="font-weight-bold mb-1">You</div>{{ data.text }}</div>
                         </div>
-                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 me-3">
-                            <div class="font-weight-bold mb-1">You</div>
-                            Lorem ipsum dolor sit amet, vis erat denique in, dicunt prodesset te vix.
-                        </div>
-                    </div>
 
-                    <div class="chat-message-left pb-4">
-                        <div>
-                            <img :src="usericon" class="rounded-circle me-1" alt="Sharon Lessman" width="40" height="40">
-                            <div class="text-muted small text-nowrap mt-2">2:34 am</div>
+                        <div v-if="(data.position == 'left')" class="chat-message-left pb-4">
+                            <div>
+                                <img :src="usericon" class="rounded-circle me-1" width="40" height="40">
+                                <div class="text-muted small text-nowrap mt-2">{{ data.time }}</div>
+                            </div>
+                            <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
+                                <div class="font-weight-bold mb-1">{{ peopleChatProfile.name || '-' }}</div>{{ data.text }}
+                            </div>
                         </div>
-                        <div class="flex-shrink-1 bg-light rounded py-2 px-3 ms-3">
-                            <div class="font-weight-bold mb-1">Sharon Lessman</div>
-                            Sit meis deleniti eu, pri vidit meliore docendi ut, an eum erat animal commodo.
-                        </div>
+                    </template>
+
+                    <!-- No Conversation -->
+                    <div
+                        v-if="(conversation.length == 0)"
+                        v-html="'No conversation yet'"
+                        class="w-100 bg-light p-2 text-center text-mute d-flex align-items-center justify-content-center"
+                        :style="{ height: '50vh' }">
                     </div>
 
                 </div>
@@ -78,31 +88,73 @@
 
 <script>
 import $ from 'jquery';
+import moment from 'moment';
 
 export default {
     name: 'dashboard',
     data: () => ({
-        peopleCollection: [],
-        peopleSwitch: null,
-
+        responsePeople: [],
+        responseChat: [],
+        currentConversation: null,
+        currentProfile: null,
         chatInput: null,
         usericon: 'img/user.png',
     }),
     methods: {
         submitChat: function(){
-            $.ajax({
+            const self = this;
+            const config = {
                 url: `./_chat.php`,
                 method: "POST",
                 data: {
                     function: 'save',
-                    to: 2,
-                    from: 2,
+                    to: this.currentConversation,
+                    from: this.currentProfile,
                     message: this.chatInput,
                 },
                 success: function(e){
-                    console.clear();
-                    console.log(e);
+                    self.refreshChat();
+                    self.chatInput = null;
                 }
+            };
+
+            return $.ajax(config);
+        },
+        refreshChat: function(){
+            const self = this;
+            const config = {
+                url: `./_chat.php`,
+                method: "POST",
+                data: {
+                    function: 'getchats',
+                    to: this.currentProfile,
+                    from: self.currentConversation,
+                },
+                success: function(jsonstring){
+                    const data = (self.IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
+
+                    self.responseChat = data;
+                }
+            };
+
+            return $.ajax(config);
+        },
+        refreshUserList: function(){
+            const self = this;
+
+            return new Promise(resolve => {
+                $.ajax({
+                    url: `./_chat.php`,
+                    method: "POST",
+                    data: {
+                        function: 'getusers',
+                    },
+                    success: function(jsonstring){
+                        const data = (self.IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
+
+                        resolve(data && data.length > 0 ? data : []);
+                    }
+                });
             });
         },
         IsValidJSONString: function (str) {
@@ -116,22 +168,41 @@ export default {
     },
     computed: {
         peopleChatProfile: function(){
-            return this.peopleCollection.find(c => c.id == this.peopleSwitch);
+            return this.responsePeople.find(c => c.id == this.currentConversation);
+        },
+        currentAccountType: function(){
+            return (window.location.pathname.includes('admin') ? 'admin' : 'user');
+        },
+        conversationPeople: function(){
+            if(this.currentAccountType == 'admin'){
+                return this.responsePeople.filter(c => c.type == 2);
+            }
+
+            if(this.currentAccountType == 'user'){
+                return this.responsePeople.filter(c => c.type == 1);
+            }
+        },
+        conversation: function(){
+            return this.responseChat.map(c => ({
+                text: (c.message),
+                position: (this.currentProfile == c.user_id ? 'right' : 'left'),
+                time: moment(c.created_date, 'YYYY-MM-DD HH:mm:ss').format('DD MMMM YYYY hh:mm A')
+            }))
         }
     },
-    mounted: function(){
-        let self = this;
+    watch: {
+        currentConversation: function(){
+            this.refreshChat();
+        }
+    },
+    mounted: async function(){
+        const userdata = await this.refreshUserList();
 
-        $.ajax({
-            url: `./_chat.php`,
-            method: "POST",
-            data: {
-                function: 'getusers',
-            },
-            success: function(jsonstring){
-                self.peopleCollection = (self.IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
-            }
-        });
+        this.responsePeople = userdata;
+
+        this.currentConversation = this.conversationPeople[0].id;
+        
+        this.currentProfile = myProfileID;
     }
 }
 </script>

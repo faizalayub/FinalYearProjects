@@ -27,7 +27,7 @@
         if($accountType == 2){
             $sidebarMenu[] = (object) ['label' => 'My Profile', 'icon' => 'user', 'path' => 'user-index.php'];
             $sidebarMenu[] = (object) ['label' => 'Check Now', 'icon' => 'refresh-cw', 'path' => 'user-check.php'];
-            $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
+            $sidebarMenu[] = (object) ['label' => 'Chat', 'icon' => 'message-square', 'path' => 'user-chat.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
         }
     }

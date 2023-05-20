@@ -9,6 +9,7 @@
     $editDataset = null;
     $dataset = fetchRows("SELECT * FROM `cat`");
     $newsdataset = fetchRow("SELECT * FROM news ORDER BY id DESC LIMIT 1");
+    $vetsdataset = fetchRows("SELECT * FROM vet");
 
     if(isset($_GET['id'])){
         $editDataset = fetchRow("SELECT * FROM `cat` WHERE id =".$_GET['id']);
@@ -62,6 +63,17 @@
 
         echo "<script>window.location.href='admin_dashboard.php'</script>";
     }
+
+    if(isset($_POST['create_vet'])){
+        $vetname = ($_POST['vet_name']);
+        $vetphone = ($_POST['vet_phone']);
+        $vetaddress = ($_POST['vet_address']);
+
+        runQuery("INSERT INTO `vet` (`id`, `description`, `address`, `phone`) VALUES (NULL, '".addslashes($vetname)."', '".addslashes($vetaddress)."', '".addslashes($vetphone)."')");
+
+        echo "<script>alert('Vet Added!');</script>";
+        echo "<script>window.location.href='admin_dashboard.php'</script>";
+    }
 ?>
 
 <!DOCTYPE html>
@@ -100,6 +112,23 @@
         </div>
         
         <button type="submit" name="create_cat" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
+    </form>
+
+    <form method="POST" class="mt-3 w-8 surface-0 shadow-3 border-round-xl flex flex-column pt-6 pb-6 px-8 align-items-center justify-content-center gap-3 ">
+        <div class="w-6 px-4 flex justify-content-center">
+            <span class="p-3 font-bold text-xl">Publish Cat Vets</span>
+        </div>
+
+        <div class="w-6 flex gap-3">
+            <input type="text" class="w-full border-3 border-800 border-round" placeholder="Vet Name" required name="vet_name" />
+            <input type="text" class="w-full border-3 border-800 border-round" placeholder="Vet Phone Number" required name="vet_phone" />
+        </div>
+
+        <div class="w-6 flex">
+            <textarea class="w-full border-3 border-800 border-round h-10rem" placeholder="Vet Address" required name="vet_address"></textarea>
+        </div>
+        
+        <button type="submit" name="create_vet" class="cursor-pointer border-1 surface-900 text-0 uppercase p-3 border-round-3xl w-4">Submit</button>
     </form>
 
     <?php if(!empty($dataset)){ ?>

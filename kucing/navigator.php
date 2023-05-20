@@ -27,6 +27,10 @@
             <a href="./cat_news.php" class="px-4 py-2 no-underline text-900">News</a>
         </li>
 
+        <li class="surface-300 border-round-3xl cursor-pointer h-3rem flex align-items-center justify-content-center <?php echo ($fileName == 'cat_vets.php' ? 'surface-500' : '')?>">
+            <a href="./cat_vets.php" class="px-4 py-2 no-underline text-900">Vet</a>
+        </li>
+
         <?php if(!isset($_SESSION['account_session'])){ ?>
 
             <li class="surface-300 border-round-3xl cursor-pointer h-3rem flex align-items-center justify-content-center <?php echo ($fileName == 'cat_login.php' ? 'surface-500' : '')?>">
