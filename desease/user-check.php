@@ -30,6 +30,7 @@
             position: sticky;
             top: 0;
             background: #fff;
+            z-index: 99;
         }
 
         .list-container{
@@ -138,10 +139,10 @@
                                                         ?>
                                                     </div>
                                                 </div>
-                                                <div class="section-content step3">
-                                                    <div class="w-100">
+                                                <div class="section-content step3 list-container">
+                                                    <h2 class="w-100">
                                                         <button class="btn btn-secondary submit-button"><i class="align-middle" data-feather="refresh-cw"></i> Check symptoms Now</button>
-                                                    </div>
+                                                    </h2>
                                                     
                                                     <div id="result-response-disease" class="w-100 p-3"></div>
 

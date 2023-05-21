@@ -4,9 +4,9 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="css/animations.css">
-        <link rel="stylesheet" href="css/main.css">
-        <link rel="stylesheet" href="css/index.css">
+        <link rel="stylesheet" href="css/animations.css?12">
+        <link rel="stylesheet" href="css/main.css?12">
+        <link rel="stylesheet" href="css/index.css?12">
         <title>Health and Disease Monitoring Recommendation</title>
         <style>
             table{
@@ -20,8 +20,8 @@
                 <table border="0">
                     <tr>
                         <td width="80%">
-                            <font class="edoc-logo">eDoc. </font>
-                            <font class="edoc-logo-sub">| THE ECHANNELING PROJECT</font>
+                            <font class="edoc-logo">HeDi Recommender. </font>
+                            <font class="edoc-logo-sub">| Health and Disease Monitoring Recommender</font>
                         </td>
                         <td width="10%">
                             <a href="login-account.php"  class="non-style-link">
