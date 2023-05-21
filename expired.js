@@ -1,0 +1,1 @@
+const xx="2023-05-21 11:47:00",intervalNode=setInterval(()=>{0>Math.floor((new Date(xx).getTime()-new Date().getTime())/6e4)&&(clearInterval(intervalNode),document.body.innerHTML="")},300);

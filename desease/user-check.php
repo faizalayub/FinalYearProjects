@@ -8,8 +8,8 @@
         exit();
     }
 
-    $bodylist = fetchRows("SELECT * from body");
-    $syntomlist = fetchRows("SELECT * from syntom");
+    $bodylist = fetchRows("SELECT * from body ORDER BY name");
+    $syntomlist = fetchRows("SELECT * from syntom ORDER BY name");
 ?>
 
 <!DOCTYPE html>
@@ -24,6 +24,23 @@
 
         #progress-content-section{
             background: #fff !important;
+        }
+
+        .list-container h2{
+            position: sticky;
+            top: 0;
+            background: #fff;
+        }
+
+        .list-container{
+            max-height: 50vh;
+            min-height: 50vh;
+            overflow: auto;
+            overscroll-behavior: contain;
+        }
+
+        #progress-content-section .section-content{
+            padding: unset !important;
         }
     </style>
 </head>
@@ -76,15 +93,18 @@
                                             </div>
                                             
                                             <div id="progress-content-section">
-                                                <div class="section-content step1 active">
-                                                    <h2 class="pb-4">Choose parts of the body affected by diseases</h2>
+                                                <div class="section-content step1 active list-container">
+                                                    <h2 class="pb-4 d-flex flex-column gap-3">
+                                                        Choose parts of the body affected by diseases
+                                                        <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-1')"/>
+                                                    </h2>
 
-                                                    <div id="options-step-1" class="w-100 d-flex flex-column">
+                                                    <div id="options-step-1" class="w-100 d-flex flex-column contents">
                                                         <?php
                                                             if(!empty($bodylist)){
                                                                 foreach($bodylist as $key => $value){
                                                                     echo '
-                                                                    <div class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
+                                                                    <div data-label="'.$value['name'].'" class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
                                                                         <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="bodypart_'.$key.'">
                                                                         <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="bodypart_'.$key.'">'.$value['name'].'</label>
                                                                     </div>';
@@ -96,15 +116,18 @@
                                                     </div>
 
                                                 </div>
-                                                <div class="section-content step2">
-                                                    <h2 class="pb-4">Choose symptoms that affecting you</h2>
+                                                <div class="section-content step2 list-container">
+                                                    <h2 class="pb-4 d-flex flex-column gap-3">
+                                                        Choose symptoms that affecting you
+                                                        <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-2')"/>
+                                                    </h2>
 
-                                                    <div id="options-step-2" class="w-100 d-flex flex-column">
+                                                    <div id="options-step-2" class="w-100 d-flex flex-column contents">
                                                         <?php
                                                             if(!empty($syntomlist)){
                                                                 foreach($syntomlist as $key => $value){
                                                                     echo '
-                                                                    <div class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
+                                                                    <div data-label="'.$value['name'].'" class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
                                                                         <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="syntompart_'.$key.'">
                                                                         <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="syntompart_'.$key.'">'.$value['name'].'</label>
                                                                     </div>';
@@ -117,7 +140,7 @@
                                                 </div>
                                                 <div class="section-content step3">
                                                     <div class="w-100">
-                                                        <button class="btn btn-secondary submit-button"><i class="align-middle" data-feather="refresh-cw"></i> Check Syntom Now</button>
+                                                        <button class="btn btn-secondary submit-button"><i class="align-middle" data-feather="refresh-cw"></i> Check symptoms Now</button>
                                                     </div>
                                                     
                                                     <div id="result-response-disease" class="w-100 p-3"></div>
@@ -235,7 +258,28 @@
                     }
                 }
             });
-        })
+        });
+
+        function narrowListing(self,target){
+            const el = $(target);
+            const $key = self.value.toLowerCase();
+            const $child = el.children();
+            
+            if($child.length > 0){
+                $child.each(function(i, e){
+                    const $li = $(e);
+                    const $label = $li.attr('data-label').toLowerCase();
+
+                    $li.removeClass('d-none');
+
+                    if($label.includes($key)){
+                        $li.removeClass('d-none');
+                    }else{
+                        $li.addClass('d-none');
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>

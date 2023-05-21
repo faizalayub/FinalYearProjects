@@ -34,7 +34,7 @@
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="admin-index.php">Home</a></li>
                                     <li class="breadcrumb-item"><a href="admin-recommender.php">Compute disease</a></li>
-                                    <li class="breadcrumb-item active">Add update syntom part</li>
+                                    <li class="breadcrumb-item active">Add update symptoms part</li>
                                 </ol>
                             </nav>
                         </div>
@@ -55,7 +55,7 @@
                             <div class="card">
 								<div class="card-header">
 									<h5 class="card-title">Create new body part</h5>
-									<h6 class="card-subtitle text-muted">Categorize the syntom base on body part</h6>
+									<h6 class="card-subtitle text-muted">Categorize the symptoms base on body part</h6>
 								</div>
 								<div class="card-body">
 									<form method="POST" class="row row-cols-md-auto align-items-center">

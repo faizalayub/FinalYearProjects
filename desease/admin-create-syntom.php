@@ -44,7 +44,7 @@
                     <!--#START Headline -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Manage</strong> syntom disease</h3>
+                            <h3><strong>Manage</strong> symptoms disease</h3>
                         </div>
                     </div>
                     <!--#END Headline -->
@@ -54,8 +54,8 @@
                             <!--#START Form Added -->
                             <div class="card">
 								<div class="card-header">
-									<h5 class="card-title">Create new syntom prediction</h5>
-									<h6 class="card-subtitle text-muted">Categorize the syntom base on body part</h6>
+									<h5 class="card-title">Create new symptoms prediction</h5>
+									<h6 class="card-subtitle text-muted">Categorize the symptoms base on body part</h6>
 								</div>
 								<div class="card-body">
 									<form method="POST" class="row row-cols-md-auto align-items-center">

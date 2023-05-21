@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="css/main.css">
         <link rel="stylesheet" href="css/index.css">
-        <title>eDoc</title>
+        <title>Health and Disease Monitoring Recommendation</title>
         <style>
             table{
                 animation: transitionIn-Y-bottom 0.5s;
@@ -36,13 +36,12 @@
                     </tr>
                     <tr>
                         <td  colspan="3">
-                            <p class="heading-text">Avoid Hassles & Delays.</p>
+                            <p class="heading-text">Revolutionize Your Life with Revolutionary Health Insights  </p>
                         </td>
                     </tr>
                     <tr>
                         <td  colspan="3">
-                            <p class="sub-text2">How is health today, Sounds like not good!<br>Don't worry. Find your doctor online Book as you wish with eDoc. <br>
-                                We offer you a free doctor channeling service, Make your appointment now.
+                            <p class="sub-text2">How is health today, Sounds like not good!<br>Don't worry. Get your health and disease online recommender as you wish with HeDi Recommender. We offer you a free health and disease suggestion service.
                             </p>
                         </td>
                     </tr>
@@ -60,7 +59,7 @@
                         </td>
                     </tr>
                 </table>
-                <p class="sub-text2 footer-hashen">A Web Solution by Hashen.</p>
+                <p class="sub-text2 footer-hashen">A Web Solution by Lidyia Natasha.</p>
             </center>
         </div>
     </body>

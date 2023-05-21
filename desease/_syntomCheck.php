@@ -15,7 +15,7 @@ if(!empty($body)){
 
     $searchBody = fetchRows($bodyQuery.implode(' OR ', $bodyCards));
     
-    //# Validate syntom of body part
+    //# Validate symptoms of body part
     foreach($searchBody as $key => $value){
         $bodyId = ($value['id']);
         $syntomCards = [];

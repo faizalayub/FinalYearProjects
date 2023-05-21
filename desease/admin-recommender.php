@@ -70,7 +70,7 @@
 									<div class="card-header" id="headingOne">
 										<h5 class="card-title my-2">
 											<a href="#" data-bs-toggle="collapse" data-bs-target="#diseaseSelector" aria-expanded="false" aria-controls="diseaseSelector" class="collapsed">
-												Step 1: Choose Body Part Of Syntom
+												Step 1: Choose Body Part Of Symptom
 											</a>
 										</h5>
 									</div>
@@ -107,7 +107,7 @@
 									<div class="card-header" id="headingTwo">
 										<h5 class="card-title my-2">
 											<a href="#" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="diseaseSelector" class="collapsed">
-                                                Step 2: Disease Syntom
+                                                Step 2: Disease Symptom
 											</a>
 										</h5>
 									</div>
@@ -154,7 +154,7 @@
                                             <div class="alert alert-success" role="alert">
                                                 <div class="alert-message">
                                                     <h4 class="alert-heading fw-bold">Disease suggestion</h4>
-                                                    <p class="m-0">Please write the possible disease based on syntom.</p>
+                                                    <p class="m-0">Please write the possible disease based on symptom.</p>
                                                 </div>
                                             </div>
 
@@ -218,7 +218,7 @@
             $datasetbody = (isset($_POST['possiblebody']) ? $_POST['possiblebody'] : []);
 
             if(!$datasetbody){
-                echo '<script>alert("Please select syntom body part")</script>';
+                echo '<script>alert("Please select symptoms body part")</script>';
             } else if(!$datasetsyntom){
                 echo '<script>alert("Please select syntom")</script>';
             }else if(!$datasetdisease){

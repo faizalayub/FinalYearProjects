@@ -22,10 +22,10 @@
     <link rel="stylesheet" href="asset/custom-style.css">
 </head>
 <body class="h-screen surface-0 p-8">
-    <div class="surface-0 border-round-2xl h-full shadow-3 content-concreate-bg p-3">
+    <div class="surface-0 border-round-2xl shadow-3 content-concreate-bg p-3">
 
         <!-- START Content-->
-        <div class="h-full w-full flex flex-column">
+        <div class="w-full flex flex-column">
 
             <div class="flex align-items-center justify-content-center py-3 px-6 gap-3 flex-wrap-reverse">
                 <div class="flex-1 flex align-items-center justify-content-center">
