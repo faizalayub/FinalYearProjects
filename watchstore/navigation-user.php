@@ -17,8 +17,8 @@
         <!-- START Content-->
         <div class="h-full w-full flex align-items-center justify-content-center flex-column gap-6">
             <a href="./user-signup.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-4xl surface-500 hover:surface-400 py-4 px-6 w-20rem border-3 border-900 border-round-4xl">Sign up</a>
-            <a href="./user-login.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-4xl surface-500 hover:surface-400 py-4 px-6 w-20rem border-3 border-900 border-round-4xl">Login</a>
-            <a href="./admin-login.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-4xl surface-500 hover:surface-400 py-4 px-6 w-20rem border-3 border-900 border-round-4xl">Admin</a>
+            <a href="./login-user.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-4xl surface-500 hover:surface-400 py-4 px-6 w-20rem border-3 border-900 border-round-4xl">Login</a>
+            <a href="./login-admin.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-4xl surface-500 hover:surface-400 py-4 px-6 w-20rem border-3 border-900 border-round-4xl">Admin</a>
         </div>
         <!-- END Content-->
 

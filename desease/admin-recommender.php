@@ -168,7 +168,7 @@
                                                         $diseaseInputs .= '
                                                         <li class="list-group-item d-flex w-100 gap-3 p-0">
                                                             <span class="w-100 d-flex align-items-center">
-                                                                <input type="text" name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required value="'.$d.'">
+                                                                <textarea name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required>'.$d.'</textarea>
                                                             </span>
                                                             <button class="btn remove"><i class="fas fa-times"></i></button>
                                                         </li>';
@@ -225,12 +225,16 @@
                 echo '<script>alert("Please describe possible disease")</script>';
             }else{
 
+                $posibledisease = json_encode($datasetdisease);
+
+                $posibledisease = addslashes($posibledisease);
+
                 if($mode == 'create'){
-                    runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`) VALUES (NULL, '".json_encode($datasetdisease)."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."')");
+                    runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`) VALUES (NULL, '".$posibledisease."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."')");
                 }
 
                 if($mode == 'update'){
-                    runQuery("UPDATE `possible_disease` SET `possible` = '".json_encode($datasetdisease)."', `body` = '".json_encode($datasetbody)."', `syntom` = '".json_encode($datasetsyntom)."' WHERE `possible_disease`.`id`=".$_GET['id']);
+                    runQuery("UPDATE `possible_disease` SET `possible` = '".$posibledisease."', `body` = '".json_encode($datasetbody)."', `syntom` = '".json_encode($datasetsyntom)."' WHERE `possible_disease`.`id`=".$_GET['id']);
                 }
 
                 echo '<script>alert("Success save record!");window.location.href="admin-index.php"</script>';
@@ -247,7 +251,7 @@
                 class: 'list-group-item d-flex w-100 gap-3 p-0',
                 html: `
                     <span class="w-100 d-flex align-items-center">
-                        <input type="text" name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required>
+                        <textarea name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required></textarea>
                     </span>
                     <button class="btn remove"><i class="fas fa-times"></i></button>
                 `

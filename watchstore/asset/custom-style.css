@@ -12,6 +12,13 @@
     background-size: cover;
 }
 
+.content-paper-bg{
+    background-image: url('../images/bg-brown-paper.jpeg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 .border-round-4xl{
     border-radius: 4rem;
 }

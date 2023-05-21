@@ -15,7 +15,7 @@
     <div class="surface-0 border-round-2xl h-full shadow-3 content-watch-bg p-3">
 
         <!-- START Content-->
-        <div onclick="window.location.href='./navigation.php'" class="text-0 hover:text-blue-500 cursor-pointer h-full w-full p-3 flex align-items-center justify-content-center flex-column gap-3">
+        <div onclick="window.location.href='./navigation-user.php'" class="text-0 hover:text-blue-500 cursor-pointer h-full w-full p-3 flex align-items-center justify-content-center flex-column gap-3">
             <span class="text-5xl surface-900 p-2 border-round px-6">WELCOME TO</span>
             <span class="text-5xl surface-900 p-2 border-round px-6">MAGICAL WATCHES OF M'SIA</span>
 

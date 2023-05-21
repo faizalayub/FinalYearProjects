@@ -228,7 +228,7 @@
 
                     if(Array.isArray(listdata)){
                         listdata.forEach((c, i) => {
-                            responseUi += `<div class="p-2">${ (i + 1) }. ${ c }</div>`;
+                            responseUi += `<div class="p-2" style="white-space: pre-line;text-align: initial;">${ (i + 1) }. ${ c }</div>`;
                         })
                     }
 

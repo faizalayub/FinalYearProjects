@@ -97,7 +97,7 @@
                                                     $syntom = json_decode($value['syntom'] ?? []);
 
                                                     foreach($disease as $c){
-                                                        $diseaseList .= '<li>'.$c.'</li>';
+                                                        $diseaseList .= '<li style="white-space: pre-line;">'.$c.'</li>';
                                                     }
 
                                                     echo '
