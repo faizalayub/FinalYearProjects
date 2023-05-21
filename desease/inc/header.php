@@ -10,4 +10,4 @@
 <link href="./css/light.css" rel="stylesheet">
 
 <script src="./js/jquery.min.js"></script>
-<script src="./js/app.js"></script>
+<script src="./js/app.js?v=110"></script>
