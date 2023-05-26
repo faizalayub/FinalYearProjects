@@ -42,11 +42,13 @@
 
                                     <table class="w-100 table table-bordered table-striped">
                                         <tr>
-                                            <th>No.</th>
-                                            <th>Menu ID</th>
-                                            <th>Purchase Number</th>
-                                            <th>Purchase Time</th>
-                                            <th>Status</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">No.</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Products</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Invoice Number</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Time</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Delivery</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Payment Method</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Status</th>
                                         </tr>
 
                                         <?php
@@ -54,31 +56,56 @@
 
                                             foreach($userrecord as $key => $value){
 
-                                                $menuList = '<ol>';
+                                                $menuList = '<ol class="p-3 m-0">';
                                                 $menuorder = json_decode($value['menu_id']);
+                                                $menusize = json_decode($value['size']);
 
-                                                foreach($menuorder as $m){
+                                                foreach($menuorder as $key => $m){
                                                     $bobo = fetchRow("SELECT * FROM menu WHERE id=".$m);
 
-                                                    $menuList .= "<li>".$bobo['name']."</li>";
+                                                    $menuList .= "<li style='text-align: initial; padding: 0 .3rem;'>
+                                                        <span class='fw-bold'>".$menusize[$key]."</span> - ".$bobo['name']."
+                                                    </li>";
                                                 }
 
                                                 $menuList .= '</ol>';
                                         ?>
                                         <tr>
-                                            <td align="center"><?php echo ($key + 1); ?></td>
-                                            <td align="center"><?php echo $menuList; ?></td>
-                                            <td align="center"><?php echo $value['unique_number']; ?></td>
-                                            <td align="center"><?php echo date_format(date_create($value['created_date']),"d F Y h:i A"); ?></td>
-                                            <td align="center">
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo ($key + 1); ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300 flex align-items-center justify-content-center"><?php echo $menuList; ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo $value['unique_number']; ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo date_format(date_create($value['created_date']),"d F Y h:i A"); ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
                                                 <?php
-                                                    if($value['status'] == 1) echo '<span class="badge bg-secondary">Pending</span>';
+                                                    if($value['delivery_method'] == 1) echo 'Pick-Up';
 
-                                                    if($value['status'] == 2) echo '<span class="badge bg-primary">Preparing</span>';
+                                                    if($value['delivery_method'] == 2) echo 'Delivery';
+                                                ?>
+                                            </td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
+                                                <?php
+                                                    if($value['payment_method'] == 1) echo 'Online Transfer';
 
-                                                    if($value['status'] == 3) echo '<span class="badge bg-warning">Shipping</span>';
+                                                    if($value['payment_method'] == 2) echo 'Cash';
+                                                ?>
+                                            </td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
+                                                <?php
+                                                    if($value['status'] == 1){
+                                                        echo '<span class="badge bg-secondary">Pending</span>';
+                                                    }
 
-                                                    if($value['status'] == 4) echo '<span class="badge bg-success">Completed</span>';
+                                                    if($value['status'] == 2){
+                                                        echo '<span class="badge bg-primary">Preparing</span>';
+                                                    }
+
+                                                    if($value['status'] == 3){
+                                                        echo '<span class="badge bg-warning">Shipping</span>';
+                                                    }
+
+                                                    if($value['status'] == 4){
+                                                        echo '<span class="badge me-1 my-1 bg-success">Completed</span>';
+                                                    }
                                                 ?>
                                             </td>
                                         </tr>
@@ -86,7 +113,10 @@
                                         
                                         <?php
                                             if(empty($userrecord)){
-                                                echo '<tr><td class="p-3" colspan="6">No Record Yet</td></tr>';
+                                                echo '
+                                                <tr>
+                                                    <td class="p-3" colspan="6">No Record Yet</td>
+                                                </tr>';
                                             }
                                         ?>
                                     </table>

@@ -53,6 +53,7 @@
                                             <th>Name</th>
                                             <th>Price</th>
                                             <th>Category</th>
+                                            <th>Body Type</th>
                                             <th>Stock</th>
                                             <th>Active</th>
                                             <th>Action</th>
@@ -80,9 +81,18 @@
 
                                             foreach($menurecord as $key => $value){
 
+                                                $bodytype = [];
+                                                $categoryname = [];
                                                 $totalOrdered = 0;
                                                 $isOutofstock = false;
-                                                $categoryname = fetchRow("SELECT * from category WHERE id = ".$value['category']);
+
+                                                if(!empty($value['category'])){
+                                                    $categoryname = fetchRow("SELECT * from category WHERE id = ".$value['category']);
+                                                }
+
+                                                if(!empty($value['body_type'])){
+                                                    $bodytype = fetchRow("SELECT * from body_part WHERE id = ".$value['body_type']);
+                                                }
 
                                                 if(isset($productOrder[$value['id']])){
                                                     $totalOrdered = explode(',',$productOrder[$value['id']]);
@@ -106,6 +116,9 @@
                                             </td>
                                             <td align="center">
                                                 <?php echo $categoryname['name']; ?>
+                                            </td>
+                                            <td align="center">
+                                                <?php echo (!empty($bodytype['name']) ? $bodytype['name'] : '-'); ?>
                                             </td>
                                             <td>
                                                 <span class="<?php echo ($isOutofstock ? 'text-red-600' : ''); ?> font-bold">

@@ -70,7 +70,7 @@
 									<div class="d-flex flex-column w-100 h-100 info-caption align-items-center justify-content-center">
 										<h2 class="text-lg text-white">NEW Eid 2023</h2>
 										<h1 class="text-xl text-white mt-2">MARIE COTTON/ MARIO DEPARTCIPTO</h1>
-										<button class="btn btn-primary btn-lg mt-3">Shop Now</button>
+										<a href="./main-shop.php" class="btn btn-primary btn-lg mt-3">Shop Now</a>
 									</div>
 								</div>
 
@@ -154,9 +154,18 @@
 								//# Loop Product
 								foreach($productPreview as $key => $c){
 									$totalOrdered = 0;
-									$categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+									$bodytype = [];
+									$categoryname = [];
 									$stockbalance = $c['in_stock'];
 									$salesTag = '';
+
+									if(!empty($c['category'])){
+										$categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+									}
+
+									if(!empty($c['body_type'])){
+										$bodytype = fetchRow("SELECT * from body_part WHERE id = ".$c['body_type']);
+									}
 
 									if(isset($productOrder[$c['id']])){
 										$totalOrdered = explode(',',$productOrder[$c['id']]);
@@ -188,6 +197,8 @@
 															<span class="w-100 fw-bold">'.$c['name'].'</span>
 
 															<span class="w-100 text-nowrap">'.$categoryname['name'].'</span>
+
+															<span class="w-100 text-nowrap text-primary fw-bold">'.(!empty($bodytype['name']) ? $bodytype['name'] : '-').'</span>
 
 															<h3 class="w-100 text-success text-xl fw-bold text-nowrap w-100">RM '.$c['price'].'</h3>
 														</div>

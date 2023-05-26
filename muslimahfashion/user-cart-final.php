@@ -16,10 +16,12 @@
         header("Location: user-cart.php");exit();
     }
 
+    $user       = ($_SESSION['account_session']);
     $methodID    = ($_GET['method'] == 1 ? 'Pick-Up' : 'Delivery');
     $addressID   = $_GET['address'];
     $cartIDStore = [];
-    $allcartMenu = fetchRows("SELECT * FROM user_cart where user=".$_SESSION['account_session']);
+    $cartSizeStore = [];
+    $allcartMenu = fetchRows("SELECT * FROM user_cart where user=".$user);
 
     if(empty($allcartMenu)){
         header("Location: user-cart.php");
@@ -28,14 +30,15 @@
 
     foreach($allcartMenu as $m){
         $cartIDStore[] = $m['menu'];
+        $cartSizeStore[] = $m['size'];
 
         runQuery("DELETE FROM `user_cart` WHERE `user_cart`.`id`=".$m['id']);
     }
 
     $FourDigitRandomNumber = rand(1231,7879);
-    $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$_SESSION['account_session']);
+    $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$user);
 
-    runQuery("INSERT INTO `user_order` (`id`, `user_id`, `menu_id`, `status`, `unique_number`, `address`, `payment_method`, `delivery_method`) VALUES (NULL, '".$_SESSION['account_session']."', '".json_encode($cartIDStore)."', '1', '$FourDigitRandomNumber', '$addressID', '2', '".$_GET['method']."')");
+    runQuery("INSERT INTO `user_order` (`id`, `user_id`, `menu_id`, `status`, `unique_number`, `address`, `payment_method`, `delivery_method`, `size`) VALUES (NULL, '".$user."', '".json_encode($cartIDStore)."', '1', '$FourDigitRandomNumber', '$addressID', '2', '".$_GET['method']."', '".json_encode($cartSizeStore)."')");
 ?>
 
 <!DOCTYPE html>
@@ -61,8 +64,8 @@
                                 <!--#START Body -->
 								<div class="card-body pt-6 pb-6">
                                     <div class="w-full d-flex align-items-center justify-content-center flex-column py-8 gap-3">
-                                        <h3 class="capitalize text-green-600">We have received your purchase, Thank You!</h3>
-                                        <h4 class="m-0 capitalize">Here is your purchase number</h4>
+                                        <h3 class="capitalize text-green-600">We have received your order, Thank You!</h3>
+                                        <h4 class="m-0 capitalize">Here is your invoice number</h4>
                                         <h1><?php echo $FourDigitRandomNumber; ?></h1>
 
                                         <table class="w-30rem">
@@ -86,7 +89,7 @@
                                             </tbody>
                                         </table>
 
-                                        <h4 class="w-20rem line-height-3 text-center">Please keep your purchase number, we will verify it later</h4>
+                                        <h4 class="w-20rem line-height-3 text-center">Please keep your invoice number, we will verify it later</h4>
                                         <a href="user-history.php">
                                             <button class="btn btn-primary">DONE</button>
                                         </a>

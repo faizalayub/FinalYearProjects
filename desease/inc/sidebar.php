@@ -18,7 +18,7 @@
             $sidebarMenu[] = (object) ['label' => 'Dashboard', 'icon' => 'table', 'path' => 'admin-index.php'];
             $sidebarMenu[] = (object) ['label' => 'Computed Disease', 'icon' => 'activity', 'path' => 'admin-recommender.php'];
             $sidebarMenu[] = (object) ['label' => 'Add Body Part', 'icon' => 'user', 'path' => 'admin-create-body.php'];
-            $sidebarMenu[] = (object) ['label' => 'Add Syntom', 'icon' => 'plus-square', 'path' => 'admin-create-syntom.php'];
+            $sidebarMenu[] = (object) ['label' => 'Add symptoms', 'icon' => 'plus-square', 'path' => 'admin-create-syntom.php'];
             $sidebarMenu[] = (object) ['label' => 'Chat', 'icon' => 'message-square', 'path' => 'admin-chat.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'user', 'path' => 'logout-account.php'];
         }

@@ -1,4 +1,7 @@
 <?php
+    $categories = fetchRows("SELECT * FROM category");
+    $bodyparts = fetchRows("SELECT * FROM body_part");
+
     $hasSession = (isset($_SESSION) && !empty($_SESSION));
     $accountData = [];
     $hiddenForAdmin = '';
@@ -28,6 +31,44 @@
 
             <li class="nav-item px-2 dropdown <?php echo $hiddenForAdmin; ?>">
                 <a class="nav-link" href="index.php">Home</a>
+            </li>
+
+            <li class="nav-item px-2 dropdown">
+                <ul class="navbar-nav d-none d-lg-flex">
+                    <li class="nav-item px-2 dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="megaDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Discover
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end dropdown-mega" aria-labelledby="megaDropdown">
+                            <div class="d-md-flex align-items-start justify-content-start">
+                                <div class="dropdown-mega-list">
+                                    <div class="dropdown-header">Category</div>
+                                    <?php
+                                        if(!empty($categories)){
+                                            foreach($categories as $c){
+                                                echo '<a class="dropdown-item" href="./main-shop.php?searchcategory='.$c['id'].'">'.$c['name'].'</a>';
+                                            }
+                                        }else{
+                                            echo 'No category';
+                                        }
+                                    ?>
+                                </div>
+                                <div class="dropdown-mega-list">
+                                    <div class="dropdown-header">Type</div>
+                                    <?php
+                                        if(!empty($bodyparts)){
+                                            foreach($bodyparts as $c){
+                                                echo '<a class="dropdown-item" href="./main-shop.php?searchtype='.$c['id'].'">'.$c['name'].'</a>';
+                                            }
+                                        }else{
+                                            echo 'No type';
+                                        }
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
             </li>
 
             <li class="nav-item px-2 dropdown <?php echo $hiddenForAdmin; ?>">

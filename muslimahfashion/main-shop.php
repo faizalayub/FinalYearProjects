@@ -8,6 +8,17 @@
 
 		$searchKey = ($_GET['searchkey'] ?? '');
         $searchcategory = ($_GET['searchcategory'] ?? '');
+        $searchtype = ($_GET['searchtype'] ?? '');
+
+		$sizeChart = array(
+			array( 'size'=> 'XS', 'Length'=> 27, 'Width'=> 16.5, 'Sleeve'=> 8, 'Weight'=> 40 ),
+			array( 'size'=> 'S', 'Length'=> 28, 'Width'=> 18, 'Sleeve'=> 8.25, 'Weight'=> 50 ),
+			array( 'size'=> 'M', 'Length'=> 29, 'Width'=> 20, 'Sleeve'=> 8.63, 'Weight'=> 60 ),
+			array( 'size'=> 'L', 'Length'=> 30, 'Width'=> 22, 'Sleeve'=> 9.13, 'Weight'=> 70 ),
+			array( 'size'=> 'XL', 'Length'=> 31, 'Width'=> 24, 'Sleeve'=> 9.63, 'Weight'=> 80 ),
+			array( 'size'=> 'XXL', 'Length'=> 32, 'Width'=> 26, 'Sleeve'=> 10.25, 'Weight'=> 90 ),
+			array( 'size'=> 'XXXL', 'Length'=> 33, 'Width'=> 28, 'Sleeve'=> 10.25, 'Weight'=> 100 )
+		);
     ?>
 </head>
 
@@ -23,7 +34,7 @@
 
 					<!--#START Content --->
 					<div class="row">
-						<div class="col-4">
+						<div class="col-3">
 							<div class="card">
 								<div class="card-body pt-3 pb-3">
 
@@ -41,6 +52,17 @@
 											?>
 										</select>
 
+										<select name="searchtype" class="form-control">
+											<option value="">-- Select Type --</option>
+											<?php
+												$bodyparts = fetchRows("SELECT * FROM body_part");
+
+												foreach($bodyparts as $c){
+													echo '<option '.($searchtype == $c['id'] ? 'selected' : '').' value="'.$c['id'].'">'.$c['name'].'</option>';
+												}
+											?>
+										</select>
+
 										<input type="text" name="searchkey" class="form-control" placeholder="Search" value="<?php echo $searchKey; ?>"/>
 
 										<input type="submit" value="Search" class="btn btn-success"/>
@@ -53,7 +75,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-8 row">
+						<div class="col-9 row">
 							<?php
 								$alreadypush = [];
 								$searchquery = '';
@@ -66,11 +88,17 @@
 									if(!empty($searchKey)){
 										$searchquery .= " AND ";
 									}
-
 									$searchquery .= "category = ".$searchcategory;
 								}
 
-								if(empty($searchKey) && empty($searchcategory)){
+								if(!empty($searchtype)){
+									if(!empty($searchKey)){
+										$searchquery .= " AND ";
+									}
+									$searchquery .= "body_type = ".$searchtype;
+								}
+
+								if(empty($searchKey) && empty($searchcategory) && empty($searchtype)){
 									$searchquery = '(1=1)';
 								}
 
@@ -95,23 +123,62 @@
 
 									//# Loop Product
 									foreach($productPreview as $c){
+										$isOutstock = FALSE;
 										$totalOrdered = 0;
-										$categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+										$totalCart = 0;
+										$bodytype = [];
+										$categoryname = [];
 										$stockbalance = $c['in_stock'];
+
+										if(isset($_SESSION['account_session'])){
+											$totalCart = numRows("SELECT * FROM user_cart where user=".$_SESSION['account_session']." AND menu=".$c['id']);
+										}
+
+										if(!empty($c['category'])){
+											$categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+										}
+	
+										if(!empty($c['body_type'])){
+											$bodytype = fetchRow("SELECT * from body_part WHERE id = ".$c['body_type']);
+										}
 
 										if(isset($productOrder[$c['id']])){
 											$totalOrdered = explode(',',$productOrder[$c['id']]);
 											$totalOrdered = count($totalOrdered);
 										}
 
-										if(($stockbalance - $totalOrdered) <= 0){
-											continue;
+										if(($stockbalance - $totalOrdered - $totalCart) <= 0){
+											$isOutstock = TRUE;
+										}
+
+										if($isOutstock == FALSE){
+											$sizeOptions = '';
+
+											foreach($sizeChart as $size){
+												$sizeOptions .= '<option class="'.$size['size'].'">'.$size['size'].'</option>';
+											}
+
+											$addCartButton = '
+												<form method="GET" action="./main-shop-addcart.php" class="input-group">
+													<select name="size" class="form-select flex-grow-1">'.$sizeOptions.'</select>
+
+													<input type="hidden" name="id" value="'.$c['id'].'"/>
+
+													<button class="btn btn-primary" type="submit">Add Cart</button>
+												</form>
+
+												<a href="#" class="text-muted d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#size-chart-modal">Size guide</a>
+											';
+										}
+
+										if($isOutstock == TRUE){
+											$addCartButton = '<span class="text-danger fw-bold">No Stock</span>';
 										}
 
 										//# Product Card
 										if(!in_array($c['id'], $alreadypush)){
 											echo '
-												<div class="col-3">
+												<div class="col-4">
 													<div class="card">
 
 														<div class="card-body pt-3 pb-3">
@@ -119,6 +186,8 @@
 
 															<div class="w-100 d-flex flex-column gap-2 pt-2">
 																<span class="w-100 fw-bold">'.$c['name'].'</span>
+																
+																'.(!empty($bodytype['name']) ? '<span class="w-100 text-nowrap text-primary fw-bold">'.$bodytype['name'].'</span>' : '').'
 
 																<span class="w-100 text-nowrap">'.$categoryname['name'].'</span>
 
@@ -126,9 +195,7 @@
 
 																<span class="w-100 fst-italic text-success fw-bold text-nowrap">RM '.$c['price'].'</span>
 
-																<a href="./main-shop-addcart.php?id='.$c['id'].'" class="btn btn-primary text-nowrap">Add Cart</a>
-
-																<a href="#" class="text-muted d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#size-chart-modal">Size guide</a>
+																'.$addCartButton.'
 															</div>
 														</div>
 
@@ -204,15 +271,7 @@
 		let bodyWeightEl   = document.querySelector('#weight-input');
 		let bodyHeightEl   = document.querySelector('#height-input');
 
-		let defaultTable = [
-			{ size: 'XS', Length: 27, Width: 16.5, Sleeve: 8, Weight: 40 },
-			{ size: 'S', Length: 28, Width: 18, Sleeve: 8.25, Weight: 50 },
-			{ size: 'M', Length: 29, Width: 20, Sleeve: 8.63, Weight: 60 },
-			{ size: 'L', Length: 30, Width: 22, Sleeve: 9.13, Weight: 70 },
-			{ size: 'XL', Length: 31, Width: 24, Sleeve: 9.63, Weight: 80 },
-			{ size: 'XXL', Length: 32, Width: 26, Sleeve: 10.25, Weight: 90 },
-			{ size: 'XXXL', Length: 33, Width: 28, Sleeve: 10.25, Weight: 100 }
-		];
+		let defaultTable = JSON.parse('<?php echo json_encode($sizeChart); ?>');
 
 		let suggestSize = function(weight, height){
 			if(weight > 0 && height > 0){

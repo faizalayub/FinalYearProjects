@@ -107,8 +107,8 @@
                                                         </span>
                                                         <ol class="p-0 m-0 px-3" style="flex: 1;">'.$diseaseList.'</ol>
                                                         <div class="d-flex flex-column">
-                                                            <span class="text-muted">Total syntom: '.count($body) + count($syntom).'</span>
-                                                            <a href="admin-recommender.php?id='.$value['id'].'" class="btn btn-primary">Update Syntom</a>
+                                                            <span class="text-muted">Total symptoms: '.count($body) + count($syntom).'</span>
+                                                            <a href="admin-recommender.php?id='.$value['id'].'" class="btn btn-primary">Update Symptoms</a>
                                                         </div>
                                                     </li>';
                                                 }

@@ -77,6 +77,20 @@
                                         </div>
 
                                         <div class="mb-3">
+                                            <label class="form-label">Body Part</label>
+                                            <select required name="menu_bodypart" placeholder="Product Category" class="form-control">
+                                                <option value="">Nothing Selected</option>
+                                                <?php
+                                                    $bodyparts = fetchRows("SELECT * FROM body_part");
+
+                                                    foreach($bodyparts as $c){
+                                                        echo '<option '.(!empty($article['body_type']) && $article['body_type'] == $c['id'] ? 'selected' : '').' value="'.$c['id'].'">'.$c['name'].'</option>';
+                                                    }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="mb-3">
                                             <label class="form-label w-100">Picture</label>
                                             <input type="file" name="fileToUpload" placeholder="Choose Picture"/>
                                             <small class="form-text text-muted">Select picture of the product (JPG or JPEG)</small>
@@ -111,6 +125,7 @@
             $menu_stock = ($_POST['menu_stock'] ?? '');
             $menu_price = ($_POST['menu_price'] ?? '');
             $menu_category = ($_POST['menu_category'] ?? '');
+            $menu_bodypart = ($_POST['menu_bodypart'] ?? '');
 
             if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["size"])){
                 $target_dir = "images/";
@@ -133,11 +148,11 @@
             }
 
             if(isset($_GET['id'])){
-                runQuery("UPDATE `menu` SET `name` = '$menu_name', `image` = '$imagename', `category` = '$menu_category', `price` = '$menu_price', `in_stock` = '$menu_stock' WHERE `menu`.`id` = ".$_GET['id']);
+                runQuery("UPDATE `menu` SET `name` = '$menu_name', `image` = '$imagename', `category` = '$menu_category', `price` = '$menu_price', `in_stock` = '$menu_stock', `body_type` = '$menu_bodypart' WHERE `menu`.`id` = ".$_GET['id']);
 
                 ToastMessage('Success', 'Product Saved', 'success', 'admin-product.php');
             }else{
-                runQuery("INSERT INTO `menu` (`id`, `name`, `category`, `image`, `price`, `in_stock`, `is_active`) VALUES (NULL, '$menu_name', '$menu_category', '$imagename', '$menu_price', '$menu_stock', '1')");
+                runQuery("INSERT INTO `menu` (`id`, `name`, `category`, `image`, `price`, `in_stock`, `is_active`, `body_type`) VALUES (NULL, '$menu_name', '$menu_category', '$imagename', '$menu_price', '$menu_stock', '1', '$menu_bodypart')");
 
                 ToastMessage('Success', 'Product Added', 'success', 'admin-product.php');
             }
