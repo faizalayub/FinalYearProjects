@@ -46,18 +46,19 @@
                                     <form method="POST">
 
                                         <div class="mb-3 row">
-                                            <label class="col-form-label col-sm-2 text-sm-end">Name</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" placeholder="Name" name="fullname" value="<?php echo $profiledata['name']; ?>">
-                                            </div>
-                                        </div>
-
-                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-2 text-sm-end">Email</label>
                                             <div class="col-sm-10">
                                                 <input type="email" class="form-control" placeholder="Email" name="email" value="<?php echo $profiledata['email']; ?>">
                                             </div>
                                         </div>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">Full Name</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" placeholder="Name" name="fullname" value="<?php echo $profiledata['name']; ?>">
+                                            </div>
+                                        </div>
+                                        
 
                                         <div class="mb-3 row">
                                             <label class="col-form-label col-sm-2 text-sm-end">Phone</label>

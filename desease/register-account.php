@@ -30,7 +30,37 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <label for="newemail" class="form-label">Name: </label>
+                            <label for="newemail" class="form-label">Email: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <input type="email" name="email" class="input-text" placeholder="Email Address" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <label for="newemail" class="form-label">MyKad Number: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <input type="text" name="ic" class="input-text" placeholder="My Kad" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <label for="newemail" class="form-label">Birthday Date: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <input type="date" name="birthdate" class="input-text" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <label for="newemail" class="form-label">Full Name: </label>
                         </td>
                     </tr>
                     <tr>
@@ -40,12 +70,22 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <label for="newemail" class="form-label">Email: </label>
+                            <label for="newemail" class="form-label">Age: </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <input type="email" name="email" class="input-text" placeholder="Email Address" required>
+                            <input type="text" name="age" class="input-text" placeholder="Age" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <label class="form-label">Healthy Concern: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <textarea class="input-text" placeholder="Describe about your healthy concern" rows="1" name="healthyconcern"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -65,7 +105,7 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <textarea class="input-text" placeholder="Address" rows="3" name="address"></textarea>
+                            <textarea class="input-text" placeholder="Address" rows="1" name="address"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -102,13 +142,17 @@
 
     <?php
         if(isset($_POST['create_account'])){
-            $name = $_POST['fullname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $phone = $_POST['phone'];
-            $address = $_POST['address'];
+            $name           = addslashes($_POST['fullname']);
+            $email          = addslashes($_POST['email']);
+            $password       = addslashes($_POST['password']);
+            $phone          = addslashes($_POST['phone']);
+            $address        = addslashes($_POST['address']);
+            $ic             = addslashes($_POST['ic']);
+            $age            = addslashes($_POST['age']);
+            $healthyconcern = addslashes($_POST['healthyconcern']);
+            $birthdate      = addslashes($_POST['birthdate']);
 
-            $result = runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address')");
+            $result = runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `ic`, `age`, `birthdate`, `healthyconcern`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address', '$ic', '$age', '$birthdate', '$healthyconcern')");
 
             echo '<script>alert("Account created successfully");window.location.href="login-account.php"</script>';
         }

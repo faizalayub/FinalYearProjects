@@ -9,9 +9,9 @@
 
         if(!empty($result)){
             $_SESSION['account_user'] = $result['id'];
-            echo '<script>alert("Success");window.location.href="watch-list.php"</script>';
+            echo '<script>alert("Success");window.location.href="user-shop.php"</script>';
         }else{
-            echo '<script>alert("Invalid credential, Please try again");window.location.href="user-login.php"</script>';
+            echo '<script>alert("Invalid credential, Please try again");window.location.href="login-user.php"</script>';
         }
     }
 ?>

@@ -59,9 +59,6 @@
 </head>
 <body class="h-screen surface-0 p-8">
     <div class="surface-0 border-round-2xl h-full shadow-3 content-paper-bg p-3">
-        <a href="./navigation-admin.php" class="p-3 surface-900 border-circle">
-            <i class="fa fa-home text-0 text-6xl" aria-hidden="true"></i>
-        </a>
 
         <!-- START Content-->
         <form method="POST" enctype="multipart/form-data" class="h-full w-full flex align-items-center justify-content-center flex-column gap-5">
@@ -93,7 +90,12 @@
                 </div>
             </div>
 
-            <button name="productupload" type="submit" class="no-underline uppercase text-2xl bg-yellow-500 cursor-pointer py-2 px-6 h-4rem border-3 border-yellow-600 hover:border-yellow-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Submit</button>
+            <div class="w-full flex align-items-center justify-content-center gap-3 flex-wrap">
+                <a href="admin-items.php" class="no-underline">
+                    <button type="button" class="no-underline uppercase text-2xl bg-bluegray-500 cursor-pointer py-2 px-6 h-4rem border-3 border-bluegray-600 hover:border-bluegray-800 border-circle border-3 text-0 flex align-items-center justify-content-center">Go Back</button>
+                </a>
+                <button name="productupload" type="submit" class="no-underline uppercase text-2xl bg-yellow-500 cursor-pointer py-2 px-6 h-4rem border-3 border-yellow-600 hover:border-yellow-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Submit</button>
+            </div>
         </div>
         <!-- END Content-->
 

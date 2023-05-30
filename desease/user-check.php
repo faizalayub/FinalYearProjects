@@ -26,22 +26,14 @@
             background: #fff !important;
         }
 
-        .list-container h2{
-            position: sticky;
-            top: 0;
-            background: #fff;
-            z-index: 99;
-        }
-
-        .list-container{
-            max-height: 50vh;
-            min-height: 50vh;
-            overflow: auto;
-            overscroll-behavior: contain;
-        }
-
         #progress-content-section .section-content{
             padding: unset !important;
+        }
+
+        .card-body-scroller{
+            min-height: 80vh;
+            max-height: 80vh;
+            overflow: auto;
         }
     </style>
 </head>
@@ -63,96 +55,106 @@
                     </div>
                     <!--#END HEADER -->
 
-                    <!--#START Chart -->
+                    <!--#START Content -->
                     <div class="row">
-						<div class="col-xl-12 col-xxl-12">
-							<div class="card flex-fill w-100">
+						<div class="col-md-5 col-xl-4">
 
-                                <!--#START Header -->
-								<div class="card-header"></div>
-                                <!--#END Header -->
-
-                                <!--#START Content -->
-								<div class="card-body pt-2 pb-3 vh-100">
-
-                                    <div class="progress-wrapper">
-                                        <div id="progress-bar-container">
-                                            <ul>
-                                                <li class="step step01 active">
-                                                    <div class="step-inner">Body Part</div>
-                                                </li>
-                                                <li class="step step02">
-                                                    <div class="step-inner">Syntom</div>
-                                                </li>
-                                                <li class="step step03">
-                                                    <div class="step-inner">Result</div>
-                                                </li>
-                                            </ul>
-
-                                            <div id="line">
-                                                <div id="line-progress"></div>
-                                            </div>
-                                            
-                                            <div id="progress-content-section">
-                                                <div class="section-content step1 active list-container">
-                                                    <h2 class="pb-4 d-flex flex-column gap-3">
-                                                        Choose parts of the body affected by diseases
-                                                        <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-1')"/>
-                                                    </h2>
-
-                                                    <div id="options-step-1" class="w-100 d-flex flex-column contents">
-                                                        <?php
-                                                            if(!empty($bodylist)){
-                                                                foreach($bodylist as $key => $value){
-                                                                    echo '
-                                                                    <div data-label="'.$value['name'].'" class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
-                                                                        <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="bodypart_'.$key.'">
-                                                                        <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="bodypart_'.$key.'">'.$value['name'].'</label>
-                                                                    </div>';
-                                                                }
-                                                            }else{
-                                                                echo '<div class="w-100">No options</div>';
-                                                            }
-                                                        ?>
-                                                    </div>
-
-                                                </div>
-                                                <div class="section-content step2 list-container">
-                                                    <h2 class="pb-4 d-flex flex-column gap-3">
-                                                        Choose symptoms that affecting you
-                                                        <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-2')"/>
-                                                    </h2>
-
-                                                    <div id="options-step-2" class="w-100 d-flex flex-column contents">
-                                                        <?php
-                                                            if(!empty($syntomlist)){
-                                                                foreach($syntomlist as $key => $value){
-                                                                    echo '
-                                                                    <div data-label="'.$value['name'].'" class="cursor-pointer border border-1 form-check d-flex align-items-center gap-3 p-0 bg-light rounded-3">
-                                                                        <input class="cursor-pointer form-check-input p-3 ms-2 mt-0" type="checkbox" value="'.$value['id'].'" id="syntompart_'.$key.'">
-                                                                        <label class="cursor-pointer form-check-label py-3 text-lg fw-bold" for="syntompart_'.$key.'">'.$value['name'].'</label>
-                                                                    </div>';
-                                                                }
-                                                            }else{
-                                                                echo '<div class="w-100">No options</div>';
-                                                            }
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                                <div class="section-content step3 list-container">
-                                                    <h2 class="w-100">
-                                                        <button class="btn btn-secondary submit-button"><i class="align-middle" data-feather="refresh-cw"></i> Check symptoms Now</button>
-                                                    </h2>
-                                                    
-                                                    <div id="result-response-disease" class="w-100 p-3"></div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">Symptom Checker</h5>
 								</div>
-                                <!--#END Content -->
+
+								<div class="list-group list-group-flush" role="tablist">
+									<a class="list-group-item list-group-item-action d-flex gap-3 active" data-bs-toggle="list" href="#diseasebody" role="tab" aria-selected="true">
+                                        <span class="fw-bold">STEP 1:</span> Choose effected body parts
+									</a>
+									<a class="list-group-item list-group-item-action d-flex gap-3" data-bs-toggle="list" href="#diseasesyntom" role="tab" aria-selected="false" tabindex="-1">
+                                        <span class="fw-bold">STEP 2:</span> Select related symtom
+									</a>
+									<a class="list-group-item list-group-item-action d-flex gap-3" data-bs-toggle="list" href="#diseaseresult" role="tab" aria-selected="false" tabindex="-1">
+                                        <span class="fw-bold">STEP 3:</span> View possible causes
+									</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-7 col-xl-8">
+							<div class="tab-content">
+
+								<div class="tab-pane fade show active" id="diseasebody" role="tabpanel">
+									<div class="card">
+										<div class="card-header d-flex flex-column gap-3">
+											<h5 class="card-title mb-0">Choose effected body parts</h5>
+                                            <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-1')">
+										</div>
+										<div class="card-body card-body-scroller py-0">
+                                            <div class="dropdown-menu mb-3" style="position:static;display:block;" id="options-step-1">
+                                                <?php
+                                                    if(!empty($bodylist)){
+                                                        foreach($bodylist as $key => $value){
+                                                            echo '
+                                                            <div class="dropdown-item py-0 cursor-pointer" data-label="'.$value['name'].'">
+                                                                <label class="form-check m-0 py-2">
+                                                                    <input class="form-check-input" type="checkbox" value="'.$value['id'].'">
+                                                                    <span class="form-check-label">'.$value['name'].'</span>
+                                                                </label>
+                                                            </div>';
+                                                        }
+                                                    }else{
+                                                        echo '<div class="w-100">No options</div>';
+                                                    }
+                                                ?>
+											</div>
+                                        </div>
+                                        <div class="card-footer"></div>
+									</div>
+								</div>
+
+								<div class="tab-pane fade" id="diseasesyntom" role="tabpanel">
+                                    <div class="card">
+                                        <div class="card-header d-flex flex-column gap-3">
+											<h5 class="card-title mb-0">Select related symtom</h5>
+                                            <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-2')">
+										</div>
+										<div class="card-body card-body-scroller py-0">
+                                            <div class="dropdown-menu mb-3" style="position:static;display:block;" id="options-step-2">
+                                                <?php
+                                                    if(!empty($syntomlist)){
+                                                        foreach($syntomlist as $key => $value){
+                                                            echo '
+                                                            <div class="dropdown-item py-0 cursor-pointer" data-label="'.$value['name'].'">
+                                                                <label class="form-check m-0 py-2">
+                                                                    <input class="form-check-input" type="checkbox" value="'.$value['id'].'">
+                                                                    <span class="form-check-label">'.$value['name'].'</span>
+                                                                </label>
+                                                            </div>';
+                                                        }
+                                                    }else{
+                                                        echo '<div class="w-100">No options</div>';
+                                                    }
+                                                ?>
+											</div>
+                                        </div>
+                                        <div class="card-footer"></div>
+									</div>
+								</div>
+
+                                <div class="tab-pane fade" id="diseaseresult" role="tabpanel">
+                                    <div class="card">
+										<div class="card-header d-flex flex-column gap-3">
+											<h5 class="card-title mb-0">View possible causes</h5>
+                                            <button class="btn btn-success submit-button">Find Causes</button>
+										</div>
+										<div class="card-body p-0 card-body-scroller">
+                                            <div id="finder-loader" class="d-none loader w-100 d-flex justify-content-center align-items-center pb-6 pt-5">
+                                                <div class="spinner-border text-success" role="status"><span class="visually-hidden">Loading...</span></div>
+                                            </div>
+
+                                            <div class="w-100 p-3 accordion" id="result-response-disease"></div>
+                                        </div>
+                                        <div class="card-footer"></div>
+									</div>
+								</div>
 
 							</div>
 						</div>
@@ -171,6 +173,7 @@
         let stepOne = $('#options-step-1');
         let stepTwo = $('#options-step-2');
         let responseLand = $('#result-response-disease');
+        let responseLoader = $('#finder-loader');
 
         let IsValidJSONString = function (str) {
             try {
@@ -202,6 +205,7 @@
         });
 
         $('.submit-button').on('click', function(){
+            const $button = $(this);
             let collectionBody = [];
             let collectionSyntom = [];
 
@@ -221,42 +225,52 @@
                     syntom: collectionSyntom.join(',')
                 },
                 beforeSend: function(){
-                    console.log('before submit');
+                    $button.attr('disabled', true);
+                    responseLoader.removeClass('d-none');
+                    responseLand.html('');
                 },
                 success: function(jsonstring){
                     const listdata = (IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
                     let responseUi = '';
 
-                    if(Array.isArray(listdata)){
-                        listdata.forEach((c, i) => {
-                            responseUi += `<div class="p-2" style="white-space: pre-line;text-align: initial;">${ (i + 1) }. ${ c }</div>`;
-                        })
-                    }
+                    setTimeout(() => {
+                        $button.attr('disabled', false);
+                        responseLoader.addClass('d-none');
 
-                    if(responseUi != ''){
-                        responseLand.html(`
-                        <div class="alert alert-success alert-dismissible" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        if(Array.isArray(listdata)){
+                            listdata.forEach((c, i) => {
+                                const splitByBreakline = (c.split('\n'));
 
-                            <div class="alert-message">
-                                <h4 class="alert-heading">Result found!</h4>
-                                <p class="text-success">Base on your syntom, we conclude that you probably may have these issue.</p>
-                                <hr>
-                                <div class="w-100 d-flex flex-column text-left align-items-start">${ responseUi }</div>
-                            </div>
-                        </div>`);
-                    }
+                                responseUi += `
+                                <div class="card">
+                                    <div class="card-header p-0 bg-light border" id="heading${ i }">
+                                        <h5 class="card-title m-0 p-0 d-flex">
+                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse${ i }" aria-expanded="false" aria-controls="collapse${ i }" class="collapsed flex-grow-1 p-3">
+                                                ${ (splitByBreakline[0] ?? '-') }
+                                            </a>
+                                        </h5>
+                                    </div>
+                                    <div id="collapse${ i }" class="collapse" aria-labelledby="heading${ i }" data-bs-parent="#result-response-disease" style="">
+                                        <div class="card-body">
+                                            <p class="p-0 m-0" style="white-space: pre-line;text-align: initial;">${ c }</p>
+                                        </div>
+                                    </div>
+                                </div>`;
+                            });
+                        }
 
-                    if(responseUi == ''){
-                        responseLand.html(`
-                        <div class="alert alert-danger alert-dismissible" role="alert">
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                            <div class="alert-message">
-                                <h4 class="alert-heading">No result found!</h4>
-                                <p>Sorry we could not justify what kind of disease you have</p>
-                            </div>
-                        </div>`);
-                    }
+                        if(responseUi != ''){
+                            responseLand.html(responseUi);
+                        }else{
+                            responseLand.html(`
+                            <div class="alert alert-warning" role="alert">
+                                <div class="alert-message">
+                                    <h4 class="alert-heading">No result found!</h4>
+                                    <p class="m-0 p-0">Sorry we could not justify what kind of disease you have, please try again with another symtom</p>
+                                </div>
+                            </div>`);
+                        }
+                    }, 2000);
                 }
             });
         });
