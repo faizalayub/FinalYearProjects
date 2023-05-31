@@ -41,30 +41,23 @@
 								<div class="card-body pt-4 pb-3">
 
                                 <div class="w-100 table-responsive">
-                                    <table class="table table-striped table-bordered">
-                                        <tr class="shadow-1 border-1">
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">No.</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Status</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Products</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Order Number</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Payment Receipt</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Payment Method</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Delivery Method</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">User Name</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">User Email</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">User Phone</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">User Address</th>
-                                            <th class="py-2 surface-0 px-3 white-space-nowrap">Set Status As</th>
+                                    <table class="w-100 table table-bordered table-striped">
+                                        <tr>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">No.</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Products</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Invoice Number</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Time</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Delivery</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Status</th>
                                         </tr>
 
                                         <?php
-                                            $indexing = 0;
-                                            $userrecord = fetchRows("SELECT * FROM `user_order`");
+                                            $counter = 0;
+                                            $userrecord = fetchRows("SELECT * FROM `user_order` ORDER BY status DESC");
 
                                             foreach($userrecord as $key => $value){
 
-                                                $menuList = '<ol>';
-                                                $userdata = fetchRow("SELECT * FROM `login` WHERE id=".$value['user_id']);
+                                                $menuList = '<ol class="p-3 m-0">';
                                                 $menuorder = json_decode($value['menu_id']);
                                                 $menusize = json_decode($value['size']);
 
@@ -77,24 +70,32 @@
                                                 }
 
                                                 $menuList .= '</ol>';
-                                                $indexing++;
+                                                $counter++;
                                         ?>
                                         <tr>
-                                            <td class="py-2 surface-0 px-3 white-space-nowrap">
-                                                <?php echo $indexing; ?>.
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo ($counter); ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300 flex align-items-center justify-content-center"><?php echo $menuList; ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo $value['unique_number']; ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo date_format(date_create($value['created_date']),"d F Y h:i A"); ?></td>
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
+                                                <?php
+                                                    if($value['delivery_method'] == 1) echo 'Pick-Up';
+
+                                                    if($value['delivery_method'] == 2) echo 'Delivery';
+                                                ?>
                                             </td>
-                                            <td class="py-2 surface-0 px-3">
+                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
                                                 <?php
                                                     if($value['status'] == 1){
-                                                        echo '<span class="badge bg-secondary">Pending</span>';
+                                                        echo '<span class="badge bg-secondary">Preparing</span>';
                                                     }
 
                                                     if($value['status'] == 2){
-                                                        echo '<span class="badge bg-primary">Preparing</span>';
+                                                        echo '<span class="badge bg-primary">Packing..</span>';
                                                     }
 
                                                     if($value['status'] == 3){
-                                                        echo '<span class="badge bg-warning">Shipping</span>';
+                                                        echo '<span class="badge bg-warning">Ready!</span>';
                                                     }
 
                                                     if($value['status'] == 4){
@@ -102,47 +103,17 @@
                                                     }
                                                 ?>
                                             </td>
-                                            <td class="py-2 surface-0 px-3"><?php echo $menuList; ?></td>
-                                            <td class="py-2 surface-0 px-3 text-center"><?php echo $value['unique_number']; ?></td>
-                                            <td class="py-2 surface-0 px-3 text-center">
-                                                <?php
-                                                    if(!empty($value['payment_receipt'])){
-                                                        echo '<a href="./images/'.$value['payment_receipt'].'" download>Download Receipt</a>';
-                                                    }else{
-                                                        echo '-';
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td class="py-2 surface-0 px-3 text-center">
-                                                <?php
-                                                    if($value['payment_method'] == 1) echo 'Online Transfer';
-
-                                                    if($value['payment_method'] == 2) echo 'Cash';
-                                                ?>    
-                                            </td>
-                                            <td class="py-2 surface-0 px-3 text-center">
-                                                <?php
-                                                    if($value['delivery_method'] == 1) echo 'Pick-Up';
-
-                                                    if($value['delivery_method'] == 2) echo 'Delivery';
-                                                ?>
-                                            </td>
-                                            <td class="py-2 surface-0 px-3 white-space-nowrap"><?php echo $userdata['name']; ?></td>
-                                            <td class="py-2 surface-0 px-3 white-space-nowrap"><?php echo $userdata['email']; ?></td>
-                                            <td class="py-2 surface-0 px-3 white-space-nowrap"><?php echo $userdata['phone']; ?></td>
-                                            <td class="py-2 surface-0 px-3 white-space-nowrap"><?php echo $userdata['address']; ?></td>
-
-                                            <td class="py-2 surface-0 px-3 flex flex-column gap-2 align-items-center justify-content-center h-full">
-                                                <a class="white-space-nowrap no-underline" href="admin-order-status.php?id=<?php echo $value['id']; ?>&status=2">Preparing</a> |
-                                                <a class="white-space-nowrap no-underline" href="admin-order-status.php?id=<?php echo $value['id']; ?>&status=3">Shipping</a> | 
-                                                <a class="white-space-nowrap no-underline" href="admin-order-status.php?id=<?php echo $value['id']; ?>&status=4">Completed</a>
-                                            </td>
                                         </tr>
                                         <?php } ?>
                                         
-                                        <?php if(empty($userrecord)){ ?>
-                                        <tr><td class="p-3" colspan="15">No Record Yet</td></tr>
-                                        <?php } ?>
+                                        <?php
+                                            if(empty($userrecord)){
+                                                echo '
+                                                <tr>
+                                                    <td class="p-3" colspan="6">No Record Yet</td>
+                                                </tr>';
+                                            }
+                                        ?>
                                     </table>
                                 </div>
 

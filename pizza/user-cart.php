@@ -194,32 +194,6 @@
                                                                 </th>
                                                             </tr>
 
-                                                            <!--<tr>
-                                                                <td colspan="'.$totalCol.'">
-                                                                    <label class="form-label">Delivery Method</label>
-
-                                                                    <select name="delivery_method" class="form-control" required>
-                                                                        <option value="0" disabled="">Choose</option>
-                                                                        <option value="1">Pick-Up</option>
-                                                                        <option value="2" selected>Delivery</option>
-                                                                    </select>
-                                                                </td>
-                                                            </tr>-->
-
-                                                            <tr id="delivery_address_field">
-                                                                <td colspan="'.$totalCol.'">
-                                                                    <label class="form-label fw-bold">Enter Delivery Address</label>
-                                                                    <textarea name="delivery_address" class="form-control m-0" placeholder="Enter delivery address">'.$profiledata['address'].'</textarea>
-                                                                </td>
-                                                            </tr>
-
-                                                            <tr id="pickup_address_field">
-                                                                <td colspan="'.$totalCol.'">
-                                                                    <label class="form-label fw-bold">Pickup Address</label>
-                                                                    <address class="form-control m-0">'.$defaultAddress.'</address>
-                                                                </td>
-                                                            </tr>
-
                                                             <tr id="pickup_address_field">
                                                                 <td colspan="'.$totalCol.'">
                                                                     <label class="form-label fw-bold">Customer Name</label>
@@ -237,6 +211,7 @@
                                                             <tr>
                                                                 <td colspan="'.$totalCol.'">
                                                                     <div class="d-flex justify-content-end">
+                                                                        <input type="hidden" name="delivery_address" value=""/>
                                                                         <input type="hidden" name="delivery_method" value="1"/>
                                                                         <input type="submit" name="pay_cash" value="Submit" class="btn btn-primary" />
                                                                         <!--<input type="submit" name="pay_online" value="Online Transfer" class="btn btn-success"/>-->
@@ -269,28 +244,5 @@
             <?php include 'footer.php'; ?>
         </div>
     </div>
-
-    <script>
-        let onChangeCallback = function(value){
-            let addressField = document.querySelector('#delivery_address_field');
-            let pickupField = document.querySelector('#pickup_address_field');
-
-            if(value == 1){
-                if(addressField) addressField.style.display = 'none';
-                if(pickupField) pickupField.style.display = '';
-            }else{
-                if(addressField) addressField.style.display = '';
-                if(pickupField) pickupField.style.display = 'none';
-            }
-        };
-
-        if(document.querySelector('[name="delivery_method"]')){
-            document.querySelector('[name="delivery_method"]').addEventListener('change', function(e){
-                onChangeCallback(e.target.value);
-            });
-        }
-
-        onChangeCallback(1);
-    </script>
 </body>
 </html>
