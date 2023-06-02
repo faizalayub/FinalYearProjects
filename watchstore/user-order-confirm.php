@@ -1,13 +1,5 @@
 <?php
     include 'config.php';
-    
-    if(!isset($_SESSION['account_user'])){
-        echo '<script>window.location.href="login-user.php"</script>';
-    }
-
-    if(!isset($_GET['id'])){
-        echo '<script>window.location.href="user-shop.php"</script>';
-    }
 
     $id = $_GET['id'];
 
@@ -37,16 +29,23 @@
                     <img src="images/<?php echo $productdata['image']; ?>" class="w-15rem h-15rem border-circle shadow-3 p-3"/>
                 </div>
                 <div class="flex-1 surface-0 p-3 border-round-2xl flex flex-column gap-2">
-                    <h3 class="flex-1 text-center"><?php echo $productdata['name']; ?></h3>
+                    <h3 class="flex-1 text-center text-2xl"><?php echo $productdata['name']; ?></h3>
 
                     <span class="text-red-500 text-2xl font-bold text-center w-full">RM <?php echo $productdata['price']; ?></span>
 
-                    <p class="p-3 m-0 surface-ground w-30rem" style="white-space: pre-line;">
-                        <?php echo $productdata['description']; ?>
-                    </p>
+                    <p class="p-3 m-0 surface-ground w-30rem text-2xl max-h-30rem overflow-auto" style="white-space: pre-line;"><?php echo $productdata['description']; ?></p>
+
+                    <div class="mt-3 w-full flex align-items-center justify-content-center">
+                        <input type="text" class="flex-1 border-3 px-3 py-2 text-2xl" placeholder="SHOP VOUCHER"/>
+                        <button type="button" class="no-underline border-3 border-600 font-bold text-700 px-3 py-2 cursor-pointers text-2xl">VERIFY</button>
+                    </div>
+
+                    <div class="mt-3 w-full flex align-items-center justify-content-center gap-3">
+                        <a href="user-order-finish.php?action=online&menu=<?php echo $id; ?>" class="no-underline border-3 border-600 font-bold text-700 border-round-3xl px-3 py-2 cursor-pointers text-2xl">ONLINE</a>
+                        <a href="user-order-finish.php?action=cod&menu=<?php echo $id; ?>" class="no-underline border-3 border-600 font-bold text-700 border-round-3xl px-3 py-2 cursor-pointers text-2xl">COD</a>
+                    </div>
                 </div>
             </div>
-            <div></div>
         </div>
         <!-- END Content-->
 

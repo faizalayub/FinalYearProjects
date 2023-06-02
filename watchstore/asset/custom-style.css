@@ -43,7 +43,11 @@
     background: transparent;
 }
 
-/* Modal Content/Box */
+.vertical-text{
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+}
+
 .modal-content {
     margin: 15% auto;
     padding: 20px;

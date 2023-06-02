@@ -15,11 +15,22 @@
     <div class="surface-0 border-round-2xl h-full shadow-3 content-paper-bg p-3">
 
         <!-- START Content-->
-        <div class="h-full w-full flex align-items-center justify-content-center flex-column gap-6">
-            <a href="./admin-items.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-yellow-900 no-underline text-2xl bg-yellow-600 hover:bg-yellow-400 py-4 px-6 w-20rem border-3 border-yellow-600 text-center border-round-4xl">Manage Items</a>
-            <a href="./admin-buyers.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-yellow-900 no-underline text-2xl bg-yellow-600 hover:bg-yellow-400 py-4 px-6 w-20rem border-3 border-yellow-600 text-center border-round-4xl">Manage buyers/users</a>
-            <a href="./admin-interest.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-yellow-900 no-underline text-2xl bg-yellow-600 hover:bg-yellow-400 py-4 px-6 w-20rem border-3 border-yellow-600 text-center border-round-4xl">Manage interest</a>
-            <a href="./logout.php" class="cursor-pointer flex align-items-center justify-content-center uppercase text-yellow-900 no-underline text-2xl bg-yellow-600 hover:bg-yellow-400 py-4 px-6 w-20rem border-3 border-yellow-600 text-center border-round-4xl">Logout</a>
+        <div class="h-full w-full grid">
+            <div class="col-6 p-6 flex align-items-end justify-content-end">
+                <a href="./admin-items.php" class="cursor-pointer flex align-items-center justify-content-center text-800 no-underline text-2xl bg-yellow-50 h-10rem w-20rem border-3 border-800 text-center border-circle">Manage Items</a>
+            </div>
+
+            <div class="col-6 p-6 flex align-items-end justify-content-start">
+                <a href="./admin-buyers.php" class="cursor-pointer flex align-items-center justify-content-center text-800 no-underline text-2xl bg-yellow-50 h-10rem w-20rem border-3 border-800 text-center border-circle">Manage buyers/users</a>
+            </div>
+
+            <div class="col-6 p-6 flex align-items-start justify-content-end">
+                <a href="./admin-interest.php" class="cursor-pointer flex align-items-center justify-content-center text-800 no-underline text-2xl bg-yellow-50 h-10rem w-20rem border-3 border-800 text-center border-circle">Manage interest</a>
+            </div>
+
+            <div class="col-6 p-6 flex align-items-start justify-content-start">
+                <a href="./logout.php" class="cursor-pointer flex align-items-center justify-content-center text-800 no-underline text-2xl bg-yellow-50 h-10rem w-20rem border-3 border-800 text-center border-circle">Logout</a>
+            </div>
         </div>
         <!-- END Content-->
 

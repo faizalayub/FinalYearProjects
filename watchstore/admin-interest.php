@@ -1,3 +1,9 @@
+<?php
+    include 'config.php';
+
+    $product = fetchRows("SELECT * FROM menu WHERE is_active = 1");
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="h-full">
 <head>
@@ -15,11 +21,42 @@
     <div class="surface-0 border-round-2xl h-full shadow-3 content-paper-bg p-3">
 
         <!-- START Content-->
-        <div class="h-full w-full flex align-items-center justify-content-center flex-column gap-6">
-            Content
+        <div class="h-full w-full grid">
+            <div class="col-6 flex align-items-center justify-content-center">
+                <ol class="w-full p-3 m-0 list-none overflow-y-auto" style="max-height: 60vh;">
+                    <?php
+                        foreach($product as $c){
+                            echo '
+                            <li class="flex flex-column align-items-center justify-content-center gap-3 p-3 surface-0 border-1 border-300 border-round">
+                                <div class="w-full flex align-items-center border-bottom-1 border-300">
+                                    <span class="surface-0 p-3 text-800 text-xl flex-1">'.$c['name'].'</span>
+                                    <input type="radio" name="watch_items" value="'.$c['id'].'"/>
+                                </div>
+                                <img src="images/'.$c['image'].'" class="w-15rem h-15rem border-circle"/>
+                            </li>';
+                        }
+                    ?>
+                </ol>
+            </div>
+
+            <div class="col-4">
+                <div class="w-full h-full flex flex-column gap-6 align-items-center justify-content-center">
+                    <button class="no-underline text-2xl bg-yellow-50 cursor-pointer py-4 px-6 h-6rem border-3 border-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Change Item</button>
+
+                    <button class="no-underline text-2xl bg-yellow-50 cursor-pointer py-4 px-6 h-6rem border-3 border-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Remove item</button>
+
+                    <button onclick="actionGoBack()" class="no-underline text-2xl bg-bluegray-500 cursor-pointer py-2 px-6 h-4rem border-3 border-bluegray-600 hover:border-bluegray-800 border-circle border-3 text-0 flex align-items-center justify-content-center">Go Back</button>
+                </div>
+            </div>
         </div>
         <!-- END Content-->
 
     </div>
+
+    <script>
+        function actionGoBack(){
+            window.location.href="navigation-admin.php";
+        }
+    </script>
 </body>
 </html>

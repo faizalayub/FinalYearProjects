@@ -1,12 +1,15 @@
 <?php
     include 'config.php';
-    
-    if(!isset($_SESSION['account_user'])){
-        echo '<script>window.location.href="login-user.php"</script>';
-    }
 
-    $userdata = fetchRow("SELECT * FROM `login` WHERE id = ".$_SESSION['account_user']);
-    $productdata = fetchRows("SELECT * FROM `menu` WHERE is_active = 1");
+    $searchkey = '';
+    $userdata  = fetchRow("SELECT * FROM `login` WHERE id = ".$_SESSION['account_user']);
+    $menuQuery = "SELECT * FROM `menu` WHERE is_active = 1";
+
+    if(isset($_GET['key'])){
+        $searchkey = $_GET['key'];
+
+        $menuQuery .= " AND `name` LIKE '%".$searchkey."%'";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" class="h-full">
@@ -28,14 +31,25 @@
         <div class="w-full flex flex-column">
 
             <div class="flex align-items-center justify-content-center py-3 px-6 gap-3 flex-wrap-reverse">
+                
+                <a href="./user-shop.php?action=compare" class="text-800 font-bold p-3 border-1 border-300 surface-0 border-round-3xl no-underline text-xl">Compare Watch</a>
+
                 <div class="flex-1 flex align-items-center justify-content-center">
-                    <div class="flex align-items-center relative w-30rem surface-0 border-round border-1 border-300 shadow-3">
+                    <form method="GET" class="flex align-items-center relative w-30rem surface-0 border-round border-1 border-300 shadow-3">
                         <span class="flex align-items-center justify-content-center px-3 absolute left-0">
                             <i class="fa fa-search text-2xl text-600" aria-hidden="true"></i>
                         </span>
-                        <input type="search" class="flex-1 py-3 px-6 text-center border-round text-2xl border-round border-1 border-300 shadow-3" placeholder="Search"/>
-                    </div>
+
+                        <input
+                            type="search"
+                            name="key"
+                            value="<?php echo $searchkey; ?>"
+                            class="flex-1 py-3 px-6 text-center border-round text-2xl border-round border-1 border-300 shadow-3"
+                            placeholder="Search" />
+                    </form>
                 </div>
+
+                <a href="./logout.php" class="text-800 font-bold p-3 border-1 border-300 surface-0 border-round-3xl no-underline text-xl">Logout</a>
 
                 <div class="flex align-items-center justify-content-center surface-0 h-4rem w-4rem border-circle text-3xl font-bold shadow-4">
                     <?php echo substr($userdata['name'], 0, 1); ?>
@@ -45,6 +59,8 @@
             <div class="grid border-top-1 border-0 mt-3">
 
                 <?php
+                    $productdata = fetchRows($menuQuery);
+
                     if(!empty($productdata)){
                         foreach($productdata as $prod){
 

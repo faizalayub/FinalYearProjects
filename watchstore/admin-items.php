@@ -27,7 +27,7 @@
                     <?php
                         foreach($product as $c){
                             echo '
-                            <li class="flex flex-column align-items-center justify-content-center gap-3 p-3 surface-0 border-1 border-300 shadow-4 border-round">
+                            <li class="flex flex-column align-items-center justify-content-center gap-3 p-3 surface-0 border-1 border-300 border-round">
                                 <div class="w-full flex align-items-center border-bottom-1 border-300">
                                     <span class="surface-0 p-3 text-800 text-xl flex-1">'.$c['name'].'</span>
                                     <input type="radio" name="watch_items" value="'.$c['id'].'"/>
@@ -41,11 +41,11 @@
 
             <div class="col-4">
                 <div class="w-full h-full flex flex-column gap-6 align-items-center justify-content-center">
-                    <button onclick="actionEdit()" class="no-underline uppercase text-2xl bg-yellow-500 cursor-pointer py-4 px-6 h-6rem border-3 border-yellow-600 hover:border-yellow-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Edit item</button>
+                    <button onclick="actionEdit()" class="no-underline text-2xl bg-yellow-50 cursor-pointer py-4 px-6 h-6rem border-3 border-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Edit item</button>
 
-                    <button onclick="actionRemove()" class="no-underline uppercase text-2xl bg-yellow-500 cursor-pointer py-4 px-6 h-6rem border-3 border-yellow-600 hover:border-yellow-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Remove item</button>
+                    <button onclick="actionRemove()" class="no-underline text-2xl bg-yellow-50 cursor-pointer py-4 px-6 h-6rem border-3 border-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Remove item</button>
 
-                    <button onclick="actionAdd()" class="no-underline uppercase text-2xl bg-yellow-500 cursor-pointer py-4 px-6 h-6rem border-3 border-yellow-600 hover:border-yellow-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Add item</button>
+                    <button onclick="actionAdd()" class="no-underline text-2xl bg-yellow-50 cursor-pointer py-4 px-6 h-6rem border-3 border-800 border-circle border-3 text-yellow-900 flex align-items-center justify-content-center">Add item</button>
 
                     <button onclick="actionGoBack()" class="no-underline uppercase text-2xl bg-bluegray-500 cursor-pointer py-2 px-6 h-4rem border-3 border-bluegray-600 hover:border-bluegray-800 border-circle border-3 text-0 flex align-items-center justify-content-center">Go Back</button>
                 </div>
