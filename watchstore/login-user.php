@@ -38,12 +38,12 @@
 
             <div class="flex align-items-center gap-3 w-10">
                 <span class="uppercase text-2xl surface-500 py-4 px-6 border-3 border-900 border-round-3xl border-3">Username</span>
-                <input type="text" name="login_email" placeholder="Enter username" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-2xl surface-500 py-4 px-6 flex-1 border-3 border-900 border-round-3xl" autocomplete="off" />
+                <input type="text" name="login_email" placeholder="Enter username" class="cursor-pointer flex align-items-center justify-content-center text-2xl surface-500 py-4 px-6 flex-1 border-3 border-900 border-round-3xl" autocomplete="off" />
             </div>
 
             <div class="flex align-items-center gap-3 w-10">
                 <span class="uppercase text-2xl surface-500 py-4 px-6 border-3 border-900 border-round-3xl border-3">Password</span>
-                <input type="password" name="login_password" placeholder="Enter password" class="cursor-pointer flex align-items-center justify-content-center uppercase text-900 no-underline text-2xl surface-500 py-4 px-6 flex-1 border-3 border-900 border-round-3xl" autocomplete="off" />
+                <input type="password" name="login_password" placeholder="Enter password" class="cursor-pointer flex align-items-center justify-content-center text-2xl surface-500 py-4 px-6 flex-1 border-3 border-900 border-round-3xl" autocomplete="off" />
             </div>
 
             <div class="w-10 flex align-items-center justify-content-center">

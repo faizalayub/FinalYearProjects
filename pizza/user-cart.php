@@ -66,20 +66,6 @@
         echo "<script>window.location.href = `user-cart-final.php?phone=".$customer_phone."&name=".$customer_name."&method=".$delivery_method."&address=".$delivery_address."`;</script>";
         exit;
     }
-
-    if(isset($_POST['pay_online'])){
-        $delivery_method = ($_POST['delivery_method'] ?? '');
-        $delivery_address = ($_POST['delivery_address'] ?? '');
-        $customer_name = ($_POST['customer_name'] ?? '');
-        $customer_phone = ($_POST['customer_phone'] ?? '');
-
-        if($delivery_method == 1){
-            $delivery_address = $defaultAddress;
-        }
-
-        echo "<script>window.location.href = `checkout_online.php?phone=".$customer_phone."&name=".$customer_name."&method=".$delivery_method."&address=".$delivery_address."`;</script>";
-        exit();
-    }
 ?>
 
 <!DOCTYPE html>
@@ -214,7 +200,6 @@
                                                                         <input type="hidden" name="delivery_address" value=""/>
                                                                         <input type="hidden" name="delivery_method" value="1"/>
                                                                         <input type="submit" name="pay_cash" value="Submit" class="btn btn-primary" />
-                                                                        <!--<input type="submit" name="pay_online" value="Online Transfer" class="btn btn-success"/>-->
                                                                     </div>
                                                                 </td>
                                                             </tr>';

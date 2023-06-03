@@ -35,6 +35,78 @@
             max-height: 80vh;
             overflow: auto;
         }
+
+        /* #START Stepper */
+        .arrow-steps .step {
+            font-size: 14px;
+            text-align: center;
+            color: #666;
+            cursor: default;
+            margin: 0 3px;
+            padding: 10px 10px 10px 30px;
+            min-width: 180px;
+            float: left;
+            position: relative;
+            background-color: #d9e3f7;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none; 
+            transition: background-color 0.2s ease;
+        }
+
+        .arrow-steps .step:after,
+        .arrow-steps .step:before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            right: -17px;
+            width: 0;
+            height: 0;
+            border-top: 19px solid transparent;
+            border-bottom: 22px solid transparent;
+            border-left: 17px solid #d9e3f7;
+            z-index: 2;
+            transition: border-color 0.2s ease;
+        }
+
+        .arrow-steps .step:before {
+            right: auto;
+            left: 0;
+            border-left: 17px solid #fff;	
+            z-index: 0;
+        }
+
+        .arrow-steps .step:first-child:before {
+            border: none;
+        }
+
+        .arrow-steps .step:first-child {
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+        }
+
+        .arrow-steps .step span {
+            position: relative;
+        }
+
+        .arrow-steps .step.done span:before {
+            opacity: 1;
+            -webkit-transition: opacity 0.3s ease 0.5s;
+            -moz-transition: opacity 0.3s ease 0.5s;
+            -ms-transition: opacity 0.3s ease 0.5s;
+            transition: opacity 0.3s ease 0.5s;
+        }
+
+        .arrow-steps .step.current {
+            color: #fff;
+            background-color: #23468c;
+        }
+
+        .arrow-steps .step.current:after {
+            border-left: 17px solid #23468c;	
+        }
+        /* #END Stepper */
     </style>
 </head>
 <body>
@@ -57,14 +129,31 @@
 
                     <!--#START Content -->
                     <div class="row">
-						<div class="col-md-5 col-xl-4">
+						<div class="col-md-12">
 
 							<div class="card">
 								<div class="card-header">
-									<h5 class="card-title mb-0">Symptom Checker</h5>
+									<h5 class="card-title m-0 p-0">Symptom Checker</h5>
+
+                                    <div class="arrow-steps clearfix mt-3">
+                                        <div class="step current">
+                                            <span class="fw-bold">STEP 1:</span> Choose effected body parts
+                                        </div>
+                                        <div class="step">
+                                            <span class="fw-bold">STEP 2:</span> Select related symtom
+                                        </div>
+                                        <div class="step">
+                                            <span class="fw-bold">STEP 3:</span> View possible causes
+                                        </div>
+                                    </div>
+
+                                    <div class="nav clearfix">
+                                        <a href="#" class="prev">Previous</a>
+                                        <a href="#" class="next pull-right">Next</a>
+                                    </div>
 								</div>
 
-								<div class="list-group list-group-flush" role="tablist">
+								<!-- <div class="list-group list-group-flush d-flex" role="tablist">
 									<a class="list-group-item list-group-item-action d-flex gap-3 active" data-bs-toggle="list" href="#diseasebody" role="tab" aria-selected="true">
                                         <span class="fw-bold">STEP 1:</span> Choose effected body parts
 									</a>
@@ -74,11 +163,12 @@
 									<a class="list-group-item list-group-item-action d-flex gap-3" data-bs-toggle="list" href="#diseaseresult" role="tab" aria-selected="false" tabindex="-1">
                                         <span class="fw-bold">STEP 3:</span> View possible causes
 									</a>
-								</div>
+								</div> -->
+
 							</div>
 						</div>
 
-						<div class="col-md-7 col-xl-8">
+						<div class="col-md-12">
 							<div class="tab-content">
 
 								<div class="tab-pane fade show active" id="diseasebody" role="tabpanel">
@@ -295,6 +385,34 @@
                 });
             }
         }
+
+        /* #START Stepper */
+        $(document).ready(function() {
+            var back = $(".prev");
+            var	next = $(".next");
+            var	steps = $(".step");
+            
+            next.bind("click", function() { 
+                $.each( steps, function( i ) {
+                    if (!$(steps[i]).hasClass('current') && !$(steps[i]).hasClass('done')) {
+                        $(steps[i]).addClass('current');
+                        $(steps[i - 1]).removeClass('current').addClass('done');
+                        return false;
+                    }
+                })		
+            });
+
+            back.bind("click", function() { 
+                $.each( steps, function( i ) {
+                    if ($(steps[i]).hasClass('done') && $(steps[i + 1]).hasClass('current')) {
+                        $(steps[i + 1]).removeClass('current');
+                        $(steps[i]).removeClass('done').addClass('current');
+                        return false;
+                    }
+                })		
+            });
+        });
+        /* #END Stepper */
     </script>
 </body>
 </html>

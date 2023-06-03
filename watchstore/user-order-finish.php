@@ -38,7 +38,7 @@
                     <?php echo substr($userdata['name'], 0, 1); ?>
                 </a>
 
-                <a href="user-shop.php" class="border-circle h-10rem w-10rem surface-0 p-4">
+                <a href="user-invoice.php" class="border-circle h-10rem w-10rem surface-0 p-4">
                     <img src="./asset/invoice.png" class="h-full w-full border-circle">
                 </a>
             </div>

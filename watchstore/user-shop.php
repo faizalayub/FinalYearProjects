@@ -32,7 +32,9 @@
 
             <div class="flex align-items-center justify-content-center py-3 px-6 gap-3 flex-wrap-reverse">
                 
-                <a href="./user-shop.php?action=compare" class="text-800 font-bold p-3 border-1 border-300 surface-0 border-round-3xl no-underline text-xl">Compare Watch</a>
+                <a href="./user-compare.php" class="text-800 font-bold p-3 border-1 border-300 surface-0 border-round-3xl no-underline text-xl">Compare Watch</a>
+                
+                <a href="./user-invoice.php" class="text-800 font-bold p-3 border-1 border-300 surface-0 border-round-3xl no-underline text-xl">My Order</a>
 
                 <div class="flex-1 flex align-items-center justify-content-center">
                     <form method="GET" class="flex align-items-center relative w-30rem surface-0 border-round border-1 border-300 shadow-3">

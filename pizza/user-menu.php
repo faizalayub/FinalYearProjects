@@ -8,6 +8,7 @@
 
     $searchKey = ($_GET['searchkey'] ?? '');
     $searchcategory = ($_GET['searchcategory'] ?? '');
+    $categories = fetchRows("SELECT * FROM category");
 
     $sizeChart = array(
         array( 'size'=> 'Small' ),
@@ -40,22 +41,37 @@
 
                     <!--#START Tools -->
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
                             <div class="card">
                                 <div class="card-body">
+
+                                    <h4 class="mb-3">Search Tools</h4>
+
+                                    <!--#Category Tab -->
+                                    <ul class="pagination pagination-lg">
+                                        <?php
+                                            foreach($categories as $c){
+                                                echo '
+                                                <li class="page-item '.($searchcategory == $c['id'] ? 'active' : '').'">
+                                                    <a class="page-link" href="user-menu.php?searchkey=&searchcategory='.$c['id'].'">'.$c['name'].'</a>
+                                                </li>';
+                                            }
+                                        ?>
+                                    </ul>
+
+                                    <!--#Search Key -->
                                     <form method="GET" class="d-flex gap-3">
-										<select name="searchcategory" class="form-control">
+										<select name="searchcategory" class="form-control bg-light">
 											<option value="">-- Select Category --</option>
 											<?php
-												$categories = fetchRows("SELECT * FROM category");
-
 												foreach($categories as $c){
 													echo '<option '.($searchcategory == $c['id'] ? 'selected' : '').' value="'.$c['id'].'">'.$c['name'].'</option>';
 												}
 											?>
 										</select>
 
-										<input type="text" name="searchkey" class="form-control" placeholder="Search" value="<?php echo $searchKey; ?>"/>
+										<input type="text" name="searchkey" class="form-control bg-light" placeholder="Search" value="<?php echo $searchKey; ?>"/>
 
 										<input type="submit" value="Search" class="btn btn-success"/>
 
@@ -63,9 +79,11 @@
 											<input class="btn btn-warning" type="button" value="Reset"/>
 										</a>
 									</form>
+
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-1"></div>
                     </div>
                     <!--#END Tools -->
 
