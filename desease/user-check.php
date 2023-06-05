@@ -136,36 +136,24 @@
 									<h5 class="card-title m-0 p-0">Symptom Checker</h5>
 
                                     <div class="arrow-steps clearfix mt-3">
-                                        <div class="step current">
+                                        <div class="step current" data-content="#diseasebody">
                                             <span class="fw-bold">STEP 1:</span> Choose effected body parts
                                         </div>
-                                        <div class="step">
+                                        <div class="step" data-content="#diseasesyntom">
                                             <span class="fw-bold">STEP 2:</span> Select related symtom
                                         </div>
-                                        <div class="step">
+                                        <div class="step" data-content="#diseaseresult">
                                             <span class="fw-bold">STEP 3:</span> View possible causes
                                         </div>
                                     </div>
 
-                                    <div class="nav clearfix">
-                                        <a href="#" class="prev">Previous</a>
-                                        <a href="#" class="next pull-right">Next</a>
+                                    <div class="w-100 d-flex justify-content-between p-3 bg-light round border mt-3">
+                                        <button class="btn btn-secondary prev">Previous</button>
+                                        <button class="btn btn-primary next">Next</button>
                                     </div>
 								</div>
-
-								<!-- <div class="list-group list-group-flush d-flex" role="tablist">
-									<a class="list-group-item list-group-item-action d-flex gap-3 active" data-bs-toggle="list" href="#diseasebody" role="tab" aria-selected="true">
-                                        <span class="fw-bold">STEP 1:</span> Choose effected body parts
-									</a>
-									<a class="list-group-item list-group-item-action d-flex gap-3" data-bs-toggle="list" href="#diseasesyntom" role="tab" aria-selected="false" tabindex="-1">
-                                        <span class="fw-bold">STEP 2:</span> Select related symtom
-									</a>
-									<a class="list-group-item list-group-item-action d-flex gap-3" data-bs-toggle="list" href="#diseaseresult" role="tab" aria-selected="false" tabindex="-1">
-                                        <span class="fw-bold">STEP 3:</span> View possible causes
-									</a>
-								</div> -->
-
 							</div>
+
 						</div>
 
 						<div class="col-md-12">
@@ -232,8 +220,7 @@
                                 <div class="tab-pane fade" id="diseaseresult" role="tabpanel">
                                     <div class="card">
 										<div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">View possible causes</h5>
-                                            <button class="btn btn-success submit-button">Find Causes</button>
+											<h5 class="card-title mb-0">View possible disease</h5>
 										</div>
 										<div class="card-body p-0 card-body-scroller">
                                             <div id="finder-loader" class="d-none loader w-100 d-flex justify-content-center align-items-center pb-6 pt-5">
@@ -274,27 +261,7 @@
             return true;
         };
 
-        $(".step").click(function () {
-            $(this).addClass("active").prevAll().addClass("active");
-            $(this).nextAll().removeClass("active");
-        });
-
-        $(".step01").click(function () {
-            $("#line-progress").css("width", "8%");
-            $(".step1").addClass("active").siblings().removeClass("active");
-        });
-
-        $(".step02").click(function () {
-            $("#line-progress").css("width", "50%");
-            $(".step2").addClass("active").siblings().removeClass("active");
-        });
-
-        $(".step03").click(function () {
-            $("#line-progress").css("width", "100%");
-            $(".step3").addClass("active").siblings().removeClass("active");
-        });
-
-        $('.submit-button').on('click', function(){
+        function showResult(){
             const $button = $(this);
             let collectionBody = [];
             let collectionSyntom = [];
@@ -321,36 +288,55 @@
                 },
                 success: function(jsonstring){
                     const listdata = (IsValidJSONString(jsonstring) ? JSON.parse(jsonstring) : jsonstring);
-                    let responseUi = '';
+                    let tabsTitle = '';
+                    let tabsContent = '';
 
                     setTimeout(() => {
                         $button.attr('disabled', false);
                         responseLoader.addClass('d-none');
 
-                        if(Array.isArray(listdata)){
-                            listdata.forEach((c, i) => {
-                                const splitByBreakline = (c.split('\n'));
+                        if(typeof(listdata) == 'object'){
+                            const { description, title, treatment } = listdata;
+                            const loopcount = (description.length);
 
-                                responseUi += `
-                                <div class="card">
-                                    <div class="card-header p-0 bg-light border" id="heading${ i }">
-                                        <h5 class="card-title m-0 p-0 d-flex">
-                                            <a href="#" data-bs-toggle="collapse" data-bs-target="#collapse${ i }" aria-expanded="false" aria-controls="collapse${ i }" class="collapsed flex-grow-1 p-3">
-                                                ${ (splitByBreakline[0] ?? '-') }
-                                            </a>
-                                        </h5>
-                                    </div>
-                                    <div id="collapse${ i }" class="collapse" aria-labelledby="heading${ i }" data-bs-parent="#result-response-disease" style="">
-                                        <div class="card-body">
-                                            <p class="p-0 m-0" style="white-space: pre-line;text-align: initial;">${ c }</p>
-                                        </div>
+                            for(let k = 0; k <= loopcount; k++){
+                                const valueTitle       = (title[k]);
+                                const valueDescription = (description[k]);
+                                const valueTreatment   = (treatment[k]);
+
+                                tabsTitle += `
+                                <div class="dropdown-item ${ (k == 0 ? 'active' : '') }" onclick="toggleTab(this, 'paneldata_${ k }')">
+                                    ${ (valueTitle && valueTitle[0] ? valueTitle[0] : 'No Description') }
+                                </div>`;
+
+                                tabsContent += `
+                                <div class="tab flex-grow-1 ${ (k != 0 ? 'd-none' : '') }" id="paneldata_${ k }">
+                                    <ul class="nav nav-tabs d-flex border" role="tablist">
+                                        <li class="nav-item flex-grow-1" role="presentation">
+                                            <a class="nav-link active text-center" href="#paneldata_${ k }-tab-1" data-bs-toggle="tab" role="tab" aria-selected="true">Condition</a>
+                                        </li>
+                                        <li class="nav-item flex-grow-1" role="presentation">
+                                            <a class="nav-link w-100 text-center" href="#paneldata_${ k }-tab-2" data-bs-toggle="tab" role="tab" aria-selected="false" tabindex="-1">Treatment</a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content border">
+                                        <div class="tab-pane active" id="paneldata_${ k }-tab-1" role="tabpanel" style="white-space: pre-line;">${ (valueDescription && valueDescription[0] ? valueDescription[0] : '-') }</div>
+                                        <div class="tab-pane" id="paneldata_${ k }-tab-2" role="tabpanel" style="white-space: pre-line;">${ (valueTreatment && valueTreatment[0] ? valueTreatment[0] : '-') }</div>
                                     </div>
                                 </div>`;
-                            });
+                            }
                         }
 
-                        if(responseUi != ''){
-                            responseLand.html(responseUi);
+                        if(tabsTitle != ''){
+                            responseLand.html(`
+                            <div class="d-flex">
+                                <div class="d-flex flex-column tab-parent">
+                                    <div class="dropdown-menu mb-2" style="position: sticky;top: 0;display: block;">
+                                        ${ tabsTitle }
+                                    </div>
+                                </div>
+                                ${ tabsContent }
+                            </div>`);
                         }else{
                             responseLand.html(`
                             <div class="alert alert-warning" role="alert">
@@ -363,7 +349,7 @@
                     }, 2000);
                 }
             });
-        });
+        }
 
         function narrowListing(self,target){
             const el = $(target);
@@ -386,27 +372,63 @@
             }
         }
 
+
+        function toggleTab(el, id){
+            const $elem = $(el);
+            const target = $(`#${ id }`);
+            const others = target.siblings().not('.tab-parent');
+
+            $elem.siblings().removeClass('active');
+            $elem.addClass('active');
+
+            others.addClass('d-none');
+            target.removeClass('d-none');
+        }
+
         /* #START Stepper */
         $(document).ready(function() {
-            var back = $(".prev");
-            var	next = $(".next");
-            var	steps = $(".step");
+            let back = $(".prev");
+            let	next = $(".next");
+            let	steps = $(".step");
+            let submit = $('.submit-button');
             
             next.bind("click", function() { 
-                $.each( steps, function( i ) {
+                $.each( steps, function( i, e ) {
+                    const content = $(e).data('content');
+
                     if (!$(steps[i]).hasClass('current') && !$(steps[i]).hasClass('done')) {
+                        $('.tab-pane').removeClass('show active');
+
                         $(steps[i]).addClass('current');
+
                         $(steps[i - 1]).removeClass('current').addClass('done');
+
+                        $(content).addClass('show active');
+
+                        if(content == '#diseaseresult'){
+                            showResult();
+                        }
+
                         return false;
                     }
                 })		
             });
 
             back.bind("click", function() { 
-                $.each( steps, function( i ) {
+                $.each( steps, function( i, e ) {
+                    const content = $(e).data('content');
+
+                    $('.tab-pane').removeClass('show active');
+
                     if ($(steps[i]).hasClass('done') && $(steps[i + 1]).hasClass('current')) {
+                        $('.tab-pane').removeClass('show active');
+
                         $(steps[i + 1]).removeClass('current');
+
                         $(steps[i]).removeClass('done').addClass('current');
+
+                        $(content).addClass('show active');
+
                         return false;
                     }
                 })		

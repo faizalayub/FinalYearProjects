@@ -1,7 +1,10 @@
 <?php
 include 'config.php';
 
-$finalArray = [];
+$collectTitle = [];
+$collectDescription = [];
+$collectTreatment = [];
+
 $body = (isset($_POST['body']) ? $_POST['body'] : '');
 $syntom = (isset($_POST['syntom']) ? $_POST['syntom'] : '');
 
@@ -28,20 +31,16 @@ if(!empty($body)){
         $resultSyntom = fetchRow("$syntomQuery AND (".implode(' OR ', $syntomCards).")");
 
         if(!empty($resultSyntom)){
-            $finalArray[] = json_decode($resultSyntom['possible']);
+            $collectTitle[] = json_decode($resultSyntom['possible_title'] ?? '');
+            $collectDescription[] = json_decode($resultSyntom['possible'] ?? '');
+            $collectTreatment[] = json_decode($resultSyntom['possible_treatment'] ?? '');
         }
     }
 }
 
-$response = [];
-
-foreach($finalArray as $disease){
-    foreach($disease as $n){
-        if(!in_array($n, $response)){
-            array_push($response, $n);
-        }
-    } 
-}
-
-echo json_encode($response);
+echo json_encode([
+    'title' => $collectTitle,
+    'description' => $collectDescription,
+    'treatment' => $collectTreatment
+]);
 ?>

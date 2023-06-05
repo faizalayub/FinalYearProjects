@@ -161,16 +161,20 @@
                                             <?php
                                                 if($mode == 'update'){
                                                     $diseaseInputs = '';
-                                                    $possibleDB = fetchRow("SELECT possible FROM `possible_disease` WHERE id=".$_GET['id']);
-                                                    $possibleValue = json_decode($possibleDB['possible']);
+                                                    $possibleDB = fetchRow("SELECT * FROM `possible_disease` WHERE id=".$_GET['id']);
+                                                    $possibleValue = json_decode($possibleDB['possible'] ?? '');
+                                                    $possibleTitle = json_decode($possibleDB['possible_title'] ?? '');
+                                                    $possibleTreatment = json_decode($possibleDB['possible_treatment'] ?? '');
 
-                                                    foreach($possibleValue as $d){
+                                                    foreach($possibleValue as $key => $d){
                                                         $diseaseInputs .= '
-                                                        <li class="list-group-item d-flex w-100 gap-3 p-0">
-                                                            <span class="w-100 d-flex align-items-center">
-                                                                <textarea name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required>'.$d.'</textarea>
+                                                        <li class="list-group-item d-flex w-100 gap-3 p-3">
+                                                            <span class="w-100 d-flex align-items-center flex-column gap-3">
+                                                                <input type="text" name="disease_title[]" class="form-control" placeholder="Title" required value="'.($possibleTitle[$key] ?? '').'" />
+                                                                <textarea name="disease_possible[]" class="form-control" placeholder="Condition.." required>'.($possibleValue[$key] ?? '').'</textarea>
+                                                                <textarea name="disease_treatment[]" class="form-control" placeholder="Treatment.." required>'.($possibleTreatment[$key] ?? '').'</textarea>
                                                             </span>
-                                                            <button class="btn remove"><i class="fas fa-times"></i></button>
+                                                            <button class="btn btn-danger remove"><i class="fas fa-times"></i></button>
                                                         </li>';
                                                     }
 
@@ -213,9 +217,11 @@
 
     <?php
         if(isset($_POST['save-disease-possible'])){
-            $datasetdisease = (isset($_POST['disease_possible']) ? $_POST['disease_possible'] : []);
-            $datasetsyntom = (isset($_POST['possiblesyntom']) ? $_POST['possiblesyntom'] : []);
-            $datasetbody = (isset($_POST['possiblebody']) ? $_POST['possiblebody'] : []);
+            $datasettitle     = (isset($_POST['disease_title']) ? $_POST['disease_title'] : []);
+            $datasettreatment = (isset($_POST['disease_treatment']) ? $_POST['disease_treatment'] : []);
+            $datasetdisease   = (isset($_POST['disease_possible']) ? $_POST['disease_possible'] : []);
+            $datasetsyntom    = (isset($_POST['possiblesyntom']) ? $_POST['possiblesyntom'] : []);
+            $datasetbody      = (isset($_POST['possiblebody']) ? $_POST['possiblebody'] : []);
 
             if(!$datasetbody){
                 echo '<script>alert("Please select symptoms body part")</script>';
@@ -225,16 +231,16 @@
                 echo '<script>alert("Please describe possible disease")</script>';
             }else{
 
-                $posibledisease = json_encode($datasetdisease);
-
-                $posibledisease = addslashes($posibledisease);
+                $deseaseTitle = addslashes(json_encode($datasettitle));
+                $deseaseDescription = addslashes(json_encode($datasetdisease));
+                $deseaseTreatment = addslashes(json_encode($datasettreatment));
 
                 if($mode == 'create'){
-                    runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`) VALUES (NULL, '".$posibledisease."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."')");
+                    runQuery("INSERT INTO `possible_disease` (`id`, `possible`, `body`, `syntom`, `possible_title`, `possible_treatment`) VALUES (NULL, '".$posibledisease."', '".json_encode($datasetbody)."', '".json_encode($datasetsyntom)."', , '".$deseaseTitle."', , '".$deseaseTreatment."')");
                 }
 
                 if($mode == 'update'){
-                    runQuery("UPDATE `possible_disease` SET `possible` = '".$posibledisease."', `body` = '".json_encode($datasetbody)."', `syntom` = '".json_encode($datasetsyntom)."' WHERE `possible_disease`.`id`=".$_GET['id']);
+                    runQuery("UPDATE `possible_disease` SET `possible` = '".$deseaseDescription."', `body` = '".json_encode($datasetbody)."', `syntom` = '".json_encode($datasetsyntom)."', `possible_title` = '".$deseaseTitle."', `possible_treatment` = '".$deseaseTreatment."' WHERE `possible_disease`.`id`=".$_GET['id']);
                 }
 
                 echo '<script>alert("Success save record!");window.location.href="admin-index.php"</script>';
@@ -248,12 +254,14 @@
 
         $('.disease-row-insert').on('click', function(){
             const $list = $('<li/>', {
-                class: 'list-group-item d-flex w-100 gap-3 p-0',
+                class: 'list-group-item d-flex w-100 gap-3 p-3',
                 html: `
-                    <span class="w-100 d-flex align-items-center">
-                        <textarea name="disease_possible[]" class="form-control border-0 p-2" placeholder="Describe.." required></textarea>
+                    <span class="w-100 d-flex align-items-center flex-column gap-3">
+                        <input type="text" name="disease_title[]" class="form-control" placeholder="Title" required />
+                        <textarea name="disease_possible[]" class="form-control" placeholder="Condition.." required></textarea>
+                        <textarea name="disease_treatment[]" class="form-control" placeholder="Treatment.." required></textarea>
                     </span>
-                    <button class="btn remove"><i class="fas fa-times"></i></button>
+                    <button class="btn btn-danger remove"><i class="fas fa-times"></i></button>
                 `
             });
 
