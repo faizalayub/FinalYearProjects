@@ -7,11 +7,73 @@
         include 'config.php';
 
         $profile = ($_SESSION['admin'] ?? null);
+		$collection = [];
 		$collegeArray = fetchRows("SELECT * FROM college");
 		$applicantArray = fetchRows("SELECT * FROM `application` INNER JOIN college ON application.collegeid = college.collegeid");
 
 		if(isset($_SESSION['admin']) && $_SESSION['admin']->email != 'admin@admin.admin'){
 			header("Location: admin-my-resident.php");exit;
+		}
+
+		if(!empty($collegeArray)){
+			//# AVAILABLE DATA
+			foreach($collegeArray as $key => $value){
+				$collegeID = $value['collegeid'];
+				$managerID = ($value['manager'] ?? 0);
+				$managerEmail = '-';
+				$totalApproved = 0;
+
+				$managerDetails = fetchRow("SELECT * FROM `admin` WHERE userid = ".$managerID);
+				$totalApplicant = fetchRow("SELECT count(*) as totalApply FROM `application` WHERE collegeid = ".$collegeID);
+
+				if(!empty($managerDetails)){
+					$managerEmail = $managerDetails['email'];
+				}
+
+				$statusTag = '<span class="badge bg-danger">Not Available</span>';
+				$roomStatus = fetchRow("SELECT * FROM `application` WHERE `status` = 1 AND `collegeid` = ".$collegeID);
+
+				if(empty($roomStatus)){
+					$collection[] = (object)[
+						'name' => $value['collegename'],
+						'available' => '<span class="badge bg-success">Available</span>',
+						'unit' => $value['unit'],
+						'capacity' => ($value['capacity'] - $totalApproved),
+						'manager' => $managerEmail,
+						'collegeID' => $collegeID,
+						'applicant' => $totalApplicant['totalApply']
+					];
+				}
+			}
+
+			//# NOT AVAILABLE DATA
+			foreach($collegeArray as $key => $value){
+				$collegeID = $value['collegeid'];
+				$managerID = ($value['manager'] ?? 0);
+				$managerEmail = '-';
+				$totalApproved = 0;
+
+				$managerDetails = fetchRow("SELECT * FROM `admin` WHERE userid = ".$managerID);
+				$totalApplicant = fetchRow("SELECT count(*) as totalApply FROM `application` WHERE collegeid = ".$collegeID);
+
+				if(!empty($managerDetails)){
+					$managerEmail = $managerDetails['email'];
+				}
+
+				$roomStatus = fetchRow("SELECT * FROM `application` WHERE `status` = 1 AND `collegeid` = ".$collegeID);
+
+				if(!empty($roomStatus)){
+					$collection[] = (object)[
+						'name' => $value['collegename'],
+						'available' => '<span class="badge bg-danger">Not Available</span>',
+						'unit' => $value['unit'],
+						'capacity' => ($value['capacity'] - $totalApproved),
+						'manager' => $managerEmail,
+						'collegeID' => $collegeID,
+						'applicant' => $totalApplicant['totalApply']
+					];
+				}
+			}
 		}
     ?>
 </head>
@@ -39,41 +101,25 @@
 
 								<div class="row">
 									<?php 
-										if(!empty($collegeArray)){
-											foreach($collegeArray as $key => $value){
-												$collegeID = $value['collegeid'];
-												$managerID = ($value['manager'] ?? 0);
-												$managerEmail = '-';
-												$totalApproved = 0;
-
-												$managerDetails = fetchRow("SELECT * FROM `admin` WHERE userid = ".$managerID);
-												$totalApplicant = fetchRow("SELECT count(*) as totalApply FROM `application` WHERE collegeid = ".$collegeID);
-
-												if(!empty($managerDetails)){
-													$managerEmail = $managerDetails['email'];
-												}
-
-												$roomStatus = fetchRow("SELECT * FROM `application` WHERE `status` = 1 && `collegeid` = ".$collegeID);
-
+										if(!empty($collection)){
+											foreach($collection as $key => $value){
 												echo '
 												<div class="card col-3" style="margin-right:.3em;">
 													<div class="card-body">
 														<div class="row">
 															<div class="col mt-0">
-																<h5 class="card-title">'.$value['collegename'].'</h5>
+																<h5 class="card-title">'.$value->name.'</h5>
 															</div>
-															<div class="col-auto">
-																'.(empty($roomStatus) ? '<span class="badge bg-success">Available</span>' : '<span class="badge bg-danger">Not Available</span>').'
-															</div>
+															<div class="col-auto">'.$value->available.'</div>
 														</div>
-														<h1 class="mt-2 mb-3">'.$value['unit'].'</h1>
+														<h1 class="mt-2 mb-3">'.$value->unit.'</h1>
 														<!--<div class="mt-3 mb-2">
-															<span class="text-success">'.($value['capacity'] - $totalApproved).'</span>
+															<span class="text-success">'.$value->capacity.'</span>
 															<span class="text-muted">Room Available</span>
 														</div>-->
-														<div class="mb-3">'.$managerEmail.'</div>
-														<a href="admin-college-applicant?id='.$collegeID.'" class="btn-sm btn-secondary btn">'.$totalApplicant['totalApply'].' Student</button>
-														<a href="admin-college-delete?id='.$collegeID.'" class="btn-sm btn-danger btn">Remove</a>
+														<div class="mb-3">'.$value->manager.'</div>
+														<a href="admin-college-applicant?id='.$value->collegeID.'" class="btn-sm btn-secondary btn">'.$value->applicant.' Student</button>
+														<a href="admin-college-delete?id='.$value->collegeID.'" class="btn-sm btn-danger btn">Remove</a>
 													</div>
 												</div>';
 											}

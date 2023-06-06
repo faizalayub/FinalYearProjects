@@ -134,7 +134,7 @@
 
                     <tr>
                         <td class="px-3">Stock Amount</td>
-                        <td><input required type="number" name="menu_stock" placeholder="Product Stock" class="w-25rem" value="<?php echo (!empty($article['in_stock']) ? $article['in_stock'] : ''); ?>"/></td>
+                        <td><input min="1" required type="number" name="menu_stock" placeholder="Product Stock" class="w-25rem" value="<?php echo (!empty($article['in_stock']) ? $article['in_stock'] : ''); ?>"/></td>
                     </tr>
 
                     <tr>
