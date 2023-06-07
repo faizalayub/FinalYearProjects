@@ -29,11 +29,11 @@
                     <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Manage</strong> Pizza</h3>
+                            <h3><strong>Manage</strong> Menu</h3>
                         </div>
 
                         <div class="col-auto ms-auto text-end mt-n1">
-							<a href="admin-create-product.php" class="btn btn-primary">Publish Pizza</a>
+							<a href="admin-create-product.php" class="btn btn-primary">Upload Menu</a>
 						</div>
                     </div>
                     <!--#END HEADER -->

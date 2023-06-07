@@ -49,28 +49,21 @@
                                     <h4 class="mb-3">Search Tools</h4>
 
                                     <!--#Category Tab -->
-                                    <ul class="pagination pagination-lg">
-                                        <?php
-                                            foreach($categories as $c){
-                                                echo '
-                                                <li class="page-item '.($searchcategory == $c['id'] ? 'active' : '').'">
-                                                    <a class="page-link" href="user-menu.php?searchkey=&searchcategory='.$c['id'].'">'.$c['name'].'</a>
-                                                </li>';
-                                            }
-                                        ?>
-                                    </ul>
+                                    <div class="w-100 table-responsive">
+                                        <ul class="pagination pagination-lg p-0 m-0">
+                                            <?php
+                                                foreach($categories as $c){
+                                                    echo '
+                                                    <li class="page-item '.($searchcategory == $c['id'] ? 'active' : '').'">
+                                                        <a class="page-link" href="user-menu.php?searchkey=&searchcategory='.$c['id'].'" style="white-space:nowrap;">'.$c['name'].'</a>
+                                                    </li>';
+                                                }
+                                            ?>
+                                        </ul>
+                                    </div>
 
                                     <!--#Search Key -->
-                                    <form method="GET" class="d-flex gap-3">
-										<select name="searchcategory" class="form-control bg-light">
-											<option value="">-- Select Category --</option>
-											<?php
-												foreach($categories as $c){
-													echo '<option '.($searchcategory == $c['id'] ? 'selected' : '').' value="'.$c['id'].'">'.$c['name'].'</option>';
-												}
-											?>
-										</select>
-
+                                    <form method="GET" class="d-flex gap-3 mt-3">
 										<input type="text" name="searchkey" class="form-control bg-light" placeholder="Search" value="<?php echo $searchKey; ?>"/>
 
 										<input type="submit" value="Search" class="btn btn-success"/>
@@ -187,7 +180,7 @@
                                             //# Product Card
                                             if(!in_array($c['id'], $alreadypush)){
                                                 echo '
-                                                <div class="col-12 col-sm-6 col-md-4 col-lg-3">
+                                                <div class="col-6 col-md-4 col-lg-3">
                                                     <div class="card">
                                                         <img class="card-img-top" src="./images/'.$c['image'].'" alt="Unsplash">
                                                         <div class="card-header">

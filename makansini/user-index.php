@@ -60,8 +60,8 @@
                                     <div class="card py-2 py-md-3 border">
                                         <div class="card-body">
                                             <a href="./user-cart.php" class="d-flex align-items-center justify-content-center gap-2 flex-column">
-                                                <h4 class="w-100 text-center fw-bold text-mute">Pizza Cart</h4>
-                                                <img src="./img/pizza-cart.png" class="w-100">
+                                                <h4 class="w-100 text-center fw-bold text-mute">Menu Cart</h4>
+                                                <img src="./img/cart-icon.png" class="w-100">
                                             </a>
                                         </div>
                                     </div>
@@ -72,7 +72,7 @@
                                         <div class="card-body">
                                             <a href="./user-order.php" class="d-flex align-items-center justify-content-center gap-2 flex-column">
                                                 <h4 class="w-100 text-center fw-bold text-mute">Customer Order</h4>
-                                                <img src="./img/pizza-order.png" class="w-100">
+                                                <img src="./img/order-icon.png" class="w-100">
                                             </a>
                                         </div>
                                     </div>

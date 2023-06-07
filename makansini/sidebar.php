@@ -15,8 +15,8 @@
 
         //# Admin
         if($accountType == 1){
-            $sidebarMenu[] = (object) ['label' => 'Manage Pizza', 'icon' => 'box', 'path' => 'admin-product.php'];
-            $sidebarMenu[] = (object) ['label' => 'Publish Pizza', 'icon' => 'plus-circle', 'path' => 'admin-create-product.php'];
+            $sidebarMenu[] = (object) ['label' => 'Manage Menu', 'icon' => 'box', 'path' => 'admin-product.php'];
+            $sidebarMenu[] = (object) ['label' => 'Upload Menu', 'icon' => 'plus-circle', 'path' => 'admin-create-product.php'];
             $sidebarMenu[] = (object) ['label' => 'Order', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
             $sidebarMenu[] = (object) ['label' => 'Register Staff', 'icon' => 'user-plus', 'path' => 'admin-invite-user.php'];
             $sidebarMenu[] = (object) ['label' => 'Staff & Customer', 'icon' => 'users', 'path' => 'admin-users.php'];

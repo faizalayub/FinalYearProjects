@@ -31,7 +31,7 @@
                     <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Publish</strong> Pizza</h3>
+                            <h3><strong>Upload</strong> Menu</h3>
                         </div>
                     </div>
                     <!--#END HEADER -->
@@ -84,7 +84,7 @@
                                             <a href="admin-product.php">
                                                 <button type="button" class="btn btn-secondary">Cancel</button>
                                             </a>
-                                            <button type="submit" name="materialupload" class="btn btn-primary">Publish Pizza</button>
+                                            <button type="submit" name="materialupload" class="btn btn-primary">Upload Menu</button>
                                         </div>
                                     </form>
 

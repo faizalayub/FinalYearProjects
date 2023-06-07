@@ -101,7 +101,7 @@
 
                                     <div class="card flex-fill w-100">
                                         <div class="card-header">
-                                            <h1 class="h3">Pizza Cart</h1>
+                                            <h1 class="h3">Menu Cart</h1>
                                         </div>
                                         <div class="card-body pt-0 pb-0">
                                             <form method="POST">

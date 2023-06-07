@@ -15,11 +15,17 @@
         }
     }
 ?>
+
+<style>
+@font-face {
+    font-family: logofont;
+    src: url('./Bitcheese.otf');
+}
+</style>
+
 <nav class="navbar navbar-expand navbar-light navbar-bg">
 
-    <a class="nav-icon pe-md-0 dropdown-toggle p-0 <?php echo $hiddenForAdmin; ?>" href="index.php">
-        <img src="<?php echo $logoicon; ?>" class="avatar img-fluid rounded" alt="logo">
-    </a>
+    <a class="nav-icon pe-md-0 dropdown-toggle p-0 <?php echo $hiddenForAdmin; ?>" href="index.php" style="font-family: logofont; color: #2a6eb8;">Makan Sini</a>
     
     <a class="sidebar-toggle js-sidebar-toggle m-0 ms-3 d-none">
         <i class="hamburger align-self-center"></i>
