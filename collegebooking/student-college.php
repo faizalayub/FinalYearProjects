@@ -152,6 +152,8 @@
         if($checkin > $checkout){
             ToastMessage('Error', 'Checkin date cannot be later than checkout', 'warning', 'student-college');
         }else{
+            runQuery("INSERT INTO `notification` (`id`, `matricno`, `message`, `created_date`, `status`) VALUES (NULL, 'admin@admin.admin', 'New college application from $matricno <~> $collegeid', current_timestamp(), NULL)");
+
             runQuery("INSERT INTO `application`(`matricno`, `collegeid`, `checkin`, `checkout`, `remark`) VALUES ('$matricno','$collegeid','$checkin','$checkout','$remark')");
 
             ToastMessage('Success', "Your Application Has Been Submitted ! $matricno $collegeid $checkin $checkout $remark", 'success', 'student-dashboard');
