@@ -13,7 +13,7 @@ function connect(){
     $host = 'localhost';
     $user = 'root';
     $password = '';
-    $database = 'qr_pizza';
+    $database = 'makan_sini';
 
     try{
         $con = new PDO("mysql:host=" . $host . ";dbname=" . $database, $user, $password);

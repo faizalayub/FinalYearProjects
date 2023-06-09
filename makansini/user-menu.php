@@ -11,9 +11,9 @@
     $categories = fetchRows("SELECT * FROM category");
 
     $sizeChart = array(
-        array( 'size'=> 'Small' ),
-        array( 'size'=> 'Medium' ),
-        array( 'size'=> 'Large' )
+        array( 'size'=> 'Hot' ),
+        array( 'size'=> 'Cold' ),
+        array( 'size'=> 'Warm' )
     );
 ?>
 

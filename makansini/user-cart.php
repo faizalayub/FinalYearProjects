@@ -11,9 +11,9 @@
     $defaultAddress = 'Lot PT17178, Jalan Tun Abdul Razak, Hang Tuah Jaya, 75450 Ayer Keroh';
 
     $sizeChart = array(
-        array( 'size'=> 'Small' ),
-        array( 'size'=> 'Medium' ),
-        array( 'size'=> 'Large' )
+        array( 'size'=> 'Hot' ),
+        array( 'size'=> 'Cold' ),
+        array( 'size'=> 'Warm' )
     );
     
     foreach($sizeChart as $_){
