@@ -8,8 +8,8 @@
 <link href="css/app.css" rel="stylesheet">
 <link href="css/light.css" rel="stylesheet">
 
-<script src="js/jquery.min.js"></script>
-<script src="js/app.js"></script>
+<script src="js/jquery.min.js?v=1.1.0"></script>
+<script src="js/app.js?v=1.1.0"></script>
 
 <?php
     function ToastMessage($title, $subtitle, $severity, $redirectTo){
