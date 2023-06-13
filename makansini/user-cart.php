@@ -1,14 +1,31 @@
 <?php
     include 'config.php';
 
-    if(!isset($_SESSION['staff_session'])){
+    if(!isset($_SESSION['staff_session']) && !isset($_SESSION['customer_session'])){
         header("Location: auth-login.php");
         exit();
     }
 
     $collection = [];
-    $user = ($_SESSION['staff_session']);
+    $user = null;
+    $goBack = '';
     $defaultAddress = 'Lot PT17178, Jalan Tun Abdul Razak, Hang Tuah Jaya, 75450 Ayer Keroh';
+    $placeholder_payername = '';
+    $placeholder_payerphone = '';
+
+    if(isset($_SESSION['staff_session'])){
+        $goBack = './user-index.php';
+        $user = $_SESSION['staff_session'];
+    }
+
+    if(isset($_SESSION['customer_session'])){
+        $goBack = './user-menu.php';
+        $user = $_SESSION['customer_session'];
+
+        $customerdata = fetchRow("SELECT * FROM `login` WHERE id = '$user'");
+        $placeholder_payername = ($customerdata['name']);
+        $placeholder_payerphone = ($customerdata['phone']);
+    }
 
     $sizeChart = array(
         array( 'size'=> 'Hot' ),
@@ -83,11 +100,16 @@
                 <div class="container-fluid p-0">
 
                     <!--#START HEADER -->
-                    <div class="row mb-2 mb-xl-3">
-                        <div class="col-auto d-none d-sm-block">
-                            <h3>Welcome back, <?php echo (!empty($accountData) ? $accountData['name'] : '') ?></h3>
-                        </div>
-                    </div>
+                    <?php
+                        if(!empty($accountData) && $accountData['type'] == 2){
+                            echo '
+                            <div class="row mb-2 mb-xl-3">
+                                <div class="col-auto d-none d-sm-block">
+                                    <h3>Welcome back, '.$accountData['name'].'</h3>
+                                </div>
+                            </div>';
+                        }
+                    ?>
                     <!--#END HEADER -->
 
                     <!--#START CONTENT -->
@@ -183,14 +205,14 @@
                                                             <tr id="pickup_address_field">
                                                                 <td colspan="'.$totalCol.'">
                                                                     <label class="form-label fw-bold">Customer Name</label>
-                                                                    <input type="text" name="customer_name" class="form-control" placeholder="Enter customer name" required />
+                                                                    <input type="text" name="customer_name" class="form-control" placeholder="Enter customer name" required value="'.$placeholder_payername.'" />
                                                                 </td>
                                                             </tr>
 
                                                             <tr id="pickup_address_field">
                                                                 <td colspan="'.$totalCol.'">
                                                                     <label class="form-label fw-bold">Customer Phone</label>
-                                                                    <input type="text" name="customer_phone" class="form-control" placeholder="Enter customer phone" required />
+                                                                    <input type="text" name="customer_phone" class="form-control" placeholder="Enter customer phone" required value="'.$placeholder_payerphone.'" />
                                                                 </td>
                                                             </tr>
 
@@ -210,7 +232,7 @@
                                             </form>
                                         </div>
                                         <div class="card-footer pt-0">
-                                            <a href="./user-index.php" type="button" class="btn btn-secondary">Go Back</a>
+                                            <a href="<?php echo $goBack; ?>" type="button" class="btn btn-secondary">Go Back</a>
                                         </div>
                                     </div>
 

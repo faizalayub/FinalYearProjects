@@ -31,8 +31,8 @@
 
                     <!--#START CONTENT -->
                     <div class="row">
-                        <div class="col-md-2"></div>
-                        <div class="col-md-8">
+                        <div class="col-md-1"></div>
+                        <div class="col-md-10">
                             <!--#START Profile -->
                             <div class="row">
                                 <div class="col-xl-12 col-xxl-12">
@@ -44,7 +44,7 @@
 
                                         <div class="card-body pt-2 pb-3">
                                             <div class="table-responsive">
-                                                <table class="w-100 table table-bordered table-striped">
+                                                <table class="w-100 table table-bordered table-striped table-hover">
                                                     <tr>
                                                         <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">No.</th>
                                                         <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Products</th>
@@ -52,23 +52,41 @@
                                                         <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Time</th>
                                                         <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Delivery</th>
                                                         <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Status</th>
+                                                        <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">PIC</th>
                                                         <th class="py-2 surface-0 px-3 white-space-nowrap">Set Status</th>
                                                     </tr>
 
                                                     <?php
                                                         $counter = 0;
-                                                        $userrecord = fetchRows("SELECT * FROM `user_order` WHERE user_id = ".$_SESSION['staff_session']." ORDER BY created_date DESC");
+                                                        $currentAuth = ($_SESSION['staff_session']);
+                                                        $customers = fetchRows("SELECT `id` FROM `login` WHERE `type` = 3");
+                                                        $customersID = [$currentAuth];
+
+                                                        if(!empty($customers)){
+                                                            foreach($customers as $cust){
+                                                                $customersID[] = $cust['id'];
+                                                            }
+                                                        }
+
+                                                        $customersID = implode(',',$customersID);
+                                                        $userrecord = fetchRows("SELECT * FROM `user_order` WHERE `user_id` IN ($customersID) ORDER BY created_date DESC");
 
                                                         foreach($userrecord as $key => $value){
 
                                                             $menuList = '<ol class="p-3 m-0">';
                                                             $menuorder = json_decode($value['menu_id']);
                                                             $menusize = json_decode($value['size']);
+                                                            $orderuser = fetchRow("SELECT * FROM `login` WHERE id = ".$value['user_id']);
+
+                                                            if($orderuser['id'] == $currentAuth){
+                                                                $orderuser['name'] = 'You'; 
+                                                            }
 
                                                             foreach($menuorder as $key => $m){
                                                                 $bobo = fetchRow("SELECT * FROM menu WHERE id=".$m);
 
-                                                                $menuList .= "<li style='text-align: initial; padding: 0 .3rem;'>
+                                                                $menuList .= "
+                                                                <li style='text-align: initial; padding: 0 .3rem;'>
                                                                     <span class='fw-bold'>".$menusize[$key]."</span> - ".$bobo['name']."
                                                                 </li>";
                                                             }
@@ -107,10 +125,31 @@
                                                                 }
                                                             ?>
                                                         </td>
+                                                        <td align="left" class="py-2 surface-0 px-3 border-bottom-1 border-300">
+                                                            <?php
+                                                                switch($orderuser['type']){
+                                                                    case 1:
+                                                                        echo '
+                                                                        <span class="badge badge-secondary-light">Admin</span>
+                                                                        <span class="text-mute">'.$orderuser['name'].'</span>';
+                                                                    break;
+                                                                    case 2:
+                                                                        echo '
+                                                                        <span class="badge badge-primary-light">Staff</span>
+                                                                        <span class="text-mute">'.$orderuser['name'].'</span>';
+                                                                    break;
+                                                                    case 3:
+                                                                        echo '
+                                                                        <span class="badge badge-success-light">Customer</span>
+                                                                        <span class="text-mute">'.$orderuser['name'].'</span>';
+                                                                    break;
+                                                                }
+                                                            ?>
+                                                        </td>
                                                         <td class="py-2 surface-0 px-3 flex flex-column gap-2 align-items-center justify-content-center h-full">
-                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=2">Prepared</a> |
-                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=3">Ready</a> | 
-                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=4">Completed</a>
+                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=2&pic=<?php echo $orderuser['id']; ?>&ordernumber=<?php echo $value['unique_number']; ?>">Prepared</a> |
+                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=3&pic=<?php echo $orderuser['id']; ?>&ordernumber=<?php echo $value['unique_number']; ?>">Ready</a> | 
+                                                            <a class="white-space-nowrap no-underline" href="user-order-status.php?id=<?php echo $value['id']; ?>&status=4&pic=<?php echo $orderuser['id']; ?>&ordernumber=<?php echo $value['unique_number']; ?>">Completed</a>
                                                         </td>
                                                     </tr>
                                                     <?php } ?>
@@ -135,7 +174,7 @@
                             </div>
                             <!--#END Profile -->
                         </div>
-                        <div class="col-md-2"></div>
+                        <div class="col-md-1"></div>
                     </div>
                     <!--#END CONTENT -->
 

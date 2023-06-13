@@ -3,7 +3,7 @@
 
     $collection = [];
 
-    if(!isset($_SESSION['staff_session'])){
+    if(!isset($_SESSION['staff_session']) && !isset($_SESSION['customer_session'])){
         header("Location: auth-login.php");
         exit();
     }
@@ -24,7 +24,19 @@
         header("Location: user-cart.php");exit();
     }
 
-    $user       = ($_SESSION['staff_session']);
+    $user = null;
+    $goBack = '';
+
+    if(isset($_SESSION['staff_session'])){
+        $goBack = './user-index.php';
+        $user = $_SESSION['staff_session'];
+    }
+
+    if(isset($_SESSION['customer_session'])){
+        $goBack = './customer-order-progress.php';
+        $user = $_SESSION['customer_session'];
+    }
+
     $methodID    = ($_GET['method'] == 1 ? 'Pick-Up' : 'Delivery');
     $addressID   = $_GET['address'];
     $cartIDStore = [];
@@ -97,7 +109,7 @@
                                         </table>
 
                                         <h4 class="w-20rem line-height-3 text-center">Please keep your invoice number, we will verify it later</h4>
-                                        <a href="./user-index.php">
+                                        <a href="<?php echo $goBack; ?>">
                                             <button class="btn btn-primary">DONE</button>
                                         </a>
                                     </div>

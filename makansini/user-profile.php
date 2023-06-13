@@ -1,12 +1,25 @@
 <?php
     include 'config.php';
 
-    if(!isset($_SESSION['staff_session'])){
+    if(!isset($_SESSION['staff_session']) && !isset($_SESSION['customer_session'])){
         header("Location: auth-login.php");
         exit();
     }
 
-    $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$_SESSION['staff_session']);
+    $authProfileID = null;
+    $goBack = '';
+
+    if(isset($_SESSION['staff_session'])){
+        $goBack = './user-index.php';
+        $authProfileID = $_SESSION['staff_session'];
+    }
+
+    if(isset($_SESSION['customer_session'])){
+        $goBack = './user-menu.php';
+        $authProfileID = $_SESSION['customer_session'];
+    }
+
+    $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$authProfileID);
 ?>
 
 <!DOCTYPE html>
@@ -24,11 +37,16 @@
                 <div class="container-fluid p-0">
 
                     <!--#START HEADER -->
-                    <div class="row mb-2 mb-xl-3">
-                        <div class="col-auto d-none d-sm-block">
-                            <h3>Welcome back, <?php echo (!empty($accountData) ? $accountData['name'] : '') ?></h3>
-                        </div>
-                    </div>
+                    <?php
+                        if(!empty($accountData) && $accountData['type'] == 2){
+                            echo '
+                            <div class="row mb-2 mb-xl-3">
+                                <div class="col-auto d-none d-sm-block">
+                                    <h3>Welcome back, '.$accountData['name'].'</h3>
+                                </div>
+                            </div>';
+                        }
+                    ?>
                     <!--#END HEADER -->
 
                     <!--#START CONTENT -->
@@ -84,7 +102,7 @@
 
                                                 <div class="mb-3 row">
                                                     <div class="col-sm-10 ms-sm-auto">
-                                                        <a href="./user-index.php" type="button" class="btn btn-secondary">Go Back</a>
+                                                        <a href="<?php echo $goBack; ?>" type="button" class="btn btn-secondary">Go Back</a>
                                                         <button type="submit" name="update_account" class="btn btn-success">Confirm Update Profile</button>
                                                     </div>
                                                 </div>
@@ -116,7 +134,7 @@
             $phone    = addslashes($_POST['phone']);
             $address  = addslashes($_POST['address']);
     
-            runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `phone` = '$phone', `address` = '$address', `password` = '$password' WHERE `id` = ".$_SESSION['staff_session']);
+            runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `phone` = '$phone', `address` = '$address', `password` = '$password' WHERE `id` = ".$authProfileID);
 
             ToastMessage('Success', 'Profile details updated!', 'success', 'user-index.php');
         }

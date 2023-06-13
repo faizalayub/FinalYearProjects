@@ -1,11 +1,12 @@
 <?php
     include 'config.php';
 
-    if(!isset($_SESSION['staff_session'])){
+    if(!isset($_SESSION['staff_session']) && !isset($_SESSION['customer_session'])){
         header("Location: auth-login.php");
         exit();
     }
 
+    $authProfileID = null;
     $searchKey = ($_GET['searchkey'] ?? '');
     $searchcategory = ($_GET['searchcategory'] ?? '');
     $categories = fetchRows("SELECT * FROM category");
@@ -15,6 +16,14 @@
         array( 'size'=> 'Cold' ),
         array( 'size'=> 'Warm' )
     );
+
+    if(isset($_SESSION['staff_session'])){
+        $authProfileID = $_SESSION['staff_session'];
+    }
+
+    if(isset($_SESSION['customer_session'])){
+        $authProfileID = $_SESSION['customer_session'];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -32,11 +41,16 @@
                 <div class="container-fluid p-0">
 
                     <!--#START HEADER -->
-                    <div class="row mb-2 mb-xl-3">
-                        <div class="col-auto d-none d-sm-block">
-                            <h3>Welcome back, <?php echo (!empty($accountData) ? $accountData['name'] : '') ?></h3>
-                        </div>
-                    </div>
+                    <?php
+                        if(!empty($accountData) && $accountData['type'] == 2){
+                            echo '
+                            <div class="row mb-2 mb-xl-3">
+                                <div class="col-auto d-none d-sm-block">
+                                    <h3>Welcome back, '.$accountData['name'].'</h3>
+                                </div>
+                            </div>';
+                        }
+                    ?>
                     <!--#END HEADER -->
 
                     <!--#START Tools -->
@@ -134,8 +148,8 @@
                                             $categoryname = [];
                                             $stockbalance = $c['in_stock'];
 
-                                            if(isset($_SESSION['staff_session'])){
-                                                $totalCart = numRows("SELECT * FROM user_cart where user=".$_SESSION['staff_session']." AND menu=".$c['id']);
+                                            if(!empty($authProfileID)){
+                                                $totalCart = numRows("SELECT * FROM user_cart where user=".$authProfileID." AND menu=".$c['id']);
                                             }
 
                                             if(!empty($c['category'])){

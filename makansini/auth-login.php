@@ -93,7 +93,9 @@
 					ToastMessage('Success', 'Successfully login as staff', 'success', 'user-index.php');
                 break;
 				case 3:
-                    
+					$_SESSION['customer_session'] = $result['id'];
+
+					ToastMessage('Success', 'Successfully login as customer', 'success', 'user-menu.php');
 				break;
             }
         }else{

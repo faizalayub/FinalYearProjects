@@ -1,9 +1,18 @@
 <?php
     include 'config.php';
 
+    $userid = null;
+
+    if(isset($_SESSION['staff_session'])){
+        $userid = $_SESSION['staff_session'];
+    }
+
+    if(isset($_SESSION['customer_session'])){
+        $userid = $_SESSION['customer_session'];
+    }
+
     $id = ($_GET['id']);
     $size = ($_GET['size']);
-    $userid = ($_SESSION['staff_session']);
     $totalCart = fetchRows("SELECT * FROM user_cart where user=".$userid." AND menu=".$id);
 
     //# Get Product Stock
