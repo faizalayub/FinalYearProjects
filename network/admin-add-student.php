@@ -46,22 +46,27 @@
 								<div class="card-body pt-4 pb-3">
                                     <div class="mb-3">
                                         <label class="form-label">Name</label>
-                                        <input required type="text" name="student_name" placeholder="Lecturer name" class="form-control" value="<?php echo (!empty($profile['name']) ? $profile['name'] : ''); ?>"/>
+                                        <input required type="text" name="student_name" placeholder="Student name" class="form-control" value="<?php echo (!empty($profile['name']) ? $profile['name'] : ''); ?>"/>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">Student Number</label>
+                                        <input required type="text" name="student_number" placeholder="Student number" class="form-control" value="<?php echo (!empty($profile['studentID']) ? $profile['studentID'] : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input required type="email" name="student_email" placeholder="Lecturer email" class="form-control" value="<?php echo (!empty($profile['email']) ? $profile['email'] : ''); ?>"/>
+                                        <input required type="email" name="student_email" placeholder="Student email" class="form-control" value="<?php echo (!empty($profile['email']) ? $profile['email'] : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Phone</label>
-                                        <input required type="text" name="student_phone" placeholder="Lecturer phone number" class="form-control" value="<?php echo (!empty($profile['phone']) ? $profile['phone'] : ''); ?>"/>
+                                        <input required type="text" name="student_phone" placeholder="Student phone number" class="form-control" value="<?php echo (!empty($profile['phone']) ? $profile['phone'] : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Address</label>
-                                        <textarea name="student_address" class="form-control" placeholder="Lecturer address" rows="2"><?php echo (!empty($profile['address']) ? $profile['address'] : ''); ?></textarea>
+                                        <textarea name="student_address" class="form-control" placeholder="Student address" rows="2"><?php echo (!empty($profile['address']) ? $profile['address'] : ''); ?></textarea>
                                     </div>
 
                                     <div class="mb-3">
@@ -96,7 +101,7 @@
 
     <?php
         if(isset($_POST['create_account'])){
-            $id       = addslashes($_POST['studentid']);
+            $id        = addslashes($_POST['student_number']);
             $name      = addslashes($_POST['student_name']);
             $phone     = addslashes($_POST['student_phone']);
             $address   = addslashes($_POST['student_address']);
@@ -106,11 +111,11 @@
             if($isEdit){
                 runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `password` = '$password', `phone` = '$phone', `address` = '$address', `studentID` = '$id' WHERE `id` = ".$_GET['id']);
 
-                ToastMessage('Success', 'User Updated!', 'success', 'admin-users.php');
+                ToastMessage('Success', 'User Updated!', 'success', 'admin-manage-student.php');
             }else{
-                runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `studentID`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address', '$id')");
+                runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `studentID`, `picture`, `room_number`) VALUES (NULL, '$name', '$email', '$password', '3', '$phone', '$address', '$id', NULL, NULL)");
 
-                ToastMessage('Success', 'User Added!', 'success', 'admin-users.php');
+                ToastMessage('Success', 'User Added!', 'success', 'admin-manage-student.php');
             }
         }
     ?>

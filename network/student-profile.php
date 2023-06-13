@@ -4,7 +4,7 @@
     $isEdit = (isset($_GET['id']));
     $userAuth = ($_SESSION['login_session']);
 
-    if($userAuth->type != 2){
+    if($userAuth->type != 3){
         header("Location: auth-login.php");
         exit();
     }
@@ -36,7 +36,7 @@
 								<div class="card-body pt-4 pb-3">
                                     <div class="mb-3 text-center">
                                         <img
-                                            alt="Lecturer Profile"
+                                            alt="Student Profile"
                                             src="<?php echo (!empty($userAuth->picture) ? 'images/'.$userAuth->picture : 'img/default_avatar.jpeg'); ?>"
                                             class="rounded-circle img-responsive mt-2"
                                             width="128"
@@ -49,28 +49,33 @@
                                     </div>
 
                                     <div class="mb-3">
+                                        <label class="form-label">Student ID</label>
+                                        <input required type="text" disabled placeholder="Student name" class="form-control" value="<?php echo (!empty($userAuth->studentID) ? $userAuth->studentID : ''); ?>"/>
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label class="form-label">Name</label>
-                                        <input required type="text" name="lecturer_name" placeholder="Lecturer name" class="form-control" value="<?php echo (!empty($userAuth->name) ? $userAuth->name : ''); ?>"/>
+                                        <input required type="text" name="student_name" placeholder="Student name" class="form-control" value="<?php echo (!empty($userAuth->name) ? $userAuth->name : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Email</label>
-                                        <input required type="email" name="lecturer_email" placeholder="Lecturer email" class="form-control" value="<?php echo (!empty($userAuth->email) ? $userAuth->email : ''); ?>"/>
+                                        <input required type="email" name="student_email" placeholder="Student email" class="form-control" value="<?php echo (!empty($userAuth->email) ? $userAuth->email : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Phone</label>
-                                        <input required type="text" name="lecturer_phone" placeholder="Lecturer phone number" class="form-control" value="<?php echo (!empty($userAuth->phone) ? $userAuth->phone : ''); ?>"/>
+                                        <input required type="text" name="student_phone" placeholder="Student phone number" class="form-control" value="<?php echo (!empty($userAuth->phone) ? $userAuth->phone : ''); ?>"/>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Address</label>
-                                        <textarea name="lecturer_address" class="form-control" placeholder="Lecturer address" rows="4"><?php echo (!empty($userAuth->address) ? $userAuth->address : ''); ?></textarea>
+                                        <textarea name="student_address" class="form-control" placeholder="Student address" rows="4"><?php echo (!empty($userAuth->address) ? $userAuth->address : ''); ?></textarea>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">Password</label>
-                                        <input required type="text" name="lecturer_password" placeholder="Password" class="form-control" value="<?php echo (!empty($userAuth->password) ? $userAuth->password : 'abcd123'); ?>"/>
+                                        <input required type="text" name="student_password" placeholder="Password" class="form-control" value="<?php echo (!empty($userAuth->password) ? $userAuth->password : 'abcd123'); ?>"/>
                                     </div>
 								</div>
                                 <!--#END Content -->
@@ -97,11 +102,11 @@
     <?php
         if(isset($_POST['save_profile'])){
             $imagename = ($dataset['attachment'] ?? null);
-            $name      = addslashes($_POST['lecturer_name']);
-            $phone     = addslashes($_POST['lecturer_phone']);
-            $address   = addslashes($_POST['lecturer_address']);
-            $password  = addslashes($_POST['lecturer_password']);
-            $email     = addslashes($_POST['lecturer_email']);
+            $name      = addslashes($_POST['student_name']);
+            $phone     = addslashes($_POST['student_phone']);
+            $address   = addslashes($_POST['student_address']);
+            $password  = addslashes($_POST['student_password']);
+            $email     = addslashes($_POST['student_email']);
 
             if(isset($_FILES["fileToUpload"]) && !empty($_FILES["fileToUpload"]["size"])){
                 $target_dir = "images/";

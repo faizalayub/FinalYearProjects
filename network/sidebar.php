@@ -35,8 +35,10 @@
         //# Student
         if($useAuth->type == 3){
             $sidebarLabel = 'Student Dashboard';
-            $sidebarMenu[] = (object) ['label' => 'My Profile', 'icon' => 'user', 'path' => '#'];
-            $sidebarMenu[] = (object) ['label' => 'My Cart', 'icon' => 'shopping-cart', 'path' => '#'];
+            $sidebarMenu[] = (object) ['label' => 'Profile', 'icon' => 'user', 'path' => 'student-profile.php'];
+            $sidebarMenu[] = (object) ['label' => 'Lecturer', 'icon' => 'users', 'path' => 'student-view-lecturer.php'];
+            $sidebarMenu[] = (object) ['label' => 'Network Equipment', 'icon' => 'minimize-2', 'path' => 'student-view-equipment.php'];
+            $sidebarMenu[] = (object) ['label' => 'Study Materials', 'icon' => 'clipboard', 'path' => 'student-study-material.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'auth-logout.php'];
         }
     }

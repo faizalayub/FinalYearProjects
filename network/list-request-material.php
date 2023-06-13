@@ -60,13 +60,18 @@
                                         <div class="dropdown-menu mb-2" style="position:static;display:block;">
                                         <?php
                                             if(!empty($collection)){
-                                                foreach($collection as $value){
+                                                foreach($collection as $key => $value){
+
+                                                    if($key != 0){
+                                                        echo '<hr>';
+                                                    }
+
                                                     echo '
                                                     <div class="px-3 py-1 d-flex">
                                                         <div class="d-flex flex-column gap-1 flex-grow-1">
                                                             <h4 class="m-0">'.$value->name.'</h4>
                                                             <span class="m-0 text-mute fw-bold">'.$value->type.'</span>
-                                                            <i class="m-0 text-mute">'.$value->requester['name'].' has request to access you material</i>
+                                                            <i class="m-0 text-mute">'.$value->requester['name'].' has request to access your material</i>
                                                         </div>
                                                         <div class="d-flex flex-column">
                                                             <div class="btn-group" role="group" aria-label="Small button group">

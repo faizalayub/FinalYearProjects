@@ -85,7 +85,7 @@
                                                                 $attachmentButton = '<span><i class="align-middle" data-feather="paperclip"></i>'.$value['attachment'].'</span>';
                                                             }
                                                         }else{
-                                                            $editButton = '<a href="./admin-request-equipment.php?id='.$value['id'].'&user='.$userAuth->id.'">Request Material</a>';
+                                                            $editButton = '<a href="./admin-request-material.php?id='.$value['id'].'&user='.$userAuth->id.'">Request Material</a>';
                                                             $attachmentButton = '<span><i class="align-middle" data-feather="paperclip"></i>'.$value['attachment'].'</span>';
                                                         }
                                                     }

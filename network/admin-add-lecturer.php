@@ -60,6 +60,11 @@
                                     </div>
 
                                     <div class="mb-3">
+                                        <label class="form-label">Room Number</label>
+                                        <input required type="text" name="lecturer_room" placeholder="Lecturer room number" class="form-control" value="<?php echo (!empty($profile['room_number']) ? $profile['room_number'] : ''); ?>"/>
+                                    </div>
+
+                                    <div class="mb-3">
                                         <label class="form-label">Address</label>
                                         <textarea name="lecturer_address" class="form-control" placeholder="Lecturer address" rows="2"><?php echo (!empty($profile['address']) ? $profile['address'] : ''); ?></textarea>
                                     </div>
@@ -100,15 +105,16 @@
             $address   = addslashes($_POST['lecturer_address']);
             $password  = addslashes($_POST['lecturer_password']);
             $email     = addslashes($_POST['lecturer_email']);
+            $room      = addslashes($_POST['lecturer_room']);
     
             if($isEdit){
-                runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `password` = '$password', `phone` = '$phone', `address` = '$address' WHERE `id` = ".$_GET['id']);
+                runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `password` = '$password', `phone` = '$phone', `address` = '$address', `room_number` = '$room' WHERE `id` = ".$_GET['id']);
 
-                ToastMessage('Success', 'User Updated!', 'success', 'admin-users.php');
+                ToastMessage('Success', 'Lecturer Updated!', 'success', 'admin-manage-lecturer.php');
             }else{
-                runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `studentID`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address')");
+                runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `studentID`, `picture`, `room_number`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address', NULL, NULL, '$room')");
 
-                ToastMessage('Success', 'User Added!', 'success', 'admin-users.php');
+                ToastMessage('Success', 'Lecturer Added!', 'success', 'admin-manage-lecturer.php');
             }
         }
     ?>

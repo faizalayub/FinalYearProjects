@@ -83,7 +83,7 @@
 					ToastMessage('Success', 'Successfully login as lecturer', 'success', 'lecturer-profile.php');
                 break;
 				case 3:
-					ToastMessage('Success', 'Successfully login as student', 'success', 'student-index.php');
+					ToastMessage('Success', 'Successfully login as student', 'success', 'student-profile.php');
 				break;
             }
 

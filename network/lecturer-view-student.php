@@ -46,6 +46,7 @@
                                             <thead>
                                                 <tr class="shadow-1 border-1">
                                                     <th align="center">No.</th>
+                                                    <th align="left">Picture</th>
                                                     <th align="left">Student ID</th>
                                                     <th align="left">Phone</th>
                                                     <th align="left">Name</th>
@@ -62,6 +63,14 @@
                                                 ?>
                                                 <tr>
                                                     <td align="center"><?php echo ($key + 1); ?></td>
+                                                    <td align="left">
+                                                        <img
+                                                            src="<?php echo (!empty($value['picture']) ? 'images/'.$value['picture'] : 'img/default_avatar.jpeg');?>"
+                                                            width="48"
+                                                            height="48"
+                                                            class="rounded-circle me-2"
+                                                            alt="Avatar">
+                                                    </td>
                                                     <td align="left"><?php echo $value['studentID']; ?></td>
                                                     <td align="left"><?php echo $value['phone']; ?></td>
                                                     <td align="left"><?php echo $value['name']; ?></td>

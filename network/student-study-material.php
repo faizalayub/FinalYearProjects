@@ -4,7 +4,7 @@
     $collection = [];
     $userAuth = ($_SESSION['login_session']);
 
-    if($userAuth->type != 2){
+    if($userAuth->type != 3){
         header("Location: auth-login.php");
         exit();
     }
@@ -30,10 +30,6 @@
                         <div class="col-auto d-none d-sm-block">
                             <h3><strong>Study</strong> Materials</h3>
                         </div>
-
-                        <div class="col-auto ms-auto text-end mt-n1">
-							<a href="lecturer-add-material.php" class="btn btn-primary">Add Material</a>
-						</div>
                     </div>
                     <!--#END HEADER -->
 
@@ -69,7 +65,7 @@
                                                     $permission = fetchRow("SELECT * FROM `article_permission` WHERE `user_id` = ".$userAuth->id." AND `article_id` = ".$value['id']);
                                                     $publisherProfile = fetchRow("SELECT * FROM `login` WHERE `id` = ".$value['publisher']);
 
-                                                    $editButton = '<a href="./lecturer-add-material.php?id='.$value['id'].'"><i class="align-middle" data-feather="edit"></i></a>';
+                                                    $editButton = '<a href="./student-add-material.php?id='.$value['id'].'"><i class="align-middle" data-feather="edit"></i></a>';
                                                     $attachmentButton = '<a target="_blank" href="images/'.$value['attachment'].'"><i class="align-middle" data-feather="paperclip"></i>'.$value['attachment'].'</a>';
 
                                                     if($value['is_active'] == 0){
@@ -85,7 +81,7 @@
                                                                 $attachmentButton = '<span><i class="align-middle" data-feather="paperclip"></i>'.$value['attachment'].'</span>';
                                                             }
                                                         }else{
-                                                            $editButton = '<a href="./lecturer-request-material.php?id='.$value['id'].'&user='.$userAuth->id.'">Request Material</a>';
+                                                            $editButton = '<a href="./student-request-material.php?id='.$value['id'].'&user='.$userAuth->id.'">Request Material</a>';
                                                             $attachmentButton = '<span><i class="align-middle" data-feather="paperclip"></i>'.$value['attachment'].'</span>';
                                                         }
                                                     }

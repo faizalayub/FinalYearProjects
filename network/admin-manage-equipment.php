@@ -63,10 +63,10 @@
 
                                                 foreach($userrecord as $key => $value){
                                                     $profile = fetchRow("SELECT * FROM login WHERE id = ".$value['publisher']);
-                                                    $statusTag = '<span class="badge badge-success-light">Active</span>';
+                                                    $statusTag = '<span class="badge badge-success-light">Available</span>';
 
                                                     if($value['status'] == 0){
-                                                        $statusTag = '<span class="badge badge-danger-light">Inactive</span>';
+                                                        $statusTag = '<span class="badge badge-danger-light">Not Available</span>';
                                                     }
                                             ?>
 

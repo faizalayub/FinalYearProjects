@@ -4,7 +4,7 @@
     $collection = [];
     $userAuth = ($_SESSION['login_session']);
 
-    if($userAuth->type != 2){
+    if($userAuth->type != 3){
         header("Location: auth-login.php");
         exit();
     }
@@ -28,12 +28,8 @@
                     <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Manage</strong> Equipment</h3>
+                            <h3><strong>Network</strong> Equipment</h3>
                         </div>
-
-                        <div class="col-auto ms-auto text-end mt-n1">
-							<a href="lecturer-add-equipment.php" class="btn btn-primary">Register Equipment</a>
-						</div>
                     </div>
                     <!--#END HEADER -->
 
@@ -50,9 +46,9 @@
                                             <thead>
                                                 <tr class="shadow-1 border-1">
                                                     <th align="center">No.</th>
+                                                    <th align="left">Publisher</th>
                                                     <th align="left">Type</th>
                                                     <th align="left">Name</th>
-                                                    <th align="left">Publisher</th>
                                                     <th align="left">Status</th>
                                                     <th align="center">Action</th>
                                                 </tr>
@@ -62,48 +58,32 @@
                                                 $userrecord = fetchRows("SELECT * FROM equipment");
 
                                                 foreach($userrecord as $key => $value){
-                                                    $actionButton = '';
-
                                                     $profile = fetchRow("SELECT * FROM login WHERE id = ".$value['publisher']);
 
                                                     $statusTag = '<span class="badge badge-success-light">Available</span>';
 
-                                                    if($value['publisher'] == $userAuth->id){
-                                                        $profile['name'] = 'You';
-                                                        $actionButton = '<a class="btn btn-primary" href="./lecturer-add-equipment.php?id='.$value['id'].'">Edit</a>';
-                                                    }
+                                                    $borrowButton = '
+                                                    <form method="POST" class="input-group">
+                                                        <button type="submit" name="submit_request" value="'.$value['id'].'" class="btn btn-secondary">Request</button>
+                                                    </form>';
 
                                                     if($value['status'] == 0){
                                                         $statusTag = '<span class="badge badge-danger-light">Not Available</span>';
+                                                        $borrowButton = '';
 
-                                                        if(!empty($value['student_id'])){
-                                                            $statusTag = 'Requested by ';
-
-                                                            $studentInfo = fetchRow("SELECT * from `login` WHERE `id` = ".$value['student_id']);
-
-                                                            $statusTag .= ($studentInfo['studentID']);
+                                                        if($value['student_id'] == $userAuth->id){
+                                                            $statusTag = 'Requested by you';
                                                         }
-
-                                                        $actionButton .= '
-                                                        <form method="POST" class="input-group">
-                                                            <button type="submit" name="submit_request" value="'.$value['id'].'" class="btn btn-secondary">Set To Available</button>
-                                                        </form>';
                                                     }
                                             ?>
 
                                                 <tr>
                                                     <td align="center"><?php echo ($key + 1); ?></td>
+                                                    <td align="left"><span class="badge bg-secondary"><?php echo $profile['name']; ?></span></td>
                                                     <td align="left"><?php echo $value['type']; ?></td>
                                                     <td align="left"><?php echo $value['name']; ?></td>
-                                                    <td align="left">
-                                                        <span class="badge bg-secondary">
-                                                            <?php echo $profile['name']; ?>
-                                                        </span>
-                                                    </td>
                                                     <td align="left"><?php echo $statusTag; ?></td>
-                                                    <td align="left">
-                                                        <div class="d-flex gap-2"><?php echo $actionButton; ?></div>
-                                                    </td>
+                                                    <td align="left"><?php echo $borrowButton; ?></td>
                                                 </tr>
                                             </tbody>
                                             <?php } ?>
@@ -132,10 +112,10 @@
     </div>
 
     <?php
-        if(isset($_POST['submit_request'])){
-            runQuery("UPDATE `equipment` SET `status` = '1', `student_id` = null WHERE `equipment`.`id` = ".$_POST['submit_request']);
+	    if(isset($_POST['submit_request'])){
+            runQuery("UPDATE `equipment` SET `status` = '0', `student_id` = '$userAuth->id' WHERE `equipment`.`id` = ".$_POST['submit_request']);
 
-            ToastMessage('Success', 'Equipment updated!', 'success', 'lecturer-view-equipment.php');
+            ToastMessage('Success', 'Request Submitted', 'success', 'student-view-equipment.php');
         }
     ?>
 

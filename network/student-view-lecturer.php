@@ -4,7 +4,7 @@
     $collection = [];
     $userAuth = ($_SESSION['login_session']);
 
-    if($userAuth->type != 1){
+    if($userAuth->type != 3){
         header("Location: auth-login.php");
         exit();
     }
@@ -28,12 +28,8 @@
                     <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Manage</strong> Lecturer</h3>
+                            <h3><strong>Lecturer</strong> List</h3>
                         </div>
-
-                        <div class="col-auto ms-auto text-end mt-n1">
-							<a href="admin-add-lecturer.php" class="btn btn-primary">Invite Lecturer</a>
-						</div>
                     </div>
                     <!--#END HEADER -->
 
@@ -51,12 +47,11 @@
                                                 <tr class="shadow-1 border-1">
                                                     <th align="center">No.</th>
                                                     <th align="left">Picture</th>
-                                                    <th align="left">Room</th>
                                                     <th align="left">Phone</th>
                                                     <th align="left">Name</th>
                                                     <th align="left">Email</th>
                                                     <th align="left">Address</th>
-                                                    <th align="center">Action</th>
+                                                    <th align="center">View</th>
                                                 </tr>
                                             </thead>
 
@@ -77,7 +72,6 @@
                                                                 class="rounded-circle me-2"
                                                                 alt="Avatar">
                                                         </td>
-                                                        <td align="left"><?php echo $value['room_number']; ?></td>
                                                         <td align="left"><?php echo $value['phone']; ?></td>
                                                         <td align="left"><?php echo $value['name']; ?></td>
                                                         <td align="left"><?php echo $value['email']; ?></td>
@@ -85,8 +79,8 @@
                                                             <p class="m-0"><?php echo (!empty($value['address']) ? $value['address'] : '-'); ?></p>
                                                         </td>
                                                         <td align="left">
-                                                            <a href="./admin-add-lecturer.php?id=<?php echo $value['id']; ?>">
-                                                                <i class="align-middle" data-feather="edit"></i>
+                                                            <a href="./student-info-lecturer.php?id=<?php echo $value['id']; ?>">
+                                                                <i class="align-middle" data-feather="search"></i> View More
                                                             </a>
                                                         </td>
                                                     </tr>
