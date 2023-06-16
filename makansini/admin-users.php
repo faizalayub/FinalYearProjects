@@ -58,7 +58,7 @@
                                             </tr>
 
                                             <?php
-                                                $userrecord = fetchRows("SELECT * FROM login WHERE type != 1 ORDER BY type DESC");
+                                                $userrecord = fetchRows("SELECT * FROM login WHERE `type` != 1 AND `type` != 4 ORDER BY `type` DESC");
 
                                                 foreach($userrecord as $key => $value){
                                                     $roleType = '';
@@ -69,8 +69,8 @@
                                                             $roleType = '<span class="badge badge-success-light">Staff</span>';
 
                                                             $actionButtons = '
-                                                            <a href="./admin-invite-user.php?id=<?php echo $value[\'id\']; ?>"><i class="align-middle" data-feather="edit"></i></a>
-                                                            <a href="#"><i class="align-middle" data-feather="trash" class="text-danger"></i></a>';
+                                                            <a href="./admin-invite-user.php?id='.$value['id'].'"><button class="btn btn-primary btn-sm" type="button">Edit</button></a>
+                                                            <form method="POST"><button class="btn btn-danger btn-sm" type="submit" name="action_delete" value="'.$value['id'].'">Delete</button></form>';
                                                         break;
                                                         case 3:
                                                             $roleType = '<span class="badge badge-primary-light">Customer</span>';
@@ -87,7 +87,7 @@
                                                 <td align="left"><?php echo $value['email']; ?></td>
                                                 <td align="left"><?php echo (!empty($value['address']) ? $value['address'] : '-'); ?></td>
                                                 <td align="left"><?php echo $value['password']; ?></td>
-                                                <td align="left"><?php echo $actionButtons; ?></td>
+                                                <td align="left"><div class="d-flex gap-1"><?php echo $actionButtons; ?></div></td>
                                             </tr>
                                             <?php } ?>
                                             

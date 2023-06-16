@@ -45,9 +45,8 @@
                                         <tr>
                                             <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">No.</th>
                                             <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Products</th>
-                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Invoice Number</th>
+                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Order Number</th>
                                             <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Time</th>
-                                            <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Delivery</th>
                                             <th class="py-2 surface-0 px-3 border-bottom-1 border-300 bg-yellow-400">Status</th>
                                         </tr>
 
@@ -77,13 +76,6 @@
                                             <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300 flex align-items-center justify-content-center"><?php echo $menuList; ?></td>
                                             <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo $value['unique_number']; ?></td>
                                             <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300"><?php echo date_format(date_create($value['created_date']),"d F Y h:i A"); ?></td>
-                                            <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
-                                                <?php
-                                                    if($value['delivery_method'] == 1) echo 'Pick-Up';
-
-                                                    if($value['delivery_method'] == 2) echo 'Delivery';
-                                                ?>
-                                            </td>
                                             <td class="py-2 surface-0 px-3 text-center border-bottom-1 border-300">
                                                 <?php
                                                     if($value['status'] == 1){

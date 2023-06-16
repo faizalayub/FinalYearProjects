@@ -10,6 +10,7 @@
 
 <script src="js/jquery.min.js?v=1.1.0"></script>
 <script src="js/app.js?v=1.1.0"></script>
+<script src="js/qrcode.min.js"></script>
 
 <?php
     function ToastMessage($title, $subtitle, $severity, $redirectTo){

@@ -5,6 +5,7 @@
     $accountData = [];
     $hiddenForAdmin = '';
     $hiddenNotification = '';
+    $hiddenAllAction = '';
     $authProfileID = null;
 
     if($hasSession){
@@ -32,6 +33,11 @@
 
         if($profiledata['type'] == 2){
             $hiddenNotification = 'd-none';
+        }
+
+        if($profiledata['type'] == 4){
+            $hiddenNotification = 'd-none';
+            $hiddenAllAction = 'd-none';
         }
     }
 
@@ -71,6 +77,12 @@
                 if(!empty($profiledata) && $profiledata['type'] == 3){
                     echo '
                     <li class="nav-item px-2 dropdown"><a class="nav-link" href="user-menu.php">Menu</a></li>
+                    <li class="nav-item px-2 dropdown"><a class="nav-link" href="user-cart.php">Menu Cart</a></li>
+                    <li class="nav-item px-2 dropdown"><a class="nav-link" href="customer-order-progress.php">Order Progress</a></li>';
+                }
+
+                if(!empty($profiledata) && $profiledata['type'] == 4){
+                    echo '
                     <li class="nav-item px-2 dropdown"><a class="nav-link" href="user-cart.php">Menu Cart</a></li>
                     <li class="nav-item px-2 dropdown"><a class="nav-link" href="customer-order-progress.php">Order Progress</a></li>';
                 }
@@ -127,7 +139,7 @@
                 </div>
             </li>
 
-            <li class="nav-item dropdown <?php echo ($hasSession ? '' : 'd-none'); ?>">
+            <li class="nav-item dropdown <?php echo $hiddenAllAction; ?> <?php echo ($hasSession ? '' : 'd-none'); ?>">
                 <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                     <i class="align-middle" data-feather="settings"></i>
                 </a>

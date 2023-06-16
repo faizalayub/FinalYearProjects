@@ -57,8 +57,9 @@
 
     $FourDigitRandomNumber = rand(1231,7879);
     $profiledata = fetchRow("SELECT * FROM login WHERE id = ".$user);
+    $tableNumber = (isset($_SESSION['dine_table']) ? $_SESSION['dine_table'] : '');
 
-    runQuery("INSERT INTO `user_order` (`id`, `user_id`, `menu_id`, `status`, `unique_number`, `address`, `payment_method`, `delivery_method`, `size`, `payer_name`, `payer_phone`) VALUES (NULL, '".$user."', '".json_encode($cartIDStore)."', '1', '$FourDigitRandomNumber', '$addressID', '2', '".$_GET['method']."', '".json_encode($cartSizeStore)."', '".$_GET['name']."', '".$_GET['phone']."')");
+    runQuery("INSERT INTO `user_order` (`id`, `user_id`, `menu_id`, `status`, `unique_number`, `address`, `payment_method`, `delivery_method`, `size`, `payer_name`, `payer_phone`, `dine_in_table`) VALUES (NULL, '".$user."', '".json_encode($cartIDStore)."', '1', '$FourDigitRandomNumber', '$addressID', '2', '".$_GET['method']."', '".json_encode($cartSizeStore)."', '".$_GET['name']."', '".$_GET['phone']."', '".$tableNumber."')");
 ?>
 
 <!DOCTYPE html>

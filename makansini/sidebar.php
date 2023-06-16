@@ -20,6 +20,7 @@
             $sidebarMenu[] = (object) ['label' => 'Order', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
             $sidebarMenu[] = (object) ['label' => 'Register Staff', 'icon' => 'user-plus', 'path' => 'admin-invite-user.php'];
             $sidebarMenu[] = (object) ['label' => 'Staff & Customer', 'icon' => 'users', 'path' => 'admin-users.php'];
+            $sidebarMenu[] = (object) ['label' => 'Generate QR', 'icon' => 'maximize', 'path' => 'admin-generate-qr.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'auth-logout.php'];
         }
 

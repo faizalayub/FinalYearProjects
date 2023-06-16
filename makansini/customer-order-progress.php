@@ -109,13 +109,19 @@
                         <div class="col-md-10">
                             <!--#START Profile -->
                             <div class="row">
-                                <div class="col-xl-12 col-xxl-12">
-                                    <div class="card flex-fill w-100">
-                                        <div class="card-header">
-                                            <span class="h3">Order Progress</span>
-                                        </div>
-                                    </div>
-                                </div>
+
+                                <?php
+                                    if($accountData['type'] != 4){
+                                        echo '
+                                        <div class="col-xl-12 col-xxl-12">
+                                            <div class="card flex-fill w-100">
+                                                <div class="card-header">
+                                                    <span class="h3">Order Progress</span>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    }
+                                ?>
 
                                 <?php
                                     $counter = 0;
@@ -304,13 +310,18 @@
                                     }
                                 ?>
 
-                                <div class="col-xl-12 col-xxl-12">
-                                    <div class="card">
-                                        <div class="card-footer">
-                                            <a href="./user-menu.php" type="button" class="btn btn-secondary">Go Back</a>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php
+                                    if($accountData['type'] != 4){
+                                        echo '
+                                        <div class="col-xl-12 col-xxl-12">
+                                            <div class="card">
+                                                <div class="card-footer">
+                                                    <a href="./user-menu.php" type="button" class="btn btn-secondary">Go Back</a>
+                                                </div>
+                                            </div>
+                                        </div>';
+                                    }
+                                ?>
                             </div>
                             <!--#END Profile -->
                         </div>

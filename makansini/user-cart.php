@@ -25,6 +25,10 @@
         $customerdata = fetchRow("SELECT * FROM `login` WHERE id = '$user'");
         $placeholder_payername = ($customerdata['name']);
         $placeholder_payerphone = ($customerdata['phone']);
+
+        if($customerdata['type'] == 4){
+            $goBack = '';
+        }
     }
 
     $sizeChart = array(
@@ -39,7 +43,7 @@
 
         foreach($items as $p){
             $ids = ($p['id']);
-            $cartcollection = fetchRows("SELECT * FROM `user_cart` WHERE `size` = '".$size."' AND `menu` = '".$ids."' AND `user` = ".$user);
+            $cartcollection = fetchRows("SELECT * FROM `user_cart` WHERE `size` = '".$size."' AND `menu` = '".$ids."' AND `user` = '".$user."'");
             $totalcart = (count($cartcollection));
 
             if($totalcart > 0){
@@ -89,6 +93,12 @@
 <html lang="en">
 <head>
 	<?php include 'header.php'; ?>
+
+    <?php
+    if(isset($_SESSION['customer_session']) && $customerdata['type'] == 4){
+        echo '<style>.customer-info{ display: none !important; }</style>';
+    }
+    ?>
 </head>
 <body>
     <div class="wrapper">
@@ -202,14 +212,14 @@
                                                                 </th>
                                                             </tr>
 
-                                                            <tr id="pickup_address_field">
+                                                            <tr class="customer-info">
                                                                 <td colspan="'.$totalCol.'">
                                                                     <label class="form-label fw-bold">Customer Name</label>
                                                                     <input type="text" name="customer_name" class="form-control" placeholder="Enter customer name" required value="'.$placeholder_payername.'" />
                                                                 </td>
                                                             </tr>
 
-                                                            <tr id="pickup_address_field">
+                                                            <tr class="customer-info">
                                                                 <td colspan="'.$totalCol.'">
                                                                     <label class="form-label fw-bold">Customer Phone</label>
                                                                     <input type="text" name="customer_phone" class="form-control" placeholder="Enter customer phone" required value="'.$placeholder_payerphone.'" />
@@ -221,7 +231,7 @@
                                                                     <div class="d-flex justify-content-end">
                                                                         <input type="hidden" name="delivery_address" value=""/>
                                                                         <input type="hidden" name="delivery_method" value="1"/>
-                                                                        <input type="submit" name="pay_cash" value="Submit" class="btn btn-primary" />
+                                                                        <input type="submit" name="pay_cash" value="Order Now" class="btn btn-primary" />
                                                                     </div>
                                                                 </td>
                                                             </tr>';
@@ -232,7 +242,9 @@
                                             </form>
                                         </div>
                                         <div class="card-footer pt-0">
+                                            <?php if($goBack != ''){ ?>
                                             <a href="<?php echo $goBack; ?>" type="button" class="btn btn-secondary">Go Back</a>
+                                            <?php } ?>
                                         </div>
                                     </div>
 
