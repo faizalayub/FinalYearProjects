@@ -68,12 +68,14 @@
                                             <td align="left"><?php echo (!empty($value['address']) ? $value['address'] : '-'); ?></td>
                                             <td align="left"><?php echo $value['password']; ?></td>
                                             <td align="center">
-                                                <a href="./admin-invite-user.php?id=<?php echo $value['id']; ?>">
-                                                    <i class="align-middle" data-feather="edit"></i>
-                                                </a>
-                                                <a href="#">
-                                                    <i class="align-middle" data-feather="trash" class="text-danger"></i>
-                                                </a>
+                                                <div class="d-flex gap-1">
+                                                    <a href="./admin-invite-user.php?id=<?php echo $value['id']; ?>">
+                                                        <button class="btn btn-primary btn-sm" type="button">Edit</button>
+                                                    </a>
+                                                    <form method="POST">
+                                                        <button class="btn btn-danger btn-sm" type="submit" name="action_delete" value="<?php echo $value['id']; ?>">Delete</button>
+                                                    </form>
+                                                </div>
                                             </td>
                                         </tr>
                                         <?php } ?>
@@ -99,5 +101,13 @@
             <?php include 'footer.php'; ?>
         </div>
     </div>
+
+    <?php 
+        if(isset($_POST['action_delete'])){
+            runQuery("DELETE FROM `login` WHERE `login`.`id` = ".$_POST['action_delete']);
+
+            ToastMessage('Success', 'User deleted!', 'success', 'admin-users.php');
+        }
+    ?>
 </body>
 </html>

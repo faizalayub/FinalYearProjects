@@ -25,7 +25,7 @@
                     <tr>
                         <td colspan="2">
                             <p class="header-text">Let's Get Started</p>
-                            <p class="sub-text">It's Okey, Now Create User Account.</p>
+                            <p class="sub-text">You are not alone. Create your user account.</p>
                         </td>
                     </tr>
                     <tr>
@@ -80,12 +80,22 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <label class="form-label">Healthy Concern: </label>
+                            <label class="form-label">Category of Health Concern: </label>
                         </td>
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <textarea class="input-text" placeholder="Describe about your healthy concern" rows="1" name="healthyconcern"></textarea>
+                            <input required class="input-text" placeholder="Category of Health Concern" name="healthyconcern" list="HealthConcern"></input>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <label class="form-label">Experienced Symptom: </label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="label-td" colspan="2">
+                            <input required class="input-text" placeholder="Experienced Symptom" name="healthyexperince" list="ExperiencedSymptom"></input>
                         </td>
                     </tr>
                     <tr>
@@ -105,7 +115,7 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <textarea class="input-text" placeholder="Address" rows="1" name="address"></textarea>
+                            <textarea class="input-text" placeholder="Address" rows="3" name="address"></textarea>
                         </td>
                     </tr>
                     <tr>
@@ -138,6 +148,30 @@
                 </table>
             </form>
         </center>
+
+        <datalist id="ExperiencedSymptom">
+            <?php 
+                $expSyntom = fetchRows("SELECT * FROM `experience_syntom`");
+
+                if(!empty($expSyntom)){
+                    foreach($expSyntom as $exp){
+                        echo "<option value='".strtoupper($exp['name'])."'>";
+                    }
+                }
+            ?>
+        </datalist>
+
+        <datalist id="HealthConcern">
+            <?php 
+                $expSyntom = fetchRows("SELECT * FROM `health_concern`");
+
+                if(!empty($expSyntom)){
+                    foreach($expSyntom as $exp){
+                        echo "<option value='".strtoupper($exp['name'])."'>";
+                    }
+                }
+            ?>
+        </datalist>
     </body>
 
     <?php
@@ -150,9 +184,10 @@
             $ic             = addslashes($_POST['ic']);
             $age            = addslashes($_POST['age']);
             $healthyconcern = addslashes($_POST['healthyconcern']);
+            $healthyexperince = addslashes($_POST['healthyexperince']);
             $birthdate      = addslashes($_POST['birthdate']);
 
-            $result = runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `ic`, `age`, `birthdate`, `healthyconcern`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address', '$ic', '$age', '$birthdate', '$healthyconcern')");
+            $result = runQuery("INSERT INTO `login` (`id`, `name`, `email`, `password`, `type`, `phone`, `address`, `ic`, `age`, `birthdate`, `healthyconcern`, `experience_syntom`) VALUES (NULL, '$name', '$email', '$password', '2', '$phone', '$address', '$ic', '$age', '$birthdate', '$healthyconcern', '$healthyexperince')");
 
             echo '<script>alert("Account created successfully");window.location.href="login-account.php"</script>';
         }

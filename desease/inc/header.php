@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 <link href="./css/dashboard.css" rel="stylesheet">
-<link href="./css/light.css" rel="stylesheet">
+<link href="./css/light.css?v=113" rel="stylesheet">
 
 <script src="./js/jquery.min.js"></script>
-<script src="./js/app.js?v=112"></script>
+<script src="./js/app.js?v=113"></script>

@@ -18,6 +18,11 @@
 	<?php include 'inc/header.php'; ?>
 
     <style>
+        @font-face {
+            font-family: Bitcheese;
+            src: url('./TeachersStudent-Regular.ttf');
+        }
+
         #progress-bar-container li::after{
             margin-top: 47px !important;
         }
@@ -34,6 +39,24 @@
             min-height: 80vh;
             max-height: 80vh;
             overflow: auto;
+        }
+
+        .form-check-label{
+            color: var(--bs-dark) !important;
+            font-weight: bold;
+        }
+
+        [type="search"] {
+            border-color: #2196f3;
+            border-width: 1px;
+            color: #2196f3;
+            background: #2196f312;
+            height: 46px;
+        }
+
+        [type="search"]::placeholder {
+            color: #2196F3;
+            font-size: 15px;
         }
 
         /* #START Stepper */
@@ -137,7 +160,7 @@
 
                                     <div class="arrow-steps clearfix mt-3">
                                         <div class="step current" data-content="#diseasebody">
-                                            <span class="fw-bold">STEP 1:</span> Choose effected body parts
+                                            <span class="fw-bold">STEP 1:</span> Select effected body parts
                                         </div>
                                         <div class="step" data-content="#diseasesyntom">
                                             <span class="fw-bold">STEP 2:</span> Select related symtom
@@ -162,7 +185,7 @@
 								<div class="tab-pane fade show active" id="diseasebody" role="tabpanel">
 									<div class="card">
 										<div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">Choose effected body parts</h5>
+											<h5 class="card-title mb-0">Select effected body parts</h5>
                                             <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-1')">
 										</div>
 										<div class="card-body card-body-scroller py-0">
@@ -305,7 +328,7 @@
                                 const valueTreatment   = (treatment[k]);
 
                                 tabsTitle += `
-                                <div class="dropdown-item ${ (k == 0 ? 'active' : '') }" onclick="toggleTab(this, 'paneldata_${ k }')">
+                                <div class="fw-bold dropdown-item ${ (k == 0 ? 'active' : '') }" onclick="toggleTab(this, 'paneldata_${ k }')">
                                     ${ (valueTitle && valueTitle[0] ? valueTitle[0] : 'No Description') }
                                 </div>`;
 
@@ -313,15 +336,15 @@
                                 <div class="tab flex-grow-1 ${ (k != 0 ? 'd-none' : '') }" id="paneldata_${ k }">
                                     <ul class="nav nav-tabs d-flex border" role="tablist">
                                         <li class="nav-item flex-grow-1" role="presentation">
-                                            <a class="nav-link active text-center" href="#paneldata_${ k }-tab-1" data-bs-toggle="tab" role="tab" aria-selected="true">Condition</a>
+                                            <a class="fw-bold nav-link active text-center" href="#paneldata_${ k }-tab-1" data-bs-toggle="tab" role="tab" aria-selected="true">Condition</a>
                                         </li>
                                         <li class="nav-item flex-grow-1" role="presentation">
-                                            <a class="nav-link w-100 text-center" href="#paneldata_${ k }-tab-2" data-bs-toggle="tab" role="tab" aria-selected="false" tabindex="-1">Treatment</a>
+                                            <a class="fw-bold nav-link w-100 text-center" href="#paneldata_${ k }-tab-2" data-bs-toggle="tab" role="tab" aria-selected="false" tabindex="-1">Treatment</a>
                                         </li>
                                     </ul>
                                     <div class="tab-content border">
-                                        <div class="tab-pane active" id="paneldata_${ k }-tab-1" role="tabpanel" style="white-space: pre-line;">${ (valueDescription && valueDescription[0] ? valueDescription[0] : '-') }</div>
-                                        <div class="tab-pane" id="paneldata_${ k }-tab-2" role="tabpanel" style="white-space: pre-line;">${ (valueTreatment && valueTreatment[0] ? valueTreatment[0] : '-') }</div>
+                                        <div class="tab-pane active" id="paneldata_${ k }-tab-1" role="tabpanel" style="white-space: pre-line;font-family: Bitcheese;font-size: 25px;">${ (valueDescription && valueDescription[0] ? valueDescription[0] : '-') }</div>
+                                        <div class="tab-pane" id="paneldata_${ k }-tab-2" role="tabpanel" style="white-space: pre-line;font-family: Bitcheese;font-size: 25px;">${ (valueTreatment && valueTreatment[0] ? valueTreatment[0] : '-') }</div>
                                     </div>
                                 </div>`;
                             }
