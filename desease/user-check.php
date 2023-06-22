@@ -163,7 +163,7 @@
                                             <span class="fw-bold">STEP 1:</span> Select effected body parts
                                         </div>
                                         <div class="step" data-content="#diseasesyntom">
-                                            <span class="fw-bold">STEP 2:</span> Select related symtom
+                                            <span class="fw-bold">STEP 2:</span> Select related symptoms
                                         </div>
                                         <div class="step" data-content="#diseaseresult">
                                             <span class="fw-bold">STEP 3:</span> View possible causes
@@ -214,7 +214,7 @@
 								<div class="tab-pane fade" id="diseasesyntom" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">Select related symtom</h5>
+											<h5 class="card-title mb-0">select the related symptom</h5>
                                             <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-2')">
 										</div>
 										<div class="card-body card-body-scroller py-0">
@@ -267,6 +267,13 @@
             <?php include 'inc/footer.php'; ?>
         </div>
     </div>
+
+    <style>
+        .form-check-label {
+            color: var(--bs-blue) !important;
+            font-weight: bold;
+        }
+    </style>
 
     <script ssrc="./js/jquery.min.js"></script>
     <script>
@@ -365,7 +372,7 @@
                             <div class="alert alert-warning" role="alert">
                                 <div class="alert-message">
                                     <h4 class="alert-heading">No result found!</h4>
-                                    <p class="m-0 p-0">Sorry we could not justify what kind of disease you have, please try again with another symtom</p>
+                                    <p class="m-0 p-0">Sorry we could not justify what kind of disease you have, please try again with another symptom</p>
                                 </div>
                             </div>`);
                         }

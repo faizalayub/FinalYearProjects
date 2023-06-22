@@ -53,17 +53,51 @@
                                         </div>
 
                                         <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">MyKad Number</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" placeholder="MyKad" name="ic" value="<?php echo $profiledata['ic']; ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">Birthday Date</label>
+                                            <div class="col-sm-10">
+                                                <input type="date" class="form-control" placeholder="Birthdate" name="birthdate" value="<?php echo date("Y-m-d", strtotime($profiledata['birthdate'])); ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
                                             <label class="col-form-label col-sm-2 text-sm-end">Full Name</label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" placeholder="Name" name="fullname" value="<?php echo $profiledata['name']; ?>">
                                             </div>
                                         </div>
-                                        
 
                                         <div class="mb-3 row">
-                                            <label class="col-form-label col-sm-2 text-sm-end">Phone</label>
+                                            <label class="col-form-label col-sm-2 text-sm-end">Age</label>
                                             <div class="col-sm-10">
-                                                <input type="tel" class="form-control" placeholder="Phone" name="phone" value="<?php echo $profiledata['phone']; ?>">
+                                                <input type="number" class="form-control" placeholder="Age" name="Age" value="<?php echo $profiledata['age']; ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">Category of Health Concern</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" placeholder="Category of Health Concern" name="healthyconcern" value="<?php echo $profiledata['healthyconcern']; ?>">
+                                            </div>
+                                        </div>
+
+                                        <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">Experienced Symptom</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" placeholder="Experienced Symptom" name="healthyexperince" value="<?php echo $profiledata['experience_syntom']; ?>">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="mb-3 row">
+                                            <label class="col-form-label col-sm-2 text-sm-end">Mobile Number</label>
+                                            <div class="col-sm-10">
+                                                <input type="tel" class="form-control" placeholder="Mobile Number" name="phone" value="<?php echo $profiledata['phone']; ?>">
                                             </div>
                                         </div>
 
@@ -105,13 +139,18 @@
 
     <?php
         if(isset($_POST['update_account'])){
-            $name = $_POST['fullname'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-            $phone = $_POST['phone'];
-            $address = $_POST['address'];
+            $name           = addslashes($_POST['fullname']);
+            $email          = addslashes($_POST['email']);
+            $password       = addslashes($_POST['password']);
+            $phone          = addslashes($_POST['phone']);
+            $address        = addslashes($_POST['address']);
+            $ic             = addslashes($_POST['ic']);
+            $age            = addslashes($_POST['age']);
+            $healthyconcern = addslashes($_POST['healthyconcern']);
+            $healthyexperince = addslashes($_POST['healthyexperince']);
+            $birthdate      = addslashes($_POST['birthdate']);
 
-            $result = runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `password` = '$password', `phone` = '$phone', `address` = '$address' WHERE `login`.`id` = ".$_SESSION['account_session']);
+            $result = runQuery("UPDATE `login` SET `name` = '$name', `email` = '$email', `password` = '$password', `phone` = '$phone', `address` = '$address', `ic` = '$ic', `age` = '$age', `birthdate` = '$birthdate', `healthyconcern` = '$healthyconcern', `experience_syntom` = '$healthyexperince' WHERE `login`.`id` = ".$_SESSION['account_session']);
 
             echo '<script>alert("Account updated successfully");window.location.href="user-index.php"</script>';
         }

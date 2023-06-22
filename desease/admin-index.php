@@ -43,13 +43,19 @@
 									<h5 class="card-title">Registered Users</h5>
 								</div>
                                 <div class="card-body">
+                                    <div class="table-responsive">
                                     <table class="table table-bordered table-striped">
                                         <thead>
                                             <tr>
-                                                <th style="width:40%;">Name</th>
-                                                <th style="width:25%">Phone Number</th>
-                                                <th class="d-none d-md-table-cell" style="width:25%">Email</th>
-                                                <th class="d-none d-md-table-cell" style="width:25%">Address</th>
+                                                <th>Email</th>
+                                                <th>MyKad Number</th>
+                                                <th>Birthday Date</th>
+                                                <th>Full Name</th>
+                                                <th>Age</th>
+                                                <th>Category of Health Concern</th>
+                                                <th>Experienced Symptom</th>
+                                                <th>Mobile Number</th>
+                                                <th>Address</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -58,10 +64,15 @@
                                                     foreach($usersData as $key => $value){
                                                         echo '
                                                         <tr>
+                                                            <td>'.$value['email'].'</td>
+                                                            <td>'.$value['ic'].'</td>
+                                                            <td>'.date("Y-m-d", strtotime($value['birthdate'])).'</td>
                                                             <td>'.$value['name'].'</td>
+                                                            <td>'.$value['age'].'</td>
+                                                            <td>'.$value['healthyconcern'].'</td>
+                                                            <td>'.$value['experience_syntom'].'</td>
                                                             <td>'.$value['phone'].'</td>
-                                                            <td class="d-none d-md-table-cell">'.$value['email'].'</td>
-                                                            <td class="d-none d-md-table-cell">'.$value['address'].'</td>
+                                                            <td>'.$value['address'].'</td>
                                                         </tr>
                                                         ';
                                                     }
@@ -72,6 +83,7 @@
                                         </tbody>
                                         <caption>Total records showing: <?php echo count($usersData); ?></caption>
                                     </table>
+                                    </div>
 							    </div>
 							</div>
 						</div>

@@ -155,7 +155,7 @@
 
                 if(!empty($expSyntom)){
                     foreach($expSyntom as $exp){
-                        echo "<option value='".strtoupper($exp['name'])."'>";
+                        echo "<option value='".$exp['name']."'>";
                     }
                 }
             ?>
@@ -167,7 +167,7 @@
 
                 if(!empty($expSyntom)){
                     foreach($expSyntom as $exp){
-                        echo "<option value='".strtoupper($exp['name'])."'>";
+                        echo "<option value='".$exp['name']."'>";
                     }
                 }
             ?>
