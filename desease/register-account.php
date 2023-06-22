@@ -1,5 +1,17 @@
 <?php
     include 'config.php';
+
+    $collectSyntom = [];
+    $expConcern = fetchRows("SELECT * FROM `health_concern`");
+    $expSyntom = fetchRows("SELECT * FROM `experience_syntom`");
+
+    foreach($expSyntom as $value){
+        $categoryGroup = fetchRow("SELECT * FROM `health_concern` WHERE id = '".$value['health_category']."'");
+        $collectSyntom[] = [
+            "syntom" => $value['name'],
+            "category" => ($categoryGroup['name'] ?? '')
+        ];
+    }
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +97,7 @@
                     </tr>
                     <tr>
                         <td class="label-td" colspan="2">
-                            <input required class="input-text" placeholder="Category of Health Concern" name="healthyconcern" list="HealthConcern"></input>
+                            <input oninput="chooseConcern(this)" required class="input-text" placeholder="Category of Health Concern" name="healthyconcern" list="HealthConcern"></input>
                         </td>
                     </tr>
                     <tr>
@@ -149,29 +161,17 @@
             </form>
         </center>
 
-        <datalist id="ExperiencedSymptom">
-            <?php 
-                $expSyntom = fetchRows("SELECT * FROM `experience_syntom`");
-
-                if(!empty($expSyntom)){
-                    foreach($expSyntom as $exp){
-                        echo "<option value='".$exp['name']."'>";
-                    }
-                }
-            ?>
-        </datalist>
-
         <datalist id="HealthConcern">
             <?php 
-                $expSyntom = fetchRows("SELECT * FROM `health_concern`");
-
-                if(!empty($expSyntom)){
-                    foreach($expSyntom as $exp){
+                if(!empty($expConcern)){
+                    foreach($expConcern as $exp){
                         echo "<option value='".$exp['name']."'>";
                     }
                 }
             ?>
         </datalist>
+
+        <datalist id="ExperiencedSymptom"></datalist>
     </body>
 
     <?php
@@ -192,4 +192,26 @@
             echo '<script>alert("Account created successfully");window.location.href="login-account.php"</script>';
         }
     ?>
+
+    <script>
+        const $expdatalist = document.querySelector('#ExperiencedSymptom');
+        const $syntoms = <?php echo json_encode($collectSyntom); ?>;
+
+        function chooseConcern({ value = '' }){
+            let $result = '';
+            let findmatch = $syntoms.filter(c => value.includes(c.category));
+
+            if(findmatch.length == 0){
+                findmatch = $syntoms;
+            }
+            
+            findmatch.forEach(c => {
+                $result += `<option value='${ c.syntom }'>`;
+            });
+
+            $expdatalist.innerHTML = $result;
+        }
+
+        chooseConcern({ value: '' });
+    </script>
 </html>
