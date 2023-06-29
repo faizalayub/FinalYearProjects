@@ -53,8 +53,7 @@
                                             <th>Name</th>
                                             <th>Price</th>
                                             <th>Category</th>
-                                            <th>Stock</th>
-                                            <th>Active</th>
+                                            <th>Visibility</th>
                                             <th>Action</th>
                                         </tr>
 
@@ -85,7 +84,11 @@
                                                 $isOutofstock = false;
 
                                                 if(!empty($value['category'])){
-                                                    $categoryname = fetchRow("SELECT * from category WHERE id = ".$value['category']);
+                                                    $categoryfetch = fetchRow("SELECT * from category WHERE id = ".$value['category']);
+
+                                                    if(!empty($categoryfetch)){
+                                                        $categoryname = $categoryfetch;
+                                                    }
                                                 }
 
                                                 if(isset($productOrder[$value['id']])){
@@ -109,30 +112,33 @@
                                                 RM <?php echo $value['price']; ?>
                                             </td>
                                             <td align="left">
-                                                <?php echo $categoryname['name']; ?>
-                                            </td>
-                                            <td>
-                                                <span class="<?php echo ($isOutofstock ? 'text-red-600' : ''); ?> font-bold">
-                                                    <?php echo $totalOrdered; ?> / <?php echo $value['in_stock']; ?>
-                                                </span>
+                                                <?php echo ($categoryname['name'] ?? '-'); ?>
                                             </td>
                                             <td align="left">
                                                 <?php
                                                     if($value['is_active'] == 1){
-                                                        echo '<a class="badge bg-success">Showing</a>';
+                                                        echo '<a class="badge bg-warning">Available</a>';
                                                     }else{
-                                                        echo '<a class="badge bg-secondary">Hidden</a>';
+                                                        echo '<a class="badge bg-danger">Sold Out</a>';
                                                     }
                                                 ?>
                                             </td>
                                             <td align="left">
                                                 <div class="w-full flex flex-column gap-2">
-                                                    <a class="text-sm surface-100 p-2 no-underline" href="admin-product-deactive.php?id=<?php echo $value['id']; ?>">
-                                                        <i class="align-middle" data-feather="eye"></i>
-                                                    </a>
+                                                    <?php
+                                                        if($value['is_active'] == 1){
+                                                            echo '<a href="admin-product-deactive.php?id='.$value['id'].'">
+                                                                <button class="btn btn-danger btn-sm" type="button">Mark as sold out</button>
+                                                            </a>';
+                                                        }else{
+                                                            echo '<a href="admin-product-deactive.php?id='.$value['id'].'">
+                                                                <button class="btn btn-warning btn-sm" type="button">Mark as available</button>
+                                                            </a>';
+                                                        }
+                                                    ?>
 
-                                                    <a class="text-sm surface-100 p-2 no-underline" href="admin-create-product.php?id=<?php echo $value['id']; ?>">
-                                                        <i class="align-middle" data-feather="edit"></i>
+                                                    <a href="admin-create-product.php?id=<?php echo $value['id']; ?>">
+                                                        <button class="btn btn-primary btn-sm" type="button">Edit</button>
                                                     </a>
                                                 </div>
                                             </td>

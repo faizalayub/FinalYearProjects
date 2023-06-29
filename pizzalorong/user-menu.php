@@ -113,7 +113,7 @@
                                         $searchquery = '(1=1)';
                                     }
 
-                                    $productPreview = fetchRows("SELECT * FROM menu WHERE $searchquery AND is_active = 1");
+                                    $productPreview = fetchRows("SELECT * FROM menu WHERE $searchquery");
                                     
                                     if(!empty($productPreview)){
                                         //# Collect Order Product
@@ -137,7 +137,6 @@
                                             $isOutstock = FALSE;
                                             $totalOrdered = 0;
                                             $totalCart = 0;
-                                            $bodytype = [];
                                             $categoryname = [];
                                             $stockbalance = $c['in_stock'];
 
@@ -146,11 +145,11 @@
                                             }
 
                                             if(!empty($c['category'])){
-                                                $categoryname = fetchRow("SELECT * from category WHERE id = ".$c['category']);
-                                            }
-        
-                                            if(!empty($c['body_type'])){
-                                                $bodytype = fetchRow("SELECT * from body_part WHERE id = ".$c['body_type']);
+                                                $categoryfetch = fetchRow("SELECT * from category WHERE id = ".$c['category']);
+
+                                                if(!empty($categoryfetch)){
+                                                    $categoryname = $categoryfetch;
+                                                }
                                             }
 
                                             if(isset($productOrder[$c['id']])){
@@ -159,6 +158,10 @@
                                             }
 
                                             if(($stockbalance - $totalOrdered - $totalCart) <= 0){
+                                                $isOutstock = TRUE;
+                                            }
+
+                                            if($c['is_active'] == 0){
                                                 $isOutstock = TRUE;
                                             }
 
@@ -181,7 +184,7 @@
                                             }
 
                                             if($isOutstock == TRUE){
-                                                $addCartButton = '<span class="text-danger fw-bold">No Stock</span>';
+                                                $addCartButton = '<span class="text-danger fw-bold">Out of stock</span>';
                                             }
 
                                             //# Product Card
@@ -194,8 +197,7 @@
                                                             <h5 class="card-title mb-0">'.$c['name'].'</h5>
                                                         </div>
                                                         <div class="card-body">
-                                                            <p class="card-text">'.$categoryname['name'].'</p>
-                                                            <p class="card-text">Stock: '.($stockbalance - $totalOrdered).'</p>
+                                                            <p class="card-text">'.($categoryname['name'] ?? '-').'</p>
                                                             <p class="card-text">RM '.$c['price'].'</p>
                                                             '.$addCartButton.'
                                                         </div>

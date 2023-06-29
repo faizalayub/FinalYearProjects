@@ -56,11 +56,6 @@
                                         </div>
 
                                         <div class="mb-3">
-                                            <label class="form-label">Stock Amount</label>
-                                            <input required type="number" name="menu_stock" placeholder="Stock" class="form-control" value="<?php echo (!empty($article['in_stock']) ? $article['in_stock'] : ''); ?>"/>
-                                        </div>
-
-                                        <div class="mb-3">
                                             <label class="form-label">Category</label>
                                             <select required name="menu_category" placeholder="Menu Category" class="form-control">
                                                 <option value="">Nothing Selected</option>
@@ -111,7 +106,7 @@
         if(isset($_POST['materialupload'])){
             $imagename = ($article['image'] ?? null);
             $menu_name = ($_POST['menu_name'] ?? '');
-            $menu_stock = ($_POST['menu_stock'] ?? '');
+            $menu_stock = '99';
             $menu_price = ($_POST['menu_price'] ?? '');
             $menu_category = ($_POST['menu_category'] ?? '');
 

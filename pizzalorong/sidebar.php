@@ -20,6 +20,7 @@
             $sidebarMenu[] = (object) ['label' => 'Order', 'icon' => 'shopping-cart', 'path' => 'admin-order.php'];
             $sidebarMenu[] = (object) ['label' => 'Register Staff', 'icon' => 'user-plus', 'path' => 'admin-invite-user.php'];
             $sidebarMenu[] = (object) ['label' => 'Staff List', 'icon' => 'users', 'path' => 'admin-users.php'];
+            $sidebarMenu[] = (object) ['label' => 'Category', 'icon' => 'grid', 'path' => 'admin-categories.php'];
             $sidebarMenu[] = (object) ['label' => 'Log Out', 'icon' => 'log-out', 'path' => 'logout.php'];
         }
 
