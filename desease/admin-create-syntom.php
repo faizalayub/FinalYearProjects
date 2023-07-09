@@ -9,7 +9,13 @@
     }
 
     $mode = (isset($_GET['id']) ? 'update' : 'create');
-    $dataset = fetchRows("SELECT * from syntom");
+    $dataset = fetchRows("SELECT * from syntom ORDER BY id DESC");
+
+    $updatedata = [];
+
+    if($mode == 'update'){
+        $updatedata = fetchRow("SELECT * FROM syntom WHERE id =".$_GET['id']);
+    }
 ?>
 
 <!DOCTYPE html>
@@ -59,16 +65,34 @@
 								</div>
 								<div class="card-body">
 									<form method="POST" class="row row-cols-md-auto align-items-center">
+                                        <div class="col-12">
+											<label class="visually-hidden" for="add-body">Body</label>
+											<select name="syntombody" class="form-control mb-2 me-sm-2">
+                                                <option value="">-- Select Body --</option>
+                                                <?php
+                                                    $bodylist = fetchRows("SELECT * from body ORDER BY name");
+
+                                                    if(!empty($bodylist)){
+                                                        foreach($bodylist as $key => $value){
+
+                                                            $selected = '';
+                                                            
+                                                            if(!empty($updatedata['body_id'])){
+                                                                $selected = ($updatedata['body_id'] == $value['id'] ? 'selected' : '');
+                                                            }
+
+                                                            echo '<option '.$selected.' value="'.$value['id'].'">'.$value['name'].'</option>';
+                                                        }
+                                                    }else{
+                                                        echo '<option value="">No options</option>';
+                                                    }
+                                                ?>
+                                            </select>
+										</div>
+
 										<div class="col-12">
-                                            <?php
-                                                $inputvalue = '';
-                                                if($mode == 'update'){
-                                                    $info = fetchRow("SELECT * FROM syntom WHERE id =".$_GET['id']);
-                                                    $inputvalue = ($info['name']);
-                                                }
-                                            ?>
 											<label class="visually-hidden" for="add-body">Name</label>
-											<input name="syntompart" type="text" class="form-control mb-2 me-sm-2" id="add-body" placeholder="Exp: Swallow" value="<?php echo $inputvalue; ?>">
+											<input name="syntompart" type="text" class="form-control mb-2 me-sm-2" id="add-body" placeholder="Exp: Swallow" value="<?php echo ($updatedata['name'] ?? ''); ?>">
 										</div>
 
 										<div class="col-12">
@@ -92,6 +116,7 @@
                                         <thead>
                                             <tr>
                                                 <th>#</th>
+                                                <th>Body Part</th>
                                                 <th>Name</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -100,6 +125,17 @@
                                             <?php
                                             if(!empty($dataset)){
                                                 foreach($dataset as $key => $value){
+                                                    $bodyname = '-';
+                                                    
+
+                                                    if(!empty($value['body_id'])){
+                                                        $bodydata = fetchRow("SELECT * from body WHERE id =".$value['body_id']);
+
+                                                        if(!empty($bodydata['name'])){
+                                                            $bodyname = $bodydata['name'];
+                                                        }
+                                                    }
+
                                                     $deleteaction = '
                                                     <form method="POST">
                                                         <button class="btn" type="submit" name="action-delete" value="'.$value['id'].'"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash align-middle"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button>
@@ -113,6 +149,7 @@
                                                     echo '
                                                     <tr>
                                                         <td>'.($key + 1).'</td>
+                                                        <td>'.$bodyname.'</td>
                                                         <td>'.$value['name'].'</td>
                                                         <td class="table-action d-flex align-items-center gap-3">
                                                             '.$deleteaction.'
@@ -144,14 +181,15 @@
     </div>
     <?php
         if(isset($_POST['save-syntompart'])){
+            $body = ($_POST['syntombody']);
             $name = ($_POST['syntompart']);
 
             if($mode == 'create'){
-                runQuery("INSERT INTO `syntom` (`id`, `name`) VALUES (NULL, '".$name."')");
+                runQuery("INSERT INTO `syntom` (`id`, `name`, `body_id`) VALUES (NULL, '".$name."', '".$body."')");
             }
 
             if($mode == 'update'){
-                runQuery("UPDATE `syntom` SET `name` = '".$name."' WHERE `syntom`.`id` =".$_GET['id']);
+                runQuery("UPDATE `syntom` SET `name` = '".$name."', `body_id` = '".$body."' WHERE `syntom`.`id` =".$_GET['id']);
             }
 
             echo '<script>alert("Saved");window.location.href="admin-create-syntom.php"</script>';

@@ -145,7 +145,7 @@
                     <!--#START HEADER -->
                     <div class="row mb-2 mb-xl-3">
                         <div class="col-auto d-none d-sm-block">
-                            <h3><strong>Check</strong> health and disease</h3>
+                            <h3><strong>Consult</strong> on possible condition and treatment</h3>
                         </div>
                     </div>
                     <!--#END HEADER -->
@@ -160,7 +160,7 @@
 
                                     <div class="arrow-steps clearfix mt-3">
                                         <div class="step current" data-content="#diseasebody">
-                                            <span class="fw-bold">STEP 1:</span> Select effected body parts
+                                            <span class="fw-bold">STEP 1:</span> Select affected body parts
                                         </div>
                                         <div class="step" data-content="#diseasesyntom">
                                             <span class="fw-bold">STEP 2:</span> Select related symptoms
@@ -185,7 +185,7 @@
 								<div class="tab-pane fade show active" id="diseasebody" role="tabpanel">
 									<div class="card">
 										<div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">Select effected body parts</h5>
+											<h5 class="card-title mb-0">Select affected body parts</h5>
                                             <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-1')">
 										</div>
 										<div class="card-body card-body-scroller py-0">
@@ -214,7 +214,7 @@
 								<div class="tab-pane fade" id="diseasesyntom" role="tabpanel">
                                     <div class="card">
                                         <div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">select the related symptom</h5>
+											<h5 class="card-title mb-0">Select related symptoms</h5>
                                             <input type="search" class="form-control" placeholder="Search" onkeyup="narrowListing(this,'#options-step-2')">
 										</div>
 										<div class="card-body card-body-scroller py-0">
@@ -243,7 +243,7 @@
                                 <div class="tab-pane fade" id="diseaseresult" role="tabpanel">
                                     <div class="card">
 										<div class="card-header d-flex flex-column gap-3">
-											<h5 class="card-title mb-0">View possible disease</h5>
+											<h5 class="card-title mb-0">View possible causes</h5>
 										</div>
 										<div class="card-body p-0 card-body-scroller">
                                             <div id="finder-loader" class="d-none loader w-100 d-flex justify-content-center align-items-center pb-6 pt-5">
