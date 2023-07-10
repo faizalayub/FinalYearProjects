@@ -196,7 +196,7 @@
                                                             echo '
                                                             <div class="dropdown-item py-0 cursor-pointer" data-label="'.$value['name'].'">
                                                                 <label class="form-check m-0 py-2">
-                                                                    <input class="form-check-input" type="checkbox" value="'.$value['id'].'">
+                                                                    <input onchange="checkedBody()" class="form-check-input" type="checkbox" value="'.$value['id'].'">
                                                                     <span class="form-check-label">'.$value['name'].'</span>
                                                                 </label>
                                                             </div>';
@@ -223,7 +223,7 @@
                                                     if(!empty($syntomlist)){
                                                         foreach($syntomlist as $key => $value){
                                                             echo '
-                                                            <div class="dropdown-item py-0 cursor-pointer" data-label="'.$value['name'].'">
+                                                            <div class="dropdown-item py-0 cursor-pointer" data-label="'.$value['name'].'" data-bodytag="'.$value['body_id'].'">
                                                                 <label class="form-check m-0 py-2">
                                                                     <input class="form-check-input" type="checkbox" value="'.$value['id'].'">
                                                                     <span class="form-check-label">'.$value['name'].'</span>
@@ -413,6 +413,34 @@
 
             others.addClass('d-none');
             target.removeClass('d-none');
+        }
+
+        function checkedBody(){
+            const $markID = 'syntom-hide-stylesheet';
+            const $container = $('#options-step-1');
+            const $checkedElems = $container.find(':checkbox:checked');
+            const selectors = ['[data-bodytag]'];
+
+            $(`#${ $markID }`).remove();
+
+            if($checkedElems.length > 0){
+                $.each($checkedElems, function(i,e){
+                    const $elem = $(e);
+                    const $value = ($elem.val());
+
+                    selectors.push(`:not([data-bodytag="${ $value }"])`);
+                });
+
+                $('<style/>', {
+                    id: $markID,
+                    html: `${ selectors.join('') }{
+                        display: none !important;
+                    }`,
+                    function(){
+                        document.head.appendChild(this);
+                    }
+                });
+            }
         }
 
         /* #START Stepper */
